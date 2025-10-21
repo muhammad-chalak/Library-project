@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کتێبەکانی فقە - کتێبخانەی شاھانە</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for a elegant look (e.g., Playfair Display for headings, Merriweather for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6C5CE7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="کتێبخانەی شاھانە">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+</head>
+<body class="light-theme"> <!-- Default to light, script will apply saved theme -->
+
+    <div id="main-content">
+        <!-- Header / Navigation Bar for all-books page -->
+        <header class="header all-books-fixed-header">
+            <div class="container all-books-header-content">
+                <!-- Page Title -->
+                <h1 class="page-title">کتێبەکانی <span id="category-name">فقە</span></h1>
+                
+                <!-- Back button -->
+                <div class="back-button">
+                    <a href="index.html" class="btn primary-btn btn-sm back-to-home">
+                        <i class="fas fa-arrow-right"></i> گەڕانەوە
+                    </a>
+                </div>
+            </div>
+            <!-- Search bar below title and back button -->
+            <div class="container all-books-search-container">
+                <div class="search-bar-header all-books-search-bar">
+                    <input type="text" id="all-books-search-input" placeholder="گەڕان بەدوای کتێبدا...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- All Books Section -->
+        <section id="all-books-section" class="categories-section" style="padding-top: 190px;"> <!-- Adjust padding for fixed header and search bar -->
+            <div class="container">
+                <div class="book-grid" id="all-books-container">
+                    <!-- All books of the selected category will be loaded here by JavaScript -->
+                </div>
+                <p id="no-results-message" style="display: none; text-align: center; font-size: 1.5rem; color: var(--gray-text); margin-top: 50px;">
+                    هیچ ئەنجامێک نەدۆزرایەوە.
+                </p>
+            </div>
+        </section>
+
+        <!-- Scroll to Top Button -->
+        <button id="scrollToTopBtn" class="scroll-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2023 کتێبخانەی شاھانە. ھەموو مافەکانی پارێزراون.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

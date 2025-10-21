@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کتێبخانەی شاھانە</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for a elegant look (e.g., Playfair Display for headings, Merriweather for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6C5CE7"> <!-- Primary color for Android task switcher -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="کتێبخانەی شاھانە">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png"> <!-- Adjust path to your icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="book-animation">
+            <i class="fas fa-book-open"></i>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content hidden">
+        <!-- Header / Navigation Bar -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <a href="#">کتێبخانەی شاھانە</a>
+                </div>
+                <!-- Hamburger Menu Button -->
+                <button class="hamburger-menu" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="navbar" id="main-navbar">
+                    <ul>
+                        <li><a href="#hero">سەرەتا</a></li>
+                        <li><a href="#categories">بەشەکان</a></li>
+                        <li><a href="#contact">پەیوەندی</a></li>
+                        <li class="settings-menu-item">
+                            <a href="#" id="settings-toggle">ڕێکخستنەکان <i class="fas fa-chevron-down"></i></a>
+                            <div class="settings-dropdown" id="settings-dropdown">
+                                <button id="theme-toggle-btn" class="btn secondary-btn theme-toggle">
+                                    <i class="fas fa-moon"></i> دۆخی تاریک/ڕۆشناک
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="search-bar-header">
+                    <input type="text" id="header-search-input" placeholder="گەڕان بەدوای کتێبدا...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>گەنجینەی زانست لەبەردەستتدایە</h1>
+                    <p>دەروازەیەک بۆ جیھانێکی پڕ لە زانیاری و چیرۆکە سەرنجڕاکێشەکان.</p>
+                    <a href="#categories" class="btn primary-btn scroll-to-categories">دەستپێکردنی گەشت</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book Categories Section -->
+        <section id="categories" class="categories-section">
+            <div class="container">
+                <h2 class="section-title">بەشەکانی کتێب</h2>
+
+                <!-- Category: کتێبی عەقیدە -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی عەقیدە</h3>
+                    <div class="book-grid" id="عەقیدە-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=عەقیدە" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی تەفسیر -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی تەفسیر</h3>
+                    <div class="book-grid" id="تەفسیر-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=تەفسیر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی حەدیس -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی حەدیس</h3>
+                    <div class="book-grid" id="حەدیس-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=حەدیس" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی سیرەی موسولمانان -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی سیرەی موسولمانان</h3>
+                    <div class="book-grid" id="سیرەی موسولمانان-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=سیرەی موسولمانان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی فقە -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی فقە</h3>
+                    <div class="book-grid" id="فیقه-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=فیقه" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی هەمەجۆری ئیسلامی -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی هەمەجۆری ئیسلامی</h3>
+                    <div class="book-grid" id="هەمەجۆری ئیسلامی-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=هەمەجۆری ئیسلامی" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی سیاسەت -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی سیاسەت</h3>
+                    <div class="book-grid" id="سیاسەت-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=سیاسەت" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی مێژوو -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی مێژوو</h3>
+                    <div class="book-grid" id="مێژوو-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=مێژوو" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: کتێبی هەمەجۆر -->
+                <div class="category-block">
+                    <h3 class="category-title">کتێبی هەمەجۆر</h3>
+                    <div class="book-grid" id="هەمەجۆر-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=هەمەجۆر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+                <!-- Category: هەموو کتێبەکان -->
+                <div class="category-block">
+                    <h3 class="category-title">هەموو کتێبەکان</h3>
+                    <div class="book-grid" id="هەموو کتێبەکان-books">
+                        <!-- Books will be loaded here by JavaScript -->
+                    </div>
+                    <div class="more-btn-container">
+                        <a href="all-books.html?category=هەموو کتێبەکان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section (Example) -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">پەیوەندی بە ئێمەوە بکە</h2>
+                <p>بۆ ھەر پرسیارێک یان پێشنیارێک، تکایە پەیوەندی بە ئێمەوە بکە.</p>
+                <form class="contact-form" action="https://formspree.io/f/your_formspree_id" method="POST"> <!-- Replace with your Formspree endpoint -->
+                    <input type="text" name="name" placeholder="ناوت" required>
+                    <input type="email" name="email" placeholder="ئیمەیڵەکەت" required>
+                    <textarea name="message" placeholder="پەیامەکەت" rows="5" required></textarea>
+                    <button type="submit" class="btn primary-btn">ناردنی پەیام</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2023 کتێبخانەی شاھانە. ھەموو مافەکانی پارێزراون.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
