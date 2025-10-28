@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sample book data (10 books per category, extended for new categories)
     const booksData = {
         'عەقیدە': [
-            { id: 'https://www.kurdstore.info', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'photos-10.JPG' },
+            { id: 'aq1', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'photos-10.JPG' },
             { id: 'aq2', title: 'عەقیدەی موسوڵمان', author: 'سەعید نوردەسی', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
             { id: 'aq3', title: 'پرشنگێک لە جوانییەکانی ئیسلام', author: 'موستەفا عەبدولڕەزاق', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
             { id: 'aq4', title: 'شەش خاڵ دەربارەی عەقیدە', author: 'عەبدولعەزیز ابن باز', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
