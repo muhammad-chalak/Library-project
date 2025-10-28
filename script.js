@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sample book data (10 books per category, extended for new categories)
     const booksData = {
         'عەقیدە': [
-            { id: '/pdfs/pdfs-1.pdf', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'https://cdn.islamicbook.ws/13/21/21447.jpg' },
+            { id: '/pdfs/pdfs-1.pdf', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: '/photos/photos-1.jpg' },
             { id: 'aq2', title: 'عەقیدەی موسوڵمان', author: 'سەعید نوردەسی', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
             { id: 'aq3', title: 'پرشنگێک لە جوانییەکانی ئیسلام', author: 'موستەفا عەبدولڕەزاق', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
             { id: 'aq4', title: 'شەش خاڵ دەربارەی عەقیدە', author: 'عەبدولعەزیز ابن باز', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
