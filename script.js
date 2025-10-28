@@ -1,3 +1,4 @@
+--- START OF FILE script.js ---
 document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splash-screen');
     const mainContent = document.getElementById('main-content');
@@ -14,97 +15,97 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sample book data (10 books per category, extended for new categories)
     const booksData = {
         'عەقیدە': [
-            { id: 'aq1', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'photos-10.JPG' },
-            { id: 'aq2', title: 'عەقیدەی موسوڵمان', author: 'سەعید نوردەسی', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
-            { id: 'aq3', title: 'پرشنگێک لە جوانییەکانی ئیسلام', author: 'موستەفا عەبدولڕەزاق', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
-            { id: 'aq4', title: 'شەش خاڵ دەربارەی عەقیدە', author: 'عەبدولعەزیز ابن باز', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
-            { id: 'aq5', title: 'فەرموودە جوانەکان', author: 'موستەفا قاسم', image: 'https://cdn.islamicbook.ws/13/19/21422.jpg' },
-            { id: 'aq6', title: 'کتێبی عەقیدە', author: 'د.محەمەد وەتەر', image: 'https://cdn.islamicbook.ws/28/73/28731.jpg' },
-            { id: 'aq7', title: 'ئەساسی عەقیدە', author: 'شێخ موحەمەد ساڵح', image: 'https://cdn.islamicbook.ws/10/74/10740.jpg' },
-            { id: 'aq8', title: 'گەشتێک بەناو دونیای عەقیدەدا', author: 'د. عومەر عەبدولکافی', image: 'https://cdn.islamicbook.ws/27/29/27290.jpg' },
-            { id: 'aq9', title: 'بنەماکانی عەقیدە', author: 'عەبدولکەریم حەسەن', image: 'https://cdn.islamicbook.ws/10/76/10761.jpg' },
-            { id: 'aq10', title: 'عەقیدەی ئیسلامی', author: 'ئیمامی ئەشعەری', image: 'https://cdn.islamicbook.ws/10/78/10780.jpg' },
-            { id: 'aq11', title: 'پوختەی عەقیدەی سوننە', author: 'احمد ابن تیمیة', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=پوختەی+عەقیدە' },
-            { id: 'aq12', title: 'سیرەی نەبەوی', author: 'ابن هشام', image: 'https://via.placeholder.com/300x400/7b1fa2/ffffff?text=سیرە' },
-            { id: 'aq13', title: 'چوار بنەمای ئیسلام', author: 'محمد بن عبدالوهاب', image: 'https://via.placeholder.com/300x400/5e35b1/ffffff?text=چوار+بنەما' },
-            { id: 'aq14', title: 'نامیلکەی عەقیدە', author: 'محمد بن صالح العثيمين', image: 'https://via.placeholder.com/300x400/4527a0/ffffff?text=نامیلکە' },
-            { id: 'aq15', title: 'تەوحیدی ئولوهیەت', author: 'ابن قیم الجوزية', image: 'https://via.placeholder.com/300x400/311b92/ffffff?text=تەوحید' }
+            { id: 'aq1', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'photos-10.JPG', file: 'https://example.com/books/sarrmayei-zhian.pdf' },
+            { id: 'aq2', title: 'عەقیدەی موسوڵمان', author: 'سەعید نوردەسی', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg', file: 'https://example.com/books/aqida-muslim.pdf' },
+            { id: 'aq3', title: 'پرشنگێک لە جوانییەکانی ئیسلام', author: 'موستەفا عەبدولڕەزاق', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg', file: 'https://example.com/books/prshngik-la-jwanyakan.pdf' },
+            { id: 'aq4', title: 'شەش خاڵ دەربارەی عەقیدە', author: 'عەبدولعەزیز ابن باز', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg', file: 'https://example.com/books/shash-xall.pdf' },
+            { id: 'aq5', title: 'فەرموودە جوانەکان', author: 'موستەفا قاسم', image: 'https://cdn.islamicbook.ws/13/19/21422.jpg', file: 'https://example.com/books/farmwda-jwanakan.pdf' },
+            { id: 'aq6', title: 'کتێبی عەقیدە', author: 'د.محەمەد وەتەر', image: 'https://cdn.islamicbook.ws/28/73/28731.jpg', file: 'https://example.com/books/ktebi-aqida.pdf' },
+            { id: 'aq7', title: 'ئەساسی عەقیدە', author: 'شێخ موحەمەد ساڵح', image: 'https://cdn.islamicbook.ws/10/74/10740.jpg', file: 'https://example.com/books/asasi-aqida.pdf' },
+            { id: 'aq8', title: 'گەشتێک بەناو دونیای عەقیدەدا', author: 'د. عومەر عەبدولکافی', image: 'https://cdn.islamicbook.ws/27/29/27290.jpg', file: 'https://example.com/books/gashtik-bnaw.pdf' },
+            { id: 'aq9', title: 'بنەماکانی عەقیدە', author: 'عەبدولکەریم حەسەن', image: 'https://cdn.islamicbook.ws/10/76/10761.jpg', file: 'https://example.com/books/bnakani-aqida.pdf' },
+            { id: 'aq10', title: 'عەقیدەی ئیسلامی', author: 'ئیمامی ئەشعەری', image: 'https://cdn.islamicbook.ws/10/78/10780.jpg', file: 'https://example.com/books/aqiday-islami.pdf' },
+            { id: 'aq11', title: 'پوختەی عەقیدەی سوننە', author: 'احمد ابن تیمیة', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=پوختەی+عەقیدە', file: 'https://example.com/books/puxtay-aqida-sunna.pdf' },
+            { id: 'aq12', title: 'سیرەی نەبەوی', author: 'ابن هشام', image: 'https://via.placeholder.com/300x400/7b1fa2/ffffff?text=سیرە', file: 'https://example.com/books/siray-nabawi.pdf' },
+            { id: 'aq13', title: 'چوار بنەمای ئیسلام', author: 'محمد بن عبدالوهاب', image: 'https://via.placeholder.com/300x400/5e35b1/ffffff?text=چوار+بنەما', file: 'https://example.com/books/chwar-bnakay-islam.pdf' },
+            { id: 'aq14', title: 'نامیلکەی عەقیدە', author: 'محمد بن صالح العثيمين', image: 'https://via.placeholder.com/300x400/4527a0/ffffff?text=نامیلکە', file: 'https://example.com/books/namilkay-aqida.pdf' },
+            { id: 'aq15', title: 'تەوحیدی ئولوهیەت', author: 'ابن قیم الجوزية', image: 'https://via.placeholder.com/300x400/311b92/ffffff?text=تەوحید', file: 'https://example.com/books/tawhidi-uluhiya.pdf' }
         ],
         'تەفسیر': [
-            { id: 't1', title: 'تەفسیری ڕوونی قورئان', author: 'د. عبدلکریم زێدان', image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1' },
-            { id: 't2', title: 'کوردی تەفسیری قورئان', author: 'موحەمەد عەلی', image: 'https://via.placeholder.com/300x400/2980b9/ffffff?text=تەفسیر+2' },
-            { id: 't3', title: 'تەفسیری ئاسان', author: 'شێخ محەمەد ساڵح', image: 'https://via.placeholder.com/300x400/2c3e50/ffffff?text=تەفسیر+3' },
-            { id: 't4', title: 'وشە بە وشەی قورئان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/1abc9c/ffffff?text=تەفسیر+4' },
-            { id: 't5', title: 'تەفسیری نور', author: 'د. نووری عومەر', image: 'https://via.placeholder.com/300x400/5cb85c/ffffff?text=تەفسیر+5' },
-            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6' },
-            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7' },
-            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8' },
-            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9' },
-            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10' }
+            { id: 't1', title: 'تەفسیری ڕوونی قورئان', author: 'د. عبدلکریم زێدان', image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1', file: 'https://example.com/books/tafsir-quran-1.pdf' },
+            { id: 't2', title: 'کوردی تەفسیری قورئان', author: 'موحەمەد عەلی', image: 'https://via.placeholder.com/300x400/2980b9/ffffff?text=تەفسیر+2', file: 'https://example.com/books/tafsir-quran-2.pdf' },
+            { id: 't3', title: 'تەفسیری ئاسان', author: 'شێخ محەمەد ساڵح', image: 'https://via.placeholder.com/300x400/2c3e50/ffffff?text=تەفسیر+3', file: 'https://example.com/books/tafsir-asan.pdf' },
+            { id: 't4', title: 'وشە بە وشەی قورئان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/1abc9c/ffffff?text=تەفسیر+4', file: 'https://example.com/books/wsha-b-wsha-quran.pdf' },
+            { id: 't5', title: 'تەفسیری نور', author: 'د. نووری عومەر', image: 'https://via.placeholder.com/300x400/5cb85c/ffffff?text=تەفسیر+5', file: 'https://example.com/books/tafsir-nur.pdf' },
+            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6', file: 'https://example.com/books/klilakani-tafsir.pdf' },
+            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7', file: 'https://example.com/books/tafsir-ruwnaki.pdf' },
+            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8', file: 'https://example.com/books/hanawi-quran.pdf' },
+            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9', file: 'https://example.com/books/tafsir-payam.pdf' },
+            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10', file: 'https://example.com/books/zanstakani-tafsir.pdf' }
         ],
         'حەدیس': [
-            { id: 'h_new1', title: 'صحیح البخاری', author: 'ئیمامی بوخاری', image: 'https://via.placeholder.com/300x400/f44336/ffffff?text=بوخاری' },
-            { id: 'h_new2', title: 'صحیح مسلم', author: 'ئیمامی موسلیم', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=موسلیم' },
-            { id: 'h_new3', title: 'چهل حەدیس', author: 'ئیمامی نەوەوی', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=چهل+حەدیس' },
-            { id: 'h_new4', title: 'فەرموودە قودسییەکان', author: 'جامیع', image: 'https://via.placeholder.com/300x400/673ab7/ffffff?text=قودسی' },
-            { id: 'h_new5', title: 'مونتەخەبی حەدیس', author: 'د. محەمەد حامد', image: 'https://via.placeholder.com/300x400/3f51b5/ffffff?text=مونتەخەب' }
+            { id: 'h_new1', title: 'صحیح البخاری', author: 'ئیمامی بوخاری', image: 'https://via.placeholder.com/300x400/f44336/ffffff?text=بوخاری', file: 'https://example.com/books/sahih-bukhari.pdf' },
+            { id: 'h_new2', title: 'صحیح مسلم', author: 'ئیمامی موسلیم', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=موسلیم', file: 'https://example.com/books/sahih-muslim.pdf' },
+            { id: 'h_new3', title: 'چهل حەدیس', author: 'ئیمامی نەوەوی', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=چهل+حەدیس', file: 'https://example.com/books/chly-hadis.pdf' },
+            { id: 'h_new4', title: 'فەرموودە قودسییەکان', author: 'جامیع', image: 'https://via.placeholder.com/300x400/673ab7/ffffff?text=قودسی', file: 'https://example.com/books/farmuda-qudsi.pdf' },
+            { id: 'h_new5', title: 'مونتەخەبی حەدیس', author: 'د. محەمەد حامد', image: 'https://via.placeholder.com/300x400/3f51b5/ffffff?text=مونتەخەب', file: 'https://example.com/books/muntsxab-hadis.pdf' }
         ],
         'سیرەی موسولمانان': [
-            { id: 'sira1', title: 'سیرەی پێغەمبەر ﷺ', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/00bcd4/ffffff?text=سیرەی+پێغەمبەر' },
-            { id: 'sira2', title: 'ژیانی هاوەڵان', author: 'د. عائض القرني', image: 'https://via.placeholder.com/300x400/009688/ffffff?text=هاوەڵان' },
-            { id: 'sira3', title: 'خەلیفە ڕاشیدەکان', author: 'عەلی تەنتاوی', image: 'https://via.placeholder.com/300x400/4caf50/ffffff?text=خەلیفەکان' },
-            { id: 'sira4', title: 'پاڵەوانانی ئیسلام', author: 'م. محەمەد عەلی', image: 'https://via.placeholder.com/300x400/8bc34a/ffffff?text=پاڵەوانان' },
-            { id: 'sira5', title: 'مێژووی فتوحات', author: 'د. ڕاغب السرجانی', image: 'https://via.placeholder.com/300x400/cddc39/ffffff?text=فتوحات' }
+            { id: 'sira1', title: 'سیرەی پێغەمبەر ﷺ', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/00bcd4/ffffff?text=سیرەی+پێغەمبەر', file: 'https://example.com/books/siray-payxambar.pdf' },
+            { id: 'sira2', title: 'ژیانی هاوەڵان', author: 'د. عائض القرني', image: 'https://via.placeholder.com/300x400/009688/ffffff?text=هاوەڵان', file: 'https://example.com/books/zhyani-hawallan.pdf' },
+            { id: 'sira3', title: 'خەلیفە ڕاشیدەکان', author: 'عەلی تەنتاوی', image: 'https://via.placeholder.com/300x400/4caf50/ffffff?text=خەلیفەکان', file: 'https://example.com/books/xalifa-rashidakan.pdf' },
+            { id: 'sira4', title: 'پاڵەوانانی ئیسلام', author: 'م. محەمەد عەلی', image: 'https://via.placeholder.com/300x400/8bc34a/ffffff?text=پاڵەوانان', file: 'https://example.com/books/pallawanani-islam.pdf' },
+            { id: 'sira5', title: 'مێژووی فتوحات', author: 'د. ڕاغب السرجانی', image: 'https://via.placeholder.com/300x400/cddc39/ffffff?text=فتوحات', file: 'https://example.com/books/mezhuwi-futuhat.pdf' }
         ],
         'فیقه': [ // Renamed from 'فیقه' to 'کتێبی فقە' in categories, but internal key remains 'فیقه'
-            { id: 'f1', title: 'سەرەتای فیقه', author: 'ئیمامی شافیعی', image: 'https://via.placeholder.com/300x400/f1c40f/ffffff?text=فیقه+1' },
-            { id: 'f2', title: 'فیقهی ئیسلامی', author: 'وەھبە زوحەیلی', image: 'https://via.placeholder.com/300x400/f39c12/ffffff?text=فیقه+2' },
-            { id: 'f3', title: 'حوکمەکانی نوێژ و ڕۆژوو', author: 'محەمەد ناسر', image: 'https://via.placeholder.com/300x400/e67e22/ffffff?text=فیقه+3' },
-            { id: 'f4', title: 'ڕێساکانی حەج و عومرە', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/d35400/ffffff?text=فیقه+4' },
-            { id: 'f5', title: 'فیقهی مامەڵە داراییەکان', author: 'د. یوسف قەرزاوی', image: 'https://via.placeholder.com/300x400/f7b731/ffffff?text=فیقه+5' },
-            { id: 'f6', title: 'کتێبی زەکات', author: 'ئەحمەد شوکری', image: 'https://via.placeholder.com/300x400/f9a22f/ffffff?text=فیقه+6' },
-            { id: 'f7', title: 'بنەماکانی فیقه', author: 'محەمەد ئەبولجاسمی', image: 'https://via.placeholder.com/300x400/fab60c/ffffff?text=فیقه+7' },
-            { id: 'f8', title: 'فیقهی خێزان', author: 'عەبدولواحید شێرزادی', image: 'https://via.placeholder.com/300x400/fcc42e/ffffff?text=فیقه+8' },
-            { id: 'f9', title: 'ڕوونکردنەوەی فەتواکان', author: 'لێژنەی فەتوا', image: 'https://via.placeholder.com/300x400/fcd66a/ffffff?text=فیقه+9' },
-            { id: 'f10', title: 'فیقهی ژن و مێردایەتی', author: 'د. نەرمین محەمەد', image: 'https://via.placeholder.com/300x400/ffe082/ffffff?text=فیقه+10' }
+            { id: 'f1', title: 'سەرەتای فیقه', author: 'ئیمامی شافیعی', image: 'https://via.placeholder.com/300x400/f1c40f/ffffff?text=فیقه+1', file: 'https://example.com/books/sarati-fiqh.pdf' },
+            { id: 'f2', title: 'فیقهی ئیسلامی', author: 'وەھبە زوحەیلی', image: 'https://via.placeholder.com/300x400/f39c12/ffffff?text=فیقه+2', file: 'https://example.com/books/fiqhi-islami.pdf' },
+            { id: 'f3', title: 'حوکمەکانی نوێژ و ڕۆژوو', author: 'محەمەد ناسر', image: 'https://via.placeholder.com/300x400/e67e22/ffffff?text=فیقه+3', file: 'https://example.com/books/hukmakanu-nwezh.pdf' },
+            { id: 'f4', title: 'ڕێساکانی حەج و عومرە', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/d35400/ffffff?text=فیقه+4', file: 'https://example.com/books/risakani-haj-umra.pdf' },
+            { id: 'f5', title: 'فیقهی مامەڵە داراییەکان', author: 'د. یوسف قەرزاوی', image: 'https://via.placeholder.com/300x400/f7b731/ffffff?text=فیقه+5', file: 'https://example.com/books/fiqhi-mamal.pdf' },
+            { id: 'f6', title: 'کتێبی زەکات', author: 'ئەحمەد شوکری', image: 'https://via.placeholder.com/300x400/f9a22f/ffffff?text=فیقه+6', file: 'https://example.com/books/ktebi-zakat.pdf' },
+            { id: 'f7', title: 'بنەماکانی فیقه', author: 'محەمەد ئەبولجاسمی', image: 'https://via.placeholder.com/300x400/fab60c/ffffff?text=فیقه+7', file: 'https://example.com/books/bnakani-fiqh.pdf' },
+            { id: 'f8', title: 'فیقهی خێزان', author: 'عەبدولواحید شێرزادی', image: 'https://via.placeholder.com/300x400/fcc42e/ffffff?text=فیقه+8', file: 'https://example.com/books/fiqhi-xizan.pdf' },
+            { id: 'f9', title: 'ڕوونکردنەوەی فەتواکان', author: 'لێژنەی فەتوا', image: 'https://via.placeholder.com/300x400/fcd66a/ffffff?text=فیقه+9', file: 'https://example.com/books/ruwnkrdnaway-fatwakan.pdf' },
+            { id: 'f10', title: 'فیقهی ژن و مێردایەتی', author: 'د. نەرمین محەمەد', image: 'https://via.placeholder.com/300x400/ffe082/ffffff?text=فیقه+10', file: 'https://example.com/books/fiqhi-zhn-u-merdayati.pdf' }
         ],
         'هەمەجۆری ئیسلامی': [
-            { id: 'i_misc1', title: 'چۆنیەتی خۆپاراستن لە چاوی پیس', author: 'شێخ موحەمەد صالح المنجد', image: 'https://via.placeholder.com/300x400/ad1457/ffffff?text=چاوی+پیس' },
-            { id: 'i_misc2', title: 'ئادابەکانی ژیان', author: 'شێخ عبدالقادر گەیلانی', image: 'https://via.placeholder.com/300x400/880e4f/ffffff?text=ئاداب' },
-            { id: 'i_misc3', title: 'نوێژ لە قورئان و سوننەتدا', author: 'ابن باز', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=نوێژ' },
-            { id: 'i_misc4', title: 'جوانترین ناوەکانی خوا', author: 'ئیبراهیم سەعدی', image: 'https://via.placeholder.com/300x400/c2185b/ffffff?text=ناوەکانی+خوا' },
-            { id: 'i_misc5', title: 'چیرۆکەکانی قورئان', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/ec407a/ffffff?text=چیرۆکەکانی+قورئان' }
+            { id: 'i_misc1', title: 'چۆنیەتی خۆپاراستن لە چاوی پیس', author: 'شێخ موحەمەد صالح المنجد', image: 'https://via.placeholder.com/300x400/ad1457/ffffff?text=چاوی+پیس', file: 'https://example.com/books/chaw-pis.pdf' },
+            { id: 'i_misc2', title: 'ئادابەکانی ژیان', author: 'شێخ عبدالقادر گەیلانی', image: 'https://via.placeholder.com/300x400/880e4f/ffffff?text=ئاداب', file: 'https://example.com/books/adabakani-zhian.pdf' },
+            { id: 'i_misc3', title: 'نوێژ لە قورئان و سوننەتدا', author: 'ابن باز', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=نوێژ', file: 'https://example.com/books/nwezh-quran-sunat.pdf' },
+            { id: 'i_misc4', title: 'جوانترین ناوەکانی خوا', author: 'ئیبراهیم سەعدی', image: 'https://via.placeholder.com/300x400/c2185b/ffffff?text=ناوەکانی+خوا', file: 'https://example.com/books/jwantrin-naw.pdf' },
+            { id: 'i_misc5', title: 'چیرۆکەکانی قورئان', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/ec407a/ffffff?text=چیرۆکەکانی+قورئان', file: 'https://example.com/books/chirokani-quran.pdf' }
         ],
         'سیاسەت': [
-            { id: 'p1', title: 'سیاسەت و ئیدارە', author: 'ئەحمەد شاڵی', image: 'https://via.placeholder.com/300x400/27ae60/ffffff?text=سیاسەت+1' },
-            { id: 'p2', title: 'ھونەری حوکمڕانی', author: 'نیکۆلۆ ماکیاڤێلی', image: 'https://via.placeholder.com/300x400/2ecc71/ffffff?text=سیاسەت+2' },
-            { id: 'p3', title: 'بیردۆزە سیاسییەکان', author: 'ڕۆبێرت دال', image: 'https://via.placeholder.com/300x400/63c784/ffffff?text=سیاسەت+3' },
-            { id: 'p4', title: 'گەندەڵی سیاسی', author: 'سۆران عومەر', image: 'https://via.placeholder.com/300x400/409d5c/ffffff?text=سیاسەت+4' },
-            { id: 'p5', title: 'دیموکراسی و حکومەت', author: 'جۆن لۆک', image: 'https://via.placeholder.com/300x400/7bd492/ffffff?text=سیاسەت+5' },
-            { id: 'p6', title: 'مافەکانی مرۆڤ', author: 'ئەلینۆر ڕۆزڤێڵت', image: 'https://via.placeholder.com/300x400/28a745/ffffff?text=سیاسەت+6' },
-            { id: 'p7', title: 'مێژووی فیکری سیاسی', author: 'ئیمانویل کانت', image: 'https://via.placeholder.com/300x400/3abf5f/ffffff?text=سیاسەت+7' },
-            { id: 'p8', title: 'پەیوەندییە نێودەوڵەتییەکان', author: 'جوزێف نای', image: 'https://via.placeholder.com/300x400/52d978/ffffff?text=سیاسەت+8' },
-            { id: 'p9', title: 'سیستمی سیاسی عێراق', author: 'سەڵاح خورشید', image: 'https://via.placeholder.com/300x400/66ec91/ffffff?text=سیاسەت+9' },
-            { id: 'p10', title: 'گۆڕانکارییەکانی ڕۆژھەڵاتی ناوەڕاست', author: 'بەرهەم ساڵح', image: 'https://via.placeholder.com/300x400/7ef7a9/ffffff?text=سیاسەت+10' }
+            { id: 'p1', title: 'سیاسەت و ئیدارە', author: 'ئەحمەد شاڵی', image: 'https://via.placeholder.com/300x400/27ae60/ffffff?text=سیاسەت+1', file: 'https://example.com/books/siasat-idara.pdf' },
+            { id: 'p2', title: 'ھونەری حوکمڕانی', author: 'نیکۆلۆ ماکیاڤێلی', image: 'https://via.placeholder.com/300x400/2ecc71/ffffff?text=سیاسەت+2', file: 'https://example.com/books/hunari-hukmrani.pdf' },
+            { id: 'p3', title: 'بیردۆزە سیاسییەکان', author: 'ڕۆبێرت دال', image: 'https://via.placeholder.com/300x400/63c784/ffffff?text=سیاسەت+3', file: 'https://example.com/books/birdoza-siasya.pdf' },
+            { id: 'p4', title: 'گەندەڵی سیاسی', author: 'سۆران عومەر', image: 'https://via.placeholder.com/300x400/409d5c/ffffff?text=سیاسەت+4', file: 'https://example.com/books/gandalli-siasi.pdf' },
+            { id: 'p5', title: 'دیموکراسی و حکومەت', author: 'جۆن لۆک', image: 'https://via.placeholder.com/300x400/7bd492/ffffff?text=سیاسەت+5', file: 'https://example.com/books/dimukrasi-hukumet.pdf' },
+            { id: 'p6', title: 'مافەکانی مرۆڤ', author: 'ئەلینۆر ڕۆزڤێڵت', image: 'https://via.placeholder.com/300x400/28a745/ffffff?text=سیاسەت+6', file: 'https://example.com/books/mafakani-mrov.pdf' },
+            { id: 'p7', title: 'مێژووی فیکری سیاسی', author: 'ئیمانویل کانت', image: 'https://via.placeholder.com/300x400/3abf5f/ffffff?text=سیاسەت+7', file: 'https://example.com/books/mezhuwi-fikri-siasi.pdf' },
+            { id: 'p8', title: 'پەیوەندییە نێودەوڵەتییەکان', author: 'جوزێف نای', image: 'https://via.placeholder.com/300x400/52d978/ffffff?text=سیاسەت+8', file: 'https://example.com/books/paiwandiakan.pdf' },
+            { id: 'p9', title: 'سیستمی سیاسی عێراق', author: 'سەڵاح خورشید', image: 'https://via.placeholder.com/300x400/66ec91/ffffff?text=سیاسەت+9', file: 'https://example.com/books/sistemi-siasi-iraq.pdf' },
+            { id: 'p10', title: 'گۆڕانکارییەکانی ڕۆژھەڵاتی ناوەڕاست', author: 'بەرهەم ساڵح', image: 'https://via.placeholder.com/300x400/7ef7a9/ffffff?text=سیاسەت+10', file: 'https://example.com/books/gorankari-rozhhalat.pdf' }
         ],
         'مێژوو': [
-            { id: 'h1', title: 'مێژووی کورد و کوردستان', author: 'حەمید گۆمەشینی', image: 'https://via.placeholder.com/300x400/8e44ad/ffffff?text=مێژووی+کورد' },
-            { id: 'h2', title: 'مێژووی شارستانیەتەکان', author: 'ویل دیورانت', image: 'https://via.placeholder.com/300x400/9b59b6/ffffff?text=شارستانیەت' },
-            { id: 'h3', title: 'ڕاپەڕینەکانی گەلانی ڕۆژھەڵات', author: 'ئیحسان نور', image: 'https://via.placeholder.com/300x400/be2edd/ffffff?text=ڕۆژھەڵات' },
-            { id: 'h4', title: 'سەردەمی زێڕینی ئیسلام', author: 'ھاریسن فۆرد', image: 'https://via.placeholder.com/300x400/a55eea/ffffff?text=ئیسلام' },
-            { id: 'h5', title: 'مێژووی جیھان', author: 'جین ماکسوێڵ', image: 'https://via.placeholder.com/300x400/cd84f1/ffffff?text=جیھان' },
-            { id: 'h6', title: 'جەنگە جیھانییەکان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/6c5ce7/ffffff?text=جەنگ' },
-            { id: 'h7', title: 'دەوڵەتە کوردییەکان', author: 'مەسعود محەمەد', image: 'https://via.placeholder.com/300x400/7d3f98/ffffff?text=دەوڵەتە+کوردییەکان' },
-            { id: 'h8', title: 'سەڵاحەدینی ئەیوبی', author: 'عەلی قەرەداغی', image: 'https://via.placeholder.com/300x400/9d44c9/ffffff?text=سەڵاحەدین' },
-            { id: 'h9', title: 'مێژووی ئیمپراتۆرییەکان', author: 'جۆن سمت', image: 'https://via.placeholder.com/300x400/b36dc9/ffffff?text=ئیمپراتۆرییەت' },
-            { id: 'h10', title: 'شۆڕشی پیشەسازی', author: 'جەیمس وات', image: 'https://via.placeholder.com/300x400/c78dd3/ffffff?text=شۆڕش' }
+            { id: 'h1', title: 'مێژووی کورد و کوردستان', author: 'حەمید گۆمەشینی', image: 'https://via.placeholder.com/300x400/8e44ad/ffffff?text=مێژووی+کورد', file: 'https://example.com/books/mezhuwi-kurd.pdf' },
+            { id: 'h2', title: 'مێژووی شارستانیەتەکان', author: 'ویل دیورانت', image: 'https://via.placeholder.com/300x400/9b59b6/ffffff?text=شارستانیەت', file: 'https://example.com/books/mezhuwi-sharistaniat.pdf' },
+            { id: 'h3', title: 'ڕاپەڕینەکانی گەلانی ڕۆژھەڵات', author: 'ئیحسان نور', image: 'https://via.placeholder.com/300x400/be2edd/ffffff?text=ڕۆژھەڵات', file: 'https://example.com/books/raparynakani-galan.pdf' },
+            { id: 'h4', title: 'سەردەمی زێڕینی ئیسلام', author: 'ھاریسن فۆرد', image: 'https://via.placeholder.com/300x400/a55eea/ffffff?text=ئیسلام', file: 'https://example.com/books/sardami-zirini-islam.pdf' },
+            { id: 'h5', title: 'مێژووی جیھان', author: 'جین ماکسوێڵ', image: 'https://via.placeholder.com/300x400/cd84f1/ffffff?text=جیھان', file: 'https://example.com/books/mezhuwi-jihan.pdf' },
+            { id: 'h6', title: 'جەنگە جیھانییەکان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/6c5ce7/ffffff?text=جەنگ', file: 'https://example.com/books/jangakani-jihan.pdf' },
+            { id: 'h7', title: 'دەوڵەتە کوردییەکان', author: 'مەسعود محەمەد', image: 'https://via.placeholder.com/300x400/7d3f98/ffffff?text=دەوڵەتە+کوردییەکان', file: 'https://example.com/books/dawlata-kurdiakan.pdf' },
+            { id: 'h8', title: 'سەڵاحەدینی ئەیوبی', author: 'عەلی قەرەداغی', image: 'https://via.placeholder.com/300x400/9d44c9/ffffff?text=سەڵاحەدین', file: 'https://example.com/books/salahadini-ayyubi.pdf' },
+            { id: 'h9', title: 'مێژووی ئیمپراتۆرییەکان', author: 'جۆن سمت', image: 'https://via.placeholder.com/300x400/b36dc9/ffffff?text=ئیمپراتۆرییەت', file: 'https://example.com/books/mezhuwi-impra.pdf' },
+            { id: 'h10', title: 'شۆڕشی پیشەسازی', author: 'جەیمس وات', image: 'https://via.placeholder.com/300x400/c78dd3/ffffff?text=شۆڕش', file: 'https://example.com/books/shoreshi-pishasazi.pdf' }
         ],
         'هەمەجۆر': [
-            { id: 'misc1', title: 'فەلسەفەی ژیان', author: 'ئەلبرت کامو', image: 'https://via.placeholder.com/300x400/607d8b/ffffff?text=فەلسەفە' },
-            { id: 'misc2', title: 'زانستی گەردوون', author: 'ستیڤن هۆکینگ', image: 'https://via.placeholder.com/300x400/455a64/ffffff?text=گەردوون' },
-            { id: 'misc3', title: 'پەرەپێدانی خود', author: 'برایان ترەیسی', image: 'https://via.placeholder.com/300x400/78909c/ffffff?text=پەرەپێدان' },
-            { id: 'misc4', title: 'چیرۆکی مناڵان', author: 'هانس کریستیان ئەندرسن', image: 'https://via.placeholder.com/300x400/90a4ae/ffffff?text=مناڵان' },
-            { id: 'misc5', title: 'شیعر و ئەدەب', author: 'مەولانا', image: 'https://via.placeholder.com/300x400/b0bec5/ffffff?text=شیعر' }
+            { id: 'misc1', title: 'فەلسەفەی ژیان', author: 'ئەلبرت کامو', image: 'https://via.placeholder.com/300x400/607d8b/ffffff?text=فەلسەفە', file: 'https://example.com/books/falsafay-zhian.pdf' },
+            { id: 'misc2', title: 'زانستی گەردوون', author: 'ستیڤن هۆکینگ', image: 'https://via.placeholder.com/300x400/455a64/ffffff?text=گەردوون', file: 'https://example.com/books/zansti-gardun.pdf' },
+            { id: 'misc3', title: 'پەرەپێدانی خود', author: 'برایان ترەیسی', image: 'https://via.placeholder.com/300x400/78909c/ffffff?text=پەرەپێدان', file: 'https://example.com/books/parapidani-xud.pdf' },
+            { id: 'misc4', title: 'چیرۆکی مناڵان', author: 'هانس کریستیان ئەندرسن', image: 'https://via.placeholder.com/300x400/90a4ae/ffffff?text=مناڵان', file: 'https://example.com/books/chiroki-mnallan.pdf' },
+            { id: 'misc5', title: 'شیعر و ئەدەب', author: 'مەولانا', image: 'https://via.placeholder.com/300x400/b0bec5/ffffff?text=شیعر', file: 'https://example.com/books/shier-adab.pdf' }
         ],
         'هەموو کتێبەکان': [] // This category will be populated dynamically from all other books
     };
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h4>${book.title}</h4>
                     <p>نووسەر: ${book.author}</p>
                     <div class="book-actions">
-                        <button class="btn read-btn">خوێندنەوە</button>
+                        <button class="btn read-btn" data-file="${book.file}">خوێندنەوە</button>
                     </div>
                 </div>
             </div>
@@ -147,6 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const booksForCategory = booksData[category] || [];
                 const booksToDisplay = booksForCategory.slice(0, 4); // Display first 4 books
                 container.innerHTML = booksToDisplay.map(createBookCard).join('');
+
+                // Attach event listeners for read buttons in this section
+                container.querySelectorAll('.read-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const fileUrl = e.target.dataset.file;
+                        if (fileUrl) {
+                            window.open(fileUrl, '_blank');
+                        } else {
+                            alert('ببورە، فایلی خوێندنەوە بۆ ئەم کتێبە بەردەست نییە.');
+                        }
+                    });
+                });
 
                 // Update "زیاتر ببینە" button href
                 const moreBtn = container.nextElementSibling.querySelector('.view-more-btn');
