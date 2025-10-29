@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'pdfs/pdfs-11.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=پوختەی+عەقیدە' },
             { id: 'pdfs/pdfs-12.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'https://via.placeholder.com/300x400/7b1fa2/ffffff?text=سیرە' },
             { id: 'pdfs/pdfs-13.pdf', title: 'الوجیز', author: 'عبدالله بن عبدالحميد الأثري ', image: 'https://via.placeholder.com/300x400/5e35b1/ffffff?text=چوار+بنەما' },
-            { id: 'pdfs/pdfs-14.pdf', title: 'عەقیدة الواسطیة', author: 'د.خالد بن ناصر بن سعید', image: 'https://via.placeholder.com/300x400/4527a0/ffffff?text=            { id: 'pdfs/pdfs-1.pdf', title: 'سەرمایەی ژیان', author: 'محەمەد ڕەشید قەبانی', image: 'photos/photos-1.HEIC' },
+            { id: 'pdfs/pdfs-14.pdf', title: 'عەقیدة الواسطیة', author: 'د.خالد بن ناصر بن سعید', image: 'https://via.placeholder.com/300x400/4527a0/ffffff?text=عەقیدة+واسطیة' },
             { id: 'pdfs/pdfs-15.pdf', title: 'مسائل الجهلیة', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
             { id: 'pdfs/pdfs-16.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
             { id: 'pdfs/pdfs-17.pdf', title: 'الولاء والبراء', author: 'سیف اللە السني', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
