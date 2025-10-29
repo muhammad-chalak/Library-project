@@ -491,7 +491,7 @@ body.light-theme .book-animation i {
 
 .book-card img {
     width: 100%;
-    height: 350px; /* Fixed height for book cover */
+    height: auto; /* Fixed height for book cover */
     object-fit: cover;
     border-bottom: 3px solid var(--primary-color);
 }
