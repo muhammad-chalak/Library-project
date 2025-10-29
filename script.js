@@ -117,21 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Function to create a book card HTML
-    function createBookCard(book) {
-        return `
-            <div class="book-card" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}">
-                <img src="${book.image}" alt="${book.title} وێنەی کتێب">
-                <div class="book-info">
-                    <h4>${book.title}</h4>
-                    <p>نووسەر: ${book.author}</p>
-                    <div class="book-actions">
-                        <button class="btn read-btn">خوێندنەوە</button>
-                    </div>
+// Function to create a book card HTML
+function createBookCard(book) {
+    return `
+        <div class="book-card" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}">
+            <img src="${book.image}" alt="${book.title} وێنەی کتێب">
+            <div class="book-info">
+                <h4>${book.title}</h4>
+                <p>نووسەر: ${book.author}</p>
+                <div class="book-actions">
+                    <a href="${book.id}" class="btn read-btn" target="_blank">خوێندنەوە</a>
                 </div>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     // Function to load books into categories (for index.html)
     function loadBooksIntoCategories() {
