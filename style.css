@@ -526,15 +526,22 @@ body.light-theme .book-animation i {
 }
 
 .book-actions .btn.read-btn {
+    display: inline-block; /* Add this to make <a> act like a block for padding */
     flex: none; /* Do not stretch the button */
     width: auto;
     font-size: 0.95rem;
     padding: 10px 20px; /* Adjust padding for single button */
     background-color: var(--primary-color); /* Read button uses primary color */
     color: var(--read-btn-text); /* Text color for read button */
+    text-decoration: none; /* Remove underline from the link */
+    border-radius: 5px; /* Add border-radius back */
+    font-weight: bold; /* Keep font bold */
+    text-align: center; /* Center text */
 }
 .book-actions .btn.read-btn:hover {
     background-color: var(--secondary-color);
+    transform: translateY(-3px); /* Keep hover effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Keep hover effect */
 }
 
 
