@@ -138,7 +138,7 @@ function createBookCard(book) {
                 <h4>${book.title}</h4>
                 <p>نووسەر: ${book.author}</p>
                 <div class="book-actions">
-                    <a href="${book.id}" class="btn read-btn" target="_blank">خوێندنەوە</a>
+                    <a href="${book.id}" class="btn read-btn">خوێندنەوە</a>
                 </div>
             </div>
         </div>
