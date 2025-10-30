@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const booksData = {
         'عەقیدە': [
             { id: 'pdfs/pdfs-1.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-1.HEIC' },
-            { id: 'pdfs/pdfs-2.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-2.png' },
+            { id: 'pdfs/pdfs-26.pdf', title: 'تەوحید', author: 'م.احمد مەلا فایەق سعید', image: 'photos/photos-26.jpg' },
             { id: 'pdfs/pdfs-3.pdf', title: 'قواعد الأربعە', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-3.JPG' },
             { id: 'pdfs/pdfs-4.pdf', title: 'کشف الشبهات (مامۆستا کامەران)', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-4.JPG' },
             { id: 'pdfs/pdfs-5.pdf', title: 'کشف الشبهات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-5.JPG' },
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'pdfs/pdfs-23.pdf', title: 'کۆدەنگی ئەهلی سوننە دەربارەی بیر و باوەڕ', author: 'کتێبخانەی ئیسلام', image: 'photos/photos-23.HEIC' },
             { id: 'pdfs/pdfs-24.pdf', title: 'اعتقاد أئمة الحدیث', author: 'حارث المسلم السنی', image: 'photos/photos-24.JPG' },
             { id: 'pdfs/pdfs-25.pdf', title: 'شەرحی کتاب التوحید', author: 'هیثم بن محمد سرحان', image: 'photos/photos-25.jpg' },
-            { id: 'pdfs/pdfs-26.pdf', title: 'تەوحید', author: 'م.احمد مەلا فایەق سعید', image: 'photos/photos-26.jpg' },
+            { id: 'pdfs/pdfs-2.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-2.png' },
             { id: 'pdfs/pdfs-27.pdf', title: 'هەڵوەشێنەرەوەکانی ئیسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-27.HEIC' }
         ],
         'تەفسیر': [
