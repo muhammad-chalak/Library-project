@@ -15,44 +15,154 @@ document.addEventListener('DOMContentLoaded', () => {
     const booksData = {
         'عەقیدە': [
             { id: 'pdfs/pdfs-1.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-1.HEIC' },
-            { id: 'pdfs/pdfs-26.pdf', title: 'تەوحید', author: 'م.احمد مەلا فایەق سعید', image: 'photos/photos-26.jpg' },
-            { id: 'pdfs/pdfs-3.pdf', title: 'قواعد الأربعە', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-3.JPG' },
-            { id: 'pdfs/pdfs-4.pdf', title: 'کشف الشبهات (مامۆستا کامەران)', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-4.JPG' },
-            { id: 'pdfs/pdfs-5.pdf', title: 'کشف الشبهات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-5.JPG' },
-            { id: 'pdfs/pdfs-6.pdf', title: 'الواجبات المتحتمات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-6.JPG' },
-            { id: 'pdfs/pdfs-7.pdf', title: 'کتاب التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-7.JPG' },
-            { id: 'pdfs/pdfs-8.pdf', title: 'ثلاثە الاصول وقواعد الأربعة و ستة الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-8.JPG' },
-            { id: 'pdfs/pdfs-9.pdf', title: 'نواقض الإسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-9.JPG' },
-            { id: 'pdfs/pdfs-10.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین ابی محمد عبدالله', image: 'photos/photos-10.JPG' },
-            { id: 'pdfs/pdfs-11.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'photos/photos-11.jpg' },
-            { id: 'pdfs/pdfs-12.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'photos/photos-12.JPG' },
-            { id: 'pdfs/pdfs-13.pdf', title: 'الوجیز', author: 'عبدالله بن عبدالحميد الأثري ', image: 'photos/photos-13.JPG' },
-            { id: 'pdfs/pdfs-14.pdf', title: 'عەقیدة الواسطیة', author: 'د.خالد بن ناصر بن سعید', image: 'photos/photos-14.JPG' },
-            { id: 'pdfs/pdfs-15.pdf', title: 'مسائل الجهلیة', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-15.JPG' },
-            { id: 'pdfs/pdfs-16.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-16.JPG' },
-            { id: 'pdfs/pdfs-17.pdf', title: 'الولاء والبراء', author: 'سیف اللە السني', image: 'photos/photos-17.JPG' },
-            { id: 'pdfs/pdfs-18.pdf', title: '٥٠ پسیار و وەڵام لەسەر بیر و باوەڕ', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-18.JPG' },
-            { id: 'pdfs/pdfs-19.pdf', title: 'قواعد الأربعة', author: 'مامۆستا مەبەست کاژاوی', image: 'photos/photos-19.JPG' },
-            { id: 'pdfs/pdfs-20.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین أبي محمد عبدللە ', image: 'photos/photos-20.jpg' },
-            { id: 'pdfs/pdfs-21.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'م هـاوکـار کوردی', image: 'photos/photos-21.HEIC' },
-            { id: 'pdfs/pdfs-22.pdf', title: 'الواجبات المتحتیمات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-22.jpg' },
-            { id: 'pdfs/pdfs-23.pdf', title: 'کۆدەنگی ئەهلی سوننە دەربارەی بیر و باوەڕ', author: 'کتێبخانەی ئیسلام', image: 'photos/photos-23.HEIC' },
-            { id: 'pdfs/pdfs-24.pdf', title: 'اعتقاد أئمة الحدیث', author: 'حارث المسلم السنی', image: 'photos/photos-24.JPG' },
-            { id: 'pdfs/pdfs-25.pdf', title: 'شەرحی کتاب التوحید', author: 'هیثم بن محمد سرحان', image: 'photos/photos-25.jpg' },
-            { id: 'pdfs/pdfs-2.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-2.png' },
-            { id: 'pdfs/pdfs-27.pdf', title: 'هەڵوەشێنەرەوەکانی ئیسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-27.HEIC' }
+            { id: 'pdfs/pdfs-2.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
+            { id: 'pdfs/pdfs-3.pdf', title: 'قواعد الأربعە', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
+            { id: 'pdfs/pdfs-4.pdf', title: 'کشف الشبهات (مامۆستا کامەران)', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
+            { id: 'pdfs/pdfs-5.pdf', title: 'کشف الشبهات', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/13/19/21422.jpg' },
+            { id: 'pdfs/pdfs-6.pdf', title: 'الواجبات المتحتمات', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/28/73/28731.jpg' },
+            { id: 'pdfs/pdfs-7.pdf', title: 'کتاب التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/74/10740.jpg' },
+            { id: 'pdfs/pdfs-8.pdf', title: 'ثلاثە الاصول وقواعد الأربعة و ستة الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/27/29/27290.jpg' },
+            { id: 'pdfs/pdfs-9.pdf', title: 'نواقض الإسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/76/10761.jpg' },
+            { id: 'pdfs/pdfs-10.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین ابی محمد عبدالله', image: 'https://cdn.islamicbook.ws/10/78/10780.jpg' },
+            { id: 'pdfs/pdfs-11.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=پوختەی+عەقیدە' },
+            { id: 'pdfs/pdfs-12.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'https://via.placeholder.com/300x400/7b1fa2/ffffff?text=سیرە' },
+            { id: 'pdfs/pdfs-13.pdf', title: 'الوجیز', author: 'عبدالله بن عبدالحميد الأثري ', image: 'https://via.placeholder.com/300x400/5e35b1/ffffff?text=چوار+بنەما' },
+            { id: 'pdfs/pdfs-14.pdf', title: 'عەقیدة الواسطیة', author: 'د.خالد بن ناصر بن سعید', image: 'https://via.placeholder.com/300x400/4527a0/ffffff?text=عەقیدة+واسطیة' },
+            { id: 'pdfs/pdfs-15.pdf', title: 'مسائل الجهلیة', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/71/10719.jpg' },
+            { id: 'pdfs/pdfs-16.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/13/50/21503.jpg' },
+            { id: 'pdfs/pdfs-17.pdf', title: 'الولاء والبراء', author: 'سیف اللە السني', image: 'https://cdn.islamicbook.ws/10/72/10729.jpg' },
+            { id: 'pdfs/pdfs-18.pdf', title: '٥٠ پسیار و وەڵام لەسەر بیر و باوەڕ', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/13/19/21422.jpg' },
+            { id: 'pdfs/pdfs-19.pdf', title: 'قواعد الأربعة', author: 'مامۆستا مەبەست کاژاوی', image: 'https://cdn.islamicbook.ws/28/73/28731.jpg' },
+            { id: 'pdfs/pdfs-20.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین أبي محمد عبدللە ', image: 'https://cdn.islamicbook.ws/10/74/10740.jpg' },
+            { id: 'pdfs/pdfs-21.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'م هـاوکـار کوردی', image: 'https://cdn.islamicbook.ws/27/29/27290.jpg' },
+            { id: 'pdfs/pdfs-22.pdf', title: 'الواجبات المتحتیمات', author: 'محمدی کوڕی عبدالوهاب', image: 'https://cdn.islamicbook.ws/10/76/10761.jpg' },
+            { id: 'pdfs/pdfs-23.pdf', title: 'کۆدەنگی ئەهلی سوننە دەربارەی بیر و باوەڕ', author: 'کتێبخانەی ئیسلام', image: 'https://cdn.islamicbook.ws/10/78/10780.jpg' },
+            { id: 'pdfs/pdfs-24.pdf', title: 'اعتقاد أئمة الحدیث', author: 'حارث المسلم السنی', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=پوختەی+عەقیدە' },
+            { id: 'pdfs/pdfs-25.pdf', title: 'شەرحی کتاب التوحید', author: 'هیثم بن محمد سرحان', image: 'https://via.placeholder.com/300x400/7b1fa2/ffffff?text=سیرە' },
+            { id: 'pdfs/pdfs-26.pdf', title: 'تەوحید', author: 'م.احمد مەلا فایەق سعید', image: 'https://via.placeholder.com/300x400/5e35b1/ffffff?text=چوار+بنەما' },
+            { id: 'pdfs/pdfs-27.pdf', title: 'هەڵوەشێنەرەوەکانی ئیسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'https://via.placeholder.com/300x400/311b92/ffffff?text=تەوحید' }
         ],
         'تەفسیر': [
-            { id: 't1', title: 'تەفسیری ڕوونی قورئان', author: 'د. عبدلکریم زێدان', image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1' },
-            { id: 't2', title: 'کوردی تەفسیری قورئان', author: 'موحەمەد عەلی', image: 'https://via.placeholder.com/300x400/2980b9/ffffff?text=تەفسیر+2' },
-            { id: 't3', title: 'تەفسیری ئاسان', author: 'شێخ محەمەد ساڵح', image: 'https://via.placeholder.com/300x400/2c3e50/ffffff?text=تەفسیر+3' },
-            { id: 't4', title: 'وشە بە وشەی قورئان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/1abc9c/ffffff?text=تەفسیر+4' },
-            { id: 't5', title: 'تەفسیری نور', author: 'د. نووری عومەر', image: 'https://via.placeholder.com/300x400/5cb85c/ffffff?text=تەفسیر+5' },
-            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6' },
-            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7' },
-            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8' },
-            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9' },
-            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10' }
+            { 
+                title: 'تەفسیری ڕوونی قورئان', 
+                author: 'د. عبدلکریم زێدان', 
+                image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-1-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-1-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-1-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-1-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-1-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'کوردی تەفسیری قورئان', 
+                author: 'موحەمەد عەلی', 
+                image: 'https://via.placeholder.com/300x400/2980b9/ffffff?text=تەفسیر+2',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-2-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-2-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-2-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-2-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-2-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'تەفسیری ئاسان', 
+                author: 'شێخ محەمەد ساڵح', 
+                image: 'https://via.placeholder.com/300x400/2c3e50/ffffff?text=تەفسیر+3',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-3-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-3-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-3-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-3-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-3-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'وشە بە وشەی قورئان', 
+                author: 'ئیبراهیم فەوزی', 
+                image: 'https://via.placeholder.com/300x400/1abc9c/ffffff?text=تەفسیر+4',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-4-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-4-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-4-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-4-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-4-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'تەفسیری نور', 
+                author: 'د. نووری عومەر', 
+                image: 'https://via.placeholder.com/300x400/5cb85c/ffffff?text=تەفسیر+5',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-5-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-5-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-5-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-5-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-5-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'کلیلەکانی تەفسیر', 
+                author: 'د. ئەحمەد کەرکوکی', 
+                image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-6-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-6-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-6-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-6-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-6-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'تەفسیری ڕووناکی', 
+                author: 'شێخ عوسمان محەمەد', 
+                image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-7-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-7-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-7-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-7-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-7-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'ھەناوی قورئان', 
+                author: 'م. خەسرەو جاف', 
+                image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-8-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-8-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-8-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-8-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-8-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'تەفسیری پەیام', 
+                author: 'مامۆستا مەلا عەلی', 
+                image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-9-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-9-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-9-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-9-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-9-vol-5.pdf' }
+                ]
+            },
+            { 
+                title: 'زانستەکانی تەفسیر', 
+                author: 'د. محەمەد عەبدولڕەحمان', 
+                image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-10-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-10-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-10-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-10-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-10-vol-5.pdf' }
+                ]
+            }
         ],
         'حەدیس': [
             { id: 'h_new1', title: 'صحیح البخاری', author: 'ئیمامی بوخاری', image: 'https://via.placeholder.com/300x400/f44336/ffffff?text=بوخاری' },
@@ -130,17 +240,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Function to create a book card HTML
-function createBookCard(book) {
+function createBookCard(book, category = '') { // Added category parameter
+    const hasVolumes = category === 'تەفسیر' && book.volumes && book.volumes.length > 0;
+    
+    let bookActionsHtml;
+
+    if (hasVolumes) {
+        const volumeOptions = book.volumes.map(volume => `
+            <a href="${volume.id}" class="volume-option btn primary-btn btn-sm" target="_blank">${volume.title}</a>
+        `).join('');
+
+        // The button that acts as a toggle, placed inside book-actions
+        bookActionsHtml = `
+            <div class="book-actions">
+                <button class="btn read-btn volume-toggle-btn" data-book-id="${book.title.replace(/\s/g, '-')}-volumes">
+                    خوێندنەوەی بەرگ <i class="fas fa-chevron-down volume-icon"></i>
+                </button>
+            </div>
+            <!-- The dropdown, placed outside book-info but inside book-card -->
+            <div class="volume-dropdown" id="${book.title.replace(/\s/g, '-')}-volumes">
+                ${volumeOptions}
+            </div>
+        `;
+    } else {
+        // Simple read button for non-volume books
+        bookActionsHtml = `
+            <div class="book-actions">
+                <a href="${book.id}" class="btn read-btn" target="_blank">خوێندنەوە</a>
+            </div>
+        `;
+    }
+
     return `
-        <div class="book-card" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}">
+        <div class="book-card" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}" data-category="${category}">
             <img src="${book.image}" alt="${book.title} وێنەی کتێب">
             <div class="book-info">
                 <h4>${book.title}</h4>
                 <p>نووسەر: ${book.author}</p>
-                <div class="book-actions">
-                    <a href="${book.id}" class="btn read-btn">خوێندنەوە</a>
-                </div>
             </div>
+            ${bookActionsHtml}
         </div>
     `;
 }
@@ -158,7 +296,8 @@ function createBookCard(book) {
             if (container) {
                 const booksForCategory = booksData[category] || [];
                 const booksToDisplay = booksForCategory.slice(0, 4); // Display first 4 books
-                container.innerHTML = booksToDisplay.map(createBookCard).join('');
+                // Pass category name to createBookCard
+                container.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
 
                 // Update "زیاتر ببینە" button href
                 const moreBtn = container.nextElementSibling.querySelector('.view-more-btn');
@@ -302,6 +441,42 @@ function createBookCard(book) {
     });
 
 
+    // Event Delegation for Volume Dropdown Toggle
+    document.addEventListener('click', (e) => {
+        // Handle volume dropdown toggle
+        if (e.target.classList.contains('volume-toggle-btn') || e.target.closest('.volume-toggle-btn')) {
+            const toggleButton = e.target.classList.contains('volume-toggle-btn') ? e.target : e.target.closest('.volume-toggle-btn');
+            const dropdownId = toggleButton.dataset.bookId;
+            const dropdown = document.getElementById(dropdownId);
+            
+            if (dropdown) {
+                // Close other open dropdowns in the same grid/section
+                document.querySelectorAll('.volume-dropdown.show').forEach(openDropdown => {
+                    if (openDropdown !== dropdown) {
+                        openDropdown.classList.remove('show');
+                        // Find the corresponding button and remove active class
+                        const openToggleBtn = document.querySelector(`.volume-toggle-btn[data-book-id="${openDropdown.id}"]`);
+                        if(openToggleBtn) openToggleBtn.classList.remove('active');
+                    }
+                });
+
+                dropdown.classList.toggle('show');
+                toggleButton.classList.toggle('active');
+            }
+        } else {
+            // Close dropdowns if clicked outside a toggle button or a dropdown
+            const isInsideDropdown = e.target.closest('.volume-dropdown');
+            if (!isInsideDropdown) {
+                document.querySelectorAll('.volume-dropdown.show').forEach(openDropdown => {
+                    openDropdown.classList.remove('show');
+                    const openToggleBtn = document.querySelector(`.volume-toggle-btn[data-book-id="${openDropdown.id}"]`);
+                    if(openToggleBtn) openToggleBtn.classList.remove('active');
+                });
+            }
+        }
+    });
+
+
     // Search Functionality (for index.html header search)
     if (headerSearchInput) {
         headerSearchInput.addEventListener('keyup', (event) => {
@@ -428,7 +603,8 @@ function createBookCard(book) {
         if (category && booksData[category]) {
             categoryNameSpan.textContent = category;
             const booksToDisplay = booksData[category];
-            allBooksContainer.innerHTML = booksToDisplay.map(createBookCard).join('');
+            // Pass category name to createBookCard
+            allBooksContainer.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
 
             // Calculate total header height for category pages dynamically
             let totalAllBooksHeaderHeight = 0;
