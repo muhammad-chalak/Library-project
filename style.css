@@ -474,15 +474,14 @@ body.light-theme .book-animation i {
 .book-card {
     background-color: var(--card-bg); /* Use theme variable */
     border-radius: 10px;
-    overflow: visible; /* Changed to visible for dropdown to expand */
+    overflow: hidden; /* Keep hidden for smooth expansion transition */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0 0.3s ease, background-color 0.5s ease;
     display: flex; /* For vertical layout within card */
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     text-align: center; /* Center text */
-    padding-bottom: 20px; /* Space for buttons */
-    position: relative; /* Needed for absolute positioning of dropdown */
+    padding-bottom: 0; /* Adjusted to 0, wrapper handles spacing */
 }
 
 .book-card:hover {
@@ -503,7 +502,7 @@ body.light-theme .book-animation i {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 0; /* Adjust padding for a cleaner look with the action buttons below */
+    width: 100%; /* Take full width */
 }
 
 .book-info h4 {
@@ -519,12 +518,19 @@ body.light-theme .book-animation i {
     margin-bottom: 15px;
 }
 
+/* New wrapper to contain the toggle and the dropdown */
+.volume-dropdown-wrapper {
+    width: 100%;
+    padding-bottom: 20px; /* This margin accounts for the bottom spacing */
+}
+
 .book-actions {
     display: flex;
     justify-content: center; /* Center single button */
     width: 100%;
     padding: 0 20px; /* Ensure buttons are aligned with card edges */
     margin-top: auto; /* Push actions to the bottom */
+    margin-bottom: 10px; /* Space above the dropdown */
 }
 
 .book-actions .btn.read-btn {
@@ -553,7 +559,17 @@ body.light-theme .book-animation i {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-bottom: 10px; /* Space between toggle button and card bottom */
+    /* Ensure volume toggle inherits primary button styles */
+    background-color: var(--primary-color);
+    color: var(--read-btn-text);
+    /* Remove hover transform on toggle btn as it's the anchor point */
+    transform: none; 
+}
+
+.volume-toggle-btn:hover {
+    background-color: var(--secondary-color) !important;
+    transform: none !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .volume-icon {
@@ -565,30 +581,31 @@ body.light-theme .book-animation i {
 }
 
 .volume-dropdown {
-    position: absolute;
-    bottom: 20px; /* Position it above the card bottom */
-    right: 10px; /* Align to the right for RTL */
-    left: 10px; /* Align to the left */
-    z-index: 500;
-    background-color: var(--light-bg-variant); /* Use a subtle background */
+    width: 100%;
+    /* Transition will be applied here */
+    background-color: var(--light-bg-variant); 
     border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    padding: 0 10px; /* Initial padding: 0 height, 10px left/right */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    padding: 0 20px; /* Match card inner padding */
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 0; /* Start hidden */
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out, background-color 0.5s ease;
-    border: 1px solid var(--primary-color);
-    border-top: none; /* Hide top border when collapsed */
+    max-height: 0; 
+    overflow: hidden; /* Crucial for animation */
+    /* Use a suitable transition for the expanding effect */
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, box-shadow 0.4s ease, border-radius 0.4s ease;
+    border: 1px solid var(--secondary-color);
+    border-top: none; 
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .volume-dropdown.show {
-    max-height: 300px; /* Max height to allow expansion */
-    padding: 15px 10px;
-    border-top: 1px solid var(--primary-color); /* Show top border when expanded */
-    bottom: 70px; /* Move up to not overlap the button */
+    max-height: 350px; /* Sufficient height for 5 volumes + padding */
+    padding: 15px 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: 1px solid var(--secondary-color);
 }
 
 .volume-dropdown .volume-option {
@@ -596,16 +613,21 @@ body.light-theme .book-animation i {
     text-align: center;
     padding: 10px 15px;
     font-size: 0.9rem;
-    background-color: var(--card-bg); /* Use card background for options */
+    background-color: var(--card-bg); /* Contrasting background for options */
     color: var(--light-text);
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    /* Ensure these behave like normal primary buttons for hover */
+    background-color: var(--primary-color); 
+    color: var(--read-btn-text);
+    transform: none;
 }
 
 .volume-dropdown .volume-option:hover {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: var(--white);
     transform: none;
-    box-shadow: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 /* End Volume Dropdown Specific Styles */
 
