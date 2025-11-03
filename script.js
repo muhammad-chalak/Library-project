@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'pdfs/pdfs-27.pdf', title: 'هەڵوەشێنەرەوەکانی ئیسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-27.HEIC' }
         ],
         'تەفسیر': [
+            // گۆڕانکارییەکە لێرەدا دەستپێدەکات
             { id: 't1', title: 'تەفسیری ڕوونی قورئان', author: 'د. عبدلکریم زێدان', image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1', 
                 volumes: [
                     { title: 'بەرگی یەک', id: 'pdfs/tafseer-1-vol-1.pdf' },
@@ -88,11 +89,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     { title: 'بەرگی پێنج', id: 'pdfs/tafseer-5-vol-5.pdf' }
                 ]
             },
-            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6' },
-            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7' },
-            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8' },
-            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9' },
-            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10' }
+            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-6-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-6-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-6-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-6-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-6-vol-5.pdf' }
+                ]
+            },
+            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-7-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-7-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-7-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-7-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-7-vol-5.pdf' }
+                ]
+            },
+            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-8-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-8-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-8-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-8-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-8-vol-5.pdf' }
+                ]
+            },
+            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-9-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-9-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-9-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-9-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-9-vol-5.pdf' }
+                ]
+            },
+            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10',
+                volumes: [
+                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-10-vol-1.pdf' },
+                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-10-vol-2.pdf' },
+                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-10-vol-3.pdf' },
+                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-10-vol-4.pdf' },
+                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-10-vol-5.pdf' }
+                ]
+            }
+            // گۆڕانکارییەکە لێرەدا کۆتایی دێت
         ],
         'حەدیس': [
             { id: 'h_new1', title: 'صحیح البخاری', author: 'ئیمامی بوخاری', image: 'https://via.placeholder.com/300x400/f44336/ffffff?text=بوخاری' },
