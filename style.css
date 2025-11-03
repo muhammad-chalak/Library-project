@@ -583,33 +583,28 @@ body.light-theme .book-animation i {
 .volume-dropdown {
     width: 100%;
     /* Transition will be applied here */
-    background-color: var(--light-bg-variant); 
+    background-color: var(--card-bg); /* CHANGED: Use the book card background color */
     border-radius: 8px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     padding: 0 20px; /* Match card inner padding */
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid; /* CHANGED: Use grid for 2 columns */
+    grid-template-columns: 1fr 1fr; /* ADDED: Two columns for side-by-side buttons */
+    gap: 10px; /* ADJUSTED gap */
     max-height: 0; 
     overflow: hidden; /* Crucial for animation */
     /* Use a suitable transition for the expanding effect */
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out, box-shadow 0.4s ease, border-radius 0.4s ease;
-    border: 1px solid var(--secondary-color);
-    border-top: none; 
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, box-shadow 0.4s ease; /* REMOVED border-radius transition */
+    border: none; /* CHANGED: Remove all borders */
 }
 
 .volume-dropdown.show {
     max-height: 350px; /* Sufficient height for 5 volumes + padding */
     padding: 15px 20px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top: 1px solid var(--secondary-color);
+    /* REMOVED: All border-radius and border-top properties */
 }
 
 .volume-dropdown .volume-option {
-    width: 100%;
+    /* REMOVED: width: 100%; - grid handles the width */
     text-align: center;
     padding: 10px 15px;
     font-size: 0.9rem;
