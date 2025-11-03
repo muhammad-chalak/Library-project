@@ -46,6 +46,8 @@
                         <li><a href="#hero">سەرەتا</a></li>
                         <li><a href="#categories">بەشەکان</a></li>
                         <li><a href="#contact">پەیوەندی</a></li>
+                        <!-- NEW LINK for Add Book Section -->
+                        <li><a href="#add-book-section">زیادکردنی کتێب</a></li>
                         <li class="settings-menu-item">
                             <a href="#" id="settings-toggle">ڕێکخستنەکان <i class="fas fa-chevron-down"></i></a>
                             <div class="settings-dropdown" id="settings-dropdown">
@@ -97,7 +99,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=تەفسیر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="tafseer-books.html?category=تەفسیر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -108,7 +110,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=حەدیس" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="hadis-books.html?category=حەدیس" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -119,7 +121,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=سیرەی موسولمانان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="sira-muslim-books.html?category=سیرەی موسولمانان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -130,7 +132,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=فیقه" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="fka-books.html?category=فیقه" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -141,7 +143,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=هەمەجۆری ئیسلامی" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="hamajor-muslim-books.html?category=هەمەجۆری ئیسلامی" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -152,7 +154,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=سیاسەت" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="syasat-books.html?category=سیاسەت" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -163,7 +165,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=مێژوو" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="mezhu-books.html?category=مێژوو" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -174,7 +176,7 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=هەمەجۆر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="hamajor-books.html?category=هەمەجۆر" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
 
@@ -185,9 +187,109 @@
                         <!-- Books will be loaded here by JavaScript -->
                     </div>
                     <div class="more-btn-container">
-                        <a href="all-books.html?category=هەموو کتێبەکان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
+                        <a href="hamu-books.html?category=هەموو کتێبەکان" class="btn secondary-btn view-more-btn btn-sm">زیاتر ببینە</a>
                     </div>
                 </div>
+
+            </div>
+        </section>
+        
+        <!-- NEW: Add Book/CMS Section -->
+        <section id="add-book-section" class="categories-section" style="padding-bottom: 0; background-color: var(--card-bg);">
+            <div class="container">
+                <h2 class="section-title">زیادکردنی کتێب و بەڕێوەبردن</h2>
+
+                <!-- 1. Password Protection Form -->
+                <div id="cms-login-area" class="category-block" style="box-shadow: none;">
+                    <h3 class="category-title">چوونە ژوورەوە</h3>
+                    <form id="cms-login-form" class="contact-form" style="max-width: 400px; margin: 0 auto; gap: 15px;">
+                        <input type="password" id="cms-password-input" placeholder="وشەی نهێنی" required>
+                        <button type="submit" class="btn primary-btn" style="width: 100%;">چوونە ژوورەوە</button>
+                        <p id="cms-login-message" style="color: #dc3545; display: none; margin-top: 10px;"></p>
+                    </form>
+                </div>
+
+                <!-- 2. CMS Content (Hidden by default) -->
+                <div id="cms-content" style="display: none;">
+                    
+                    <!-- Add Book Form -->
+                    <div id="add-book-area" class="category-block">
+                        <h3 class="category-title">زیادکردنی کتێبێکی نوێ</h3>
+                        <form id="add-book-form" class="contact-form" style="max-width: 600px; margin: 0 auto; gap: 20px;">
+                            <!-- Hidden input for Edit Mode -->
+                            <input type="hidden" id="book-edit-id" value="">
+                            
+                            <!-- Book Title -->
+                            <input type="text" id="book-title-input" placeholder="ناوی کتێب" required>
+
+                            <!-- Author Name -->
+                            <input type="text" id="book-author-input" placeholder="ناوی نووسەر" required>
+
+                            <!-- Category Select -->
+                            <select id="book-category-select" required style="
+                                background-color: var(--input-bg);
+                                border: 1px solid var(--input-border);
+                                border-radius: 5px;
+                                padding: 15px;
+                                color: var(--light-text);
+                                font-size: 1rem;
+                                outline: none;
+                                text-align: right;
+                                transition: background-color 0.5s ease, border-color 0.5s ease;
+                                appearance: none;
+                                /* Add dropdown arrow for style */
+                                background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%23${getComputedStyle(document.body).getPropertyValue('--gray-text').replace('#', '')}" d="M4.516 7.548c.436-.446 1.043-.481 1.576 0L10 11.488l3.908-3.94c.533-.481 1.141-.446 1.574 0 .436.446.467 1.258.058 1.776L10 14.502 4.458 9.324c-.409-.518-.378-1.33.058-1.776z"/></svg>');
+                                background-repeat: no-repeat;
+                                background-position: left 15px center;
+                                background-size: 10px;
+                            ">
+                                <option value="" disabled selected>بەشێک ھەڵبژێرە</option>
+                                <!-- Options will be populated by JS -->
+                            </select>
+
+                            <!-- File Import (Real File Input) -->
+                            <div style="display: flex; gap: 10px; align-items: center; border: 1px solid var(--input-border); border-radius: 5px; background-color: var(--input-bg); padding: 5px;">
+                                <label for="book-file-input" class="btn secondary-btn btn-sm" style="flex-shrink: 0; margin: 0; background-color: var(--secondary-color); color: var(--white); cursor: pointer;">
+                                    <i class="fas fa-file-pdf"></i> ئیمپۆرتی فایل
+                                </label>
+                                <input type="file" id="book-file-input" name="book-file" accept="application/pdf" required style="flex-grow: 1; padding: 10px; border: none; background: transparent; color: var(--light-text); outline: none; text-align: right; display: block; width: 100%;">
+                            </div>
+
+                            <!-- Image Import (Real File Input) -->
+                            <div style="display: flex; gap: 10px; align-items: center; border: 1px solid var(--input-border); border-radius: 5px; background-color: var(--input-bg); padding: 5px;">
+                                <label for="book-image-input" class="btn secondary-btn btn-sm" style="flex-shrink: 0; margin: 0; background-color: var(--secondary-color); color: var(--white); cursor: pointer;">
+                                    <i class="fas fa-image"></i> ئیمپۆرتی وێنە
+                                </label>
+                                <input type="file" id="book-image-input" name="book-image" accept="image/*" required style="flex-grow: 1; padding: 10px; border: none; background: transparent; color: var(--light-text); outline: none; text-align: right; display: block; width: 100%;">
+                            </div>
+
+                            <button type="submit" class="btn primary-btn" id="publish-book-btn">
+                                <i class="fas fa-upload"></i> بلاو کردنەوە
+                            </button>
+                            <button type="button" class="btn secondary-btn" id="cancel-edit-btn" style="display: none; background-color: #dc3545; color: var(--white);">
+                                <i class="fas fa-times"></i> پاشگەزبوونەوە لە گۆڕانکاری
+                            </button>
+                            <p style="text-align: center; font-size: 0.8rem; color: #dc3545; margin-top: 10px;">
+                                *دوای هەڵبژاردنی فایلەکان و بلابووندنەوە، پێویستە ئەم زانیاریانە بۆ داتابەیسێکی گشتی (وەک Firebase) بنێریت.
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- Manage Books Area -->
+                    <div id="manage-books-area" class="category-block">
+                        <h3 class="category-title">کتێبە زیادکراوەکان</h3>
+                        <div class="book-grid" id="user-added-books-container">
+                            <!-- User added books will be loaded here -->
+                        </div>
+                        <p id="no-user-books-message" style="text-align: center; font-size: 1.2rem; color: var(--gray-text); margin-top: 20px; display: none;">
+                            هیچ کتێبێکی زیادکراو نییە.
+                        </p>
+                        <p style="text-align: center; font-size: 0.9rem; color: #dc3545; margin-top: 30px;">
+                            تێبینی: بەهۆی نەبوونی سێرڤەری گشتی، کتێبەکان تەنها لەسەر ئەم ئامێرە خەزن دەکرێن. بۆ بڵاوکردنەوەی گشتی، دەبێت Firebase بەکاربهێنیت.
+                        </p>
+                    </div>
+                </div>
+                <!-- End CMS Content -->
 
             </div>
         </section>
