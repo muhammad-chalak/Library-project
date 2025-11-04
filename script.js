@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const splashScreen = document.getElementById('splash-screen');
+    // [حذفکراوە: const splashScreen = document.getElementById('splash-screen');]
     const mainContent = document.getElementById('main-content');
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     const header = document.querySelector('.header');
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'p2', title: 'ھونەری حوکمڕانی', author: 'نیکۆلۆ ماکیاڤێلی', image: 'https://via.placeholder.com/300x400/2ecc71/ffffff?text=سیاسەت+2' },
             { id: 'p3', title: 'بیردۆزە سیاسییەکان', author: 'ڕۆبێرت دال', image: 'https://via.placeholder.com/300x400/63c784/ffffff?text=سیاسەت+3' },
             { id: 'p4', title: 'گەندەڵی سیاسی', author: 'سۆران عومەر', image: 'https://via.placeholder.com/300x400/409d5c/ffffff?text=سیاسەت+4' },
-            { id: 'p5', title: 'دیموکراسی و حکومەت', author: 'جۆن لۆک', image: 'https://via.placeholder.com/300x400/7bd492/ffffff?text=سیاسەت+5' },
+            { id: 'p5', title: 'دیموکراسی و حکومەت', author: 'جۆن لۆك', image: 'https://via.placeholder.com/300x400/7bd492/ffffff?text=سیاسەت+5' },
             { id: 'p6', title: 'مافەکانی مرۆڤ', author: 'ئەلینۆر ڕۆزڤێڵت', image: 'https://via.placeholder.com/300x400/28a745/ffffff?text=سیاسەت+6' },
             { id: 'p7', title: 'مێژووی فیکری سیاسی', author: 'ئیمانویل کانت', image: 'https://via.placeholder.com/300x400/3abf5f/ffffff?text=سیاسەت+7' },
             { id: 'p8', title: 'پەیوەندییە نێودەوڵەتییەکان', author: 'جوزێف نای', image: 'https://via.placeholder.com/300x400/52d978/ffffff?text=سیاسەت+8' },
@@ -315,31 +315,12 @@ function createBookCard(book, category = '') { // Added category parameter
         });
     }
 
-    // Splash Screen Logic (only for index.html)
+    // Splash Screen Logic (لابراوە: ڕاستەوخۆ بارکردنی ناوەڕۆک)
     const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
     
-    // Check if we are on the index page AND the splash screen exists
-    if (splashScreen && isIndexPage) { 
-        // گۆڕینی کات بۆ ٢٠٠٠ میللی چرکە (٢ چرکە)
-        setTimeout(() => {
-            splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-                if (mainContent) {
-                    mainContent.classList.remove('hidden');
-                }
-                loadBooksIntoCategories(); // Load books after splash screen fades
-            }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
-        }, 2000); // ٢ چرکە
-    } else {
-        // For all other pages (or if splash is skipped), ensure main content is visible immediately
-        if (mainContent) {
-            mainContent.classList.remove('hidden');
-            // Load books for index page if splash was skipped
-            if (isIndexPage) {
-                loadBooksIntoCategories();
-            }
-        }
+    // لەباتی لۆجیکی لۆدینگ، ڕاستەوخۆ کتێبەکان بار بکە ئەگەر لە پەڕەی سەرەکیت
+    if (isIndexPage) { 
+        loadBooksIntoCategories();
     }
 
 
