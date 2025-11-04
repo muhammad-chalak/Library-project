@@ -155,8 +155,9 @@ a:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Splash Screen */
+/* Splash Screen (تەنها ستایلە بنەڕەتییەکان ماونەتەوە) */
 .splash-screen {
+    /* ئەم چینە لە index.html لابراوە، بەڵام لێرە دەیهێڵینەوە بۆ ئەگەری بەکارهێنانی دووبارە */
     position: fixed;
     top: 0;
     left: 0;
@@ -171,42 +172,38 @@ a:hover {
 }
 
 body.light-theme .splash-screen {
-    background: var(--white); /* Forces the background to be plain white in light theme */
+    background: var(--white);
 }
 
 .splash-screen.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Make it unclickable */
+    pointer-events: none; 
 }
 
 .book-animation {
     font-size: 10rem;
-    color: var(--accent-color); /* This will keep it yellow/accent color from the current theme */
-    /* چاکسازی: لابردنی ئەنیمەیشنی openBook و پشت بەستن بە spinner و glow */
-    animation: glow 1.5s infinite alternate; 
+    color: var(--accent-color); 
+    /* ئەنیمەیشنی لادراو */
     position: relative;
 }
 
 body.light-theme .book-animation {
-    color: var(--splash-book-color); /* Use the new variable for light theme */
+    color: var(--splash-book-color); 
 }
 
 .book-animation i {
-    text-shadow: 0 0 15px var(--accent-color); /* Keeps the glow based on accent color */
+    /* text-shadow ی لادراو */
 }
 
 body.light-theme .book-animation i {
-    text-shadow: 0 0 15px var(--splash-book-color); /* Use the new variable for light theme glow */
+    /* text-shadow ی لادراو */
 }
 
-/* تەنها @keyframes glow ماوەتەوە بۆ لۆدینگێکی نەرم */
-@keyframes glow {
-    0% { filter: brightness(1); }
-    100% { filter: brightness(1.5); }
-}
+/* @keyframes openBook لادراو */
+/* @keyframes glow لادراو */
 
-/* Main Content Toggle */
+/* Main Content Toggle: ئەمە پێویستە بۆ all-books.html */
 .main-content.hidden {
     display: none;
 }
