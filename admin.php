@@ -1,4 +1,3 @@
---- START OF FILE admin.php ---
 <?php
 // Configuration
 $PASSWORD = 'sarkawtn-tanha-bo-sarxarani-islama1400';
