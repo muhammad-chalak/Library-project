@@ -1,3 +1,5 @@
+--- START OF FILE script.js ---
+
 document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splash-screen');
     const mainContent = document.getElementById('main-content');
@@ -10,12 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle-btn'); // For index.html
     const headerSearchInput = document.getElementById('header-search-input'); // For index.html's header search
     const heroScrollBtn = document.querySelector('.scroll-to-categories');
-    
-    // =========================================================================
-    // IMPORTANT: In a real-world application with the admin panel, the booksData 
-    // object below MUST be dynamically fetched from the server using PHP/Database.
-    // The hardcoded data is kept for structure, but it will NOT reflect admin changes.
-    // =========================================================================
 
     // Sample book data (10 books per category, extended for new categories)
     const booksData = {
@@ -277,33 +273,17 @@ function createBookCard(book, category = '') { // Added category parameter
         categoriesOnIndex.forEach(category => {
             const containerId = category + '-books';
             const container = document.getElementById(containerId);
-            // Translate the category title from HTML to the JS key if needed
-            const categoryKey = category.replace('کتێبی ', '').replace('هەموو کتێبەکان', 'هەموو کتێبەکان');
-
             if (container) {
-                const booksForCategory = booksData[categoryKey] || [];
+                const booksForCategory = booksData[category] || [];
                 const booksToDisplay = booksForCategory.slice(0, 4); // Display first 4 books
                 // Pass category name to createBookCard
-                container.innerHTML = booksToDisplay.map(book => createBookCard(book, categoryKey)).join('');
+                container.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
 
                 // Update "زیاتر ببینە" button href
                 const moreBtn = container.nextElementSibling.querySelector('.view-more-btn');
                 if (moreBtn) {
-                    let filename;
-                    switch(categoryKey) {
-                        case 'عەقیدە': filename = 'all-books.html'; break; // Original all-books is for Aqeeda
-                        case 'تەفسیر': filename = 'tafseer-books.html'; break;
-                        case 'حەدیس': filename = 'hadis-books.html'; break;
-                        case 'سیرەی موسولمانان': filename = 'sira-muslim-books.html'; break;
-                        case 'فیقه': filename = 'fka-books.html'; break; // Corrected to fka-books.html
-                        case 'هەمەجۆری ئیسلامی': filename = 'hamajor-muslim-books.html'; break;
-                        case 'سیاسەت': filename = 'syasat-books.html'; break;
-                        case 'مێژوو': filename = 'mezhu-books.html'; break;
-                        case 'هەمەجۆر': filename = 'hamajor-books.html'; break;
-                        case 'هەموو کتێبەکان': filename = 'hamu-books.html'; break;
-                        default: filename = 'all-books.html';
-                    }
-                    moreBtn.href = `${filename}?category=${categoryKey}`;
+                    // Keeping simple all-books.html structure as per current file layout
+                    moreBtn.href = `all-books.html?category=${category}`;
                 }
             }
         });
@@ -338,7 +318,7 @@ function createBookCard(book, category = '') { // Added category parameter
     }
 
     // Splash Screen Logic (only for index.html)
-    if (splashScreen && mainContent && mainContent.classList.contains('hidden')) { // Ensure splash screen logic only runs on index.html and if content is hidden
+    if (splashScreen && mainContent.classList.contains('hidden') && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') { 
         setTimeout(() => {
             splashScreen.classList.add('hidden');
             setTimeout(() => {
@@ -348,9 +328,16 @@ function createBookCard(book, category = '') { // Added category parameter
             }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
         }, 3000); // 3 seconds before starting fade-out
     } else {
-        // If not on index.html (e.g., all-books.html or admin page), ensure main content is visible immediately
+        // If not on index.html, ensure main content is visible immediately
         if (mainContent) {
             mainContent.classList.remove('hidden');
+            // Load books if on all-books.html or add-book.html
+            if (window.location.pathname.endsWith('all-books.html') || window.location.pathname.endsWith('add-book.html')) {
+                // Books are loaded by the specific logic for those pages later
+            } else if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+                // If splash is skipped (e.g. if hidden was removed manually), load books
+                loadBooksIntoCategories();
+            }
         }
     }
 
@@ -375,7 +362,7 @@ function createBookCard(book, category = '') { // Added category parameter
 
 
     // Header Visibility on Scroll (only for index.html)
-    // Only apply this to the index.html header, not the fixed one in all-books.html
+    // Only apply this to the index.html header, not the fixed one in all-books.html/add-book.html
     if (header && !header.classList.contains('all-books-fixed-header')) { // Check if it's the index.html header
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
@@ -505,8 +492,7 @@ function createBookCard(book, category = '') { // Added category parameter
 
     // Handle form submission using Formspree
     const contactForm = document.querySelector('.contact-form');
-    // Check if the form is not the admin one (to avoid overriding)
-    if (contactForm && !document.getElementById('add-book-form') && !document.getElementById('edit-book-form')) {
+    if (contactForm && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
         // Formspree endpoint (replace with your actual one if it's different)
         const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; // Example, replace with your ID
         contactForm.setAttribute("action", formspreeEndpoint);
@@ -579,11 +565,11 @@ function createBookCard(book, category = '') { // Added category parameter
     const categoryNameSpan = document.getElementById('category-name');
     const noResultsMessage = document.getElementById('no-results-message');
     const allBooksHeader = document.querySelector('.header.all-books-fixed-header');
-    const allBooksHeaderContent = document.querySelector('.all-books-header-content'); 
-    const allBooksSearchContainer = document.querySelector('.all-books-search-container'); 
+    const allBooksHeaderContent = document.querySelector('.all-books-header-content'); // New
+    const allBooksSearchContainer = document.querySelector('.all-books-search-container'); // New
 
 
-    if (allBooksContainer) { // Check if we are on one of the category pages
+    if (allBooksContainer) { // Check if we are on one of the category pages (like all-books.html)
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
 
@@ -671,4 +657,181 @@ function createBookCard(book, category = '') { // Added category parameter
             if (noResultsMessage) noResultsMessage.style.display = 'none'; // Hide if no books loaded
         }
     }
+
+
+    // --- NEW: Logic for add-book.html (Admin Panel) ---
+
+    // Admin Panel Elements
+    const adminPanelSection = document.getElementById('admin-panel-section');
+    const adminLoginSection = document.getElementById('admin-login-section');
+    const adminPasswordInput = document.getElementById('admin-password-input');
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const loginErrorMessage = document.getElementById('login-error-message');
+    const addBookForm = document.getElementById('add-book-form');
+    const bookCategorySelect = document.getElementById('book-category-select');
+    const adminBooksList = document.getElementById('admin-books-list');
+    
+    // Hardcoded Admin Password (NOT SECURE FOR REAL USE)
+    const ADMIN_PASSWORD = "QudtI825nKesOETC9250bople8E8d1HK62M";
+    
+    // Check if we are on the admin page
+    if (window.location.pathname.endsWith('add-book.html')) {
+        // Run specific admin setup logic
+        populateCategorySelect();
+    }
+
+
+    // Function to populate the category selector
+    function populateCategorySelect() {
+        if (bookCategorySelect) {
+            bookCategorySelect.innerHTML = ''; // Clear existing options
+            // Filter out 'هەموو کتێبەکان' from the categories to select from
+            const categories = Object.keys(booksData).filter(cat => cat !== 'هەموو کتێبەکان');
+
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                bookCategorySelect.appendChild(option);
+            });
+        }
+    }
+
+    // Function to display the list of books in the admin panel
+    function displayAdminBooks(category) {
+        if (adminBooksList) {
+            adminBooksList.innerHTML = '';
+            const books = booksData[category] || [];
+
+            books.forEach(book => {
+                // Simplified admin card for display
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.style.cssText = 'padding-bottom: 10px; flex-direction: column; align-items: center; text-align: center;';
+                bookCard.innerHTML = `
+                    <img src="${book.image}" alt="${book.title} وێنەی کتێب" style="width: 100%; height: 300px; object-fit: cover;">
+                    <div class="book-info" style="padding: 15px; width: 100%;">
+                        <h4>${book.title}</h4>
+                        <p>نووسەر: ${book.author}</p>
+                        <p style="font-size: 0.9rem; color: var(--primary-color);">بەش: ${category}</p>
+                        <div class="book-actions" style="justify-content: space-around; margin-top: 15px;">
+                            <button class="btn primary-btn btn-sm edit-btn" data-id="${book.id}" data-category="${category}">گۆڕانکاری</button>
+                            <button class="btn secondary-btn btn-sm delete-btn" data-id="${book.id}" data-category="${category}" style="background-color: #dc3545; color: var(--white);">سڕینەوە</button>
+                        </div>
+                    </div>
+                `;
+                adminBooksList.appendChild(bookCard);
+            });
+        }
+    }
+
+    // Admin Login Logic
+    if (adminLoginBtn) {
+        adminLoginBtn.addEventListener('click', () => {
+            const enteredPassword = adminPasswordInput.value.trim();
+            if (enteredPassword === ADMIN_PASSWORD) {
+                // Successful login (In a real app, this should be an API call)
+                adminLoginSection.style.display = 'none';
+                adminPanelSection.style.display = 'block';
+                loginErrorMessage.style.display = 'none';
+                
+                // Display initial list after successful login
+                if (bookCategorySelect) {
+                    displayAdminBooks(bookCategorySelect.value);
+                } else {
+                    // Fallback in case of an issue
+                    displayAdminBooks('عەقیدە');
+                }
+            } else {
+                loginErrorMessage.style.display = 'block';
+            }
+        });
+
+        // Event listener for category change in admin panel
+        if (bookCategorySelect) {
+            bookCategorySelect.addEventListener('change', (e) => {
+                displayAdminBooks(e.target.value);
+            });
+        }
+    }
+
+    // Form Submission for Adding Book (Dummy Logic - needs Backend)
+    if (addBookForm) {
+        addBookForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // DUMMY IMPLEMENTATION: Add to the in-memory booksData object
+            const bookTitle = document.getElementById('book-title-input').value.trim();
+            const bookAuthor = document.getElementById('book-author-input').value.trim();
+            const bookFile = document.getElementById('book-file-input').files[0];
+            const bookImage = document.getElementById('book-image-input').files[0];
+            const selectedCategory = bookCategorySelect.value;
+
+            if (!bookTitle || !bookAuthor || !bookFile || !bookImage || !selectedCategory) {
+                 alert("تکایە هەموو خانەکان پڕبکەرەوە.");
+                 return;
+            }
+
+            // WARNING: The actual PDF/Image files are NOT being uploaded or saved permanently.
+            // This logic only updates the temporary 'booksData' object in the browser's memory.
+            
+            alert(`ئاگاداری: کتێبەکە بە سەرکەوتوویی لە لایەن-کلاینت زیاد کرا بۆ بەشی ${selectedCategory}. 
+بەڵام فایلەکە (PDF: ${bookFile.name}, Image: ${bookImage.name}) وەک نموونە دانراون.
+بۆ خەزنکردنی هەمیشەیی، پێویستە سێرڤەر و داتابەیس (MongoDB Atlas) و سیستەمی فایلی پشتەوە ڕێکبخەیت!
+            `);
+
+
+            const newBook = {
+                id: `dummy-${Date.now()}`,
+                title: bookTitle,
+                author: bookAuthor,
+                image: 'https://via.placeholder.com/300x400/808080/ffffff?text=New+Book', // Placeholder - should be the uploaded URL
+                // We use a dummy ID here, a real app would use the saved PDF path/URL
+                id: `pdfs/new-book-${Date.now()}.pdf` 
+            };
+
+            
+            // Add to the selected category
+            if (booksData[selectedCategory]) {
+                booksData[selectedCategory].push(newBook);
+            } else {
+                booksData[selectedCategory] = [newBook];
+            }
+            
+            // Also update the 'هەموو کتێبەکان' list 
+            booksData['هەموو کتێبەکان'].push(newBook);
+
+
+            addBookForm.reset();
+            // Re-display the list after adding
+            displayAdminBooks(selectedCategory);
+        });
+    }
+
+    // Delete/Edit Buttons (Dummy Logic - needs Backend)
+    if (adminBooksList) {
+        adminBooksList.addEventListener('click', (e) => {
+            const deleteBtn = e.target.closest('.delete-btn');
+            const editBtn = e.target.closest('.edit-btn');
+
+            if (deleteBtn) {
+                const bookId = deleteBtn.dataset.id;
+                const category = deleteBtn.dataset.category;
+                
+                if (confirm(`دڵنیای لە سڕینەوەی کتێبی ${bookId} لە بەشی ${category}؟ (تێبینی: سڕینەوەی کاتییە.)`)) {
+                    // DUMMY IMPLEMENTATION: Remove from in-memory object
+                    booksData[category] = booksData[category].filter(book => book.id !== bookId);
+                    booksData['هەموو کتێبەکان'] = booksData['هەموو کتێبەکان'].filter(book => book.id !== bookId);
+                    displayAdminBooks(category); // Re-render the list
+                    alert('کتێبەکە بە شێوەیەکی کاتی سڕایەوە. بۆ سڕینەوەی هەمیشەیی پێویستت بە بەکئەندە.');
+                }
+
+            } else if (editBtn) {
+                 const bookId = editBtn.dataset.id;
+                 const category = editBtn.dataset.category;
+                alert(`ئاگاداری: گۆڕانکاری لە کتێبی ${bookId} لە بەشی ${category}. ئەمە پێویستی بە پاشخان و ڕووکارێکی دەستکاریکردن هەیە.`);
+            }
+        });
+    }
+
 });
