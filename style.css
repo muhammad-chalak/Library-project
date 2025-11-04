@@ -183,7 +183,8 @@ body.light-theme .splash-screen {
 .book-animation {
     font-size: 10rem;
     color: var(--accent-color); /* This will keep it yellow/accent color from the current theme */
-    animation: openBook 3s ease-in-out infinite alternate, glow 1.5s infinite alternate;
+    /* چاکسازی یەکلاکەرەوە: لابردنی infinite بۆ openBook بۆ ئەوەی دووبارە نەبێتەوە */
+    animation: openBook 3s ease-in-out 1 alternate, glow 1.5s infinite alternate;
     position: relative;
 }
 
