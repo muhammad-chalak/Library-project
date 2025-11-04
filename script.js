@@ -423,8 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateCategorySelect() {
         if (bookCategorySelect) {
             bookCategorySelect.innerHTML = ''; 
-            // Get unique categories from the fetched data
-            const categories = Object.keys(fetchedBooksData).filter(cat => cat !== 'هەموو کتێبەکان');
+            // FIX: Use the hardcoded ALL_CATEGORIES list directly to ensure options are 
+            // available even if no books are fetched yet or the fetch failed.
+            const categories = ALL_CATEGORIES.filter(cat => cat !== 'هەموو کتێبەکان');
 
             categories.forEach(category => {
                 const option = document.createElement('option');
@@ -491,12 +492,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 adminPanelSection.style.display = 'block';
                 loginErrorMessage.style.display = 'none';
                 
-                fetchAndStructureBooks().then(() => {
-                    populateCategorySelect();
+                // Fetch books (to update fetchedBooksData for consistency, though not strictly needed for select)
+                fetchAndStructureBooks().then(() => { 
+                    populateCategorySelect(); // Now uses ALL_CATEGORIES
                     if (bookCategorySelect && bookCategorySelect.value) {
                         displayAdminBooks(bookCategorySelect.value);
                     } else {
-                        // Default to the first hardcoded category if select is empty
+                        // Default to the first hardcoded category if select is empty (shouldn't be now)
                         displayAdminBooks(ALL_CATEGORIES[0]);
                     }
                 });
