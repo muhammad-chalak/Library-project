@@ -1,5 +1,3 @@
---- START OF FILE script.js ---
-
 document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splash-screen');
     const mainContent = document.getElementById('main-content');
@@ -320,18 +318,20 @@ function createBookCard(book, category = '') { // Added category parameter
     // Splash Screen Logic (only for index.html)
     const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
     
-    // Reworked logic: only run on index page AND if main content is initially hidden
-    if (splashScreen && mainContent.classList.contains('hidden') && isIndexPage) { 
+    // Check if we are on the index page AND the splash screen exists
+    if (splashScreen && isIndexPage) { 
         setTimeout(() => {
             splashScreen.classList.add('hidden');
             setTimeout(() => {
                 splashScreen.style.display = 'none';
-                mainContent.classList.remove('hidden');
+                if (mainContent) {
+                    mainContent.classList.remove('hidden');
+                }
                 loadBooksIntoCategories(); // Load books after splash screen fades
             }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
         }, 3000); // 3 seconds before starting fade-out
     } else {
-        // If not on index.html or if splash is not needed, ensure main content is visible immediately
+        // For all other pages (or if splash is skipped), ensure main content is visible immediately
         if (mainContent) {
             mainContent.classList.remove('hidden');
             // Load books for index page if splash was skipped
@@ -370,6 +370,7 @@ function createBookCard(book, category = '') { // Added category parameter
                 if (window.scrollY < lastScrollY) {
                     // Scrolling Up
                     header.classList.remove('hidden-header');
+                    if (window.innerWidth <= 1024 && mainNavbar) mainNavbar.classList.remove('active'); // Close menu if scrolling down
                 } else {
                     // Scrolling Down
                     header.classList.add('hidden-header');
@@ -454,7 +455,7 @@ function createBookCard(book, category = '') { // Added category parameter
 
 
     // Search Functionality (for index.html header search)
-    if (headerSearchInput) {
+    if (headerSearchInput && isIndexPage) {
         headerSearchInput.addEventListener('keyup', (event) => {
             const searchTerm = event.target.value.toLowerCase().trim();
             const allBookCards = document.querySelectorAll('.book-card');
@@ -492,7 +493,7 @@ function createBookCard(book, category = '') { // Added category parameter
 
     // Handle form submission using Formspree
     const contactForm = document.querySelector('.contact-form');
-    if (contactForm && (window.location.pathname.endsWith('index.html') || window.location.pathname === '/')) {
+    if (contactForm && isIndexPage) {
         // Formspree endpoint (replace with your actual one if it's different)
         const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; // Example, replace with your ID
         contactForm.setAttribute("action", formspreeEndpoint);
@@ -670,6 +671,7 @@ function createBookCard(book, category = '') { // Added category parameter
     const addBookForm = document.getElementById('add-book-form');
     const bookCategorySelect = document.getElementById('book-category-select');
     const adminBooksList = document.getElementById('admin-books-list');
+    const adminCurrentCategorySpan = document.getElementById('admin-current-category'); // New element
     
     // Hardcoded Admin Password (NOT SECURE FOR REAL USE)
     const ADMIN_PASSWORD = "QudtI825nKesOETC9250bople8E8d1HK62M";
@@ -700,6 +702,10 @@ function createBookCard(book, category = '') { // Added category parameter
     // Function to display the list of books in the admin panel
     function displayAdminBooks(category) {
         if (adminBooksList) {
+            if(adminCurrentCategorySpan) {
+                adminCurrentCategorySpan.textContent = category;
+            }
+
             adminBooksList.innerHTML = '';
             const books = booksData[category] || [];
 
@@ -713,7 +719,7 @@ function createBookCard(book, category = '') { // Added category parameter
                     <div class="book-info" style="padding: 15px; width: 100%;">
                         <h4>${book.title}</h4>
                         <p>نووسەر: ${book.author}</p>
-                        <p style="font-size: 0.9rem; color: var(--primary-color);">بەش: ${category}</p>
+                        <p style="font-size: 0.9rem; color: var(--primary-color);">ناونیشانی کاتی: ${book.pdfUrl}</p>
                         <div class="book-actions" style="justify-content: space-around; margin-top: 15px;">
                             <button class="btn primary-btn btn-sm edit-btn" data-id="${book.id}" data-category="${category}">گۆڕانکاری</button>
                             <button class="btn secondary-btn btn-sm delete-btn" data-id="${book.id}" data-category="${category}" style="background-color: #dc3545; color: var(--white);">سڕینەوە</button>
