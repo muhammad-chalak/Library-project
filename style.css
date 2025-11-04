@@ -1,3 +1,5 @@
+--- START OF FILE style.css ---
+
 /* General Styles */
 :root {
     /* Default (Dark) Theme */
@@ -183,8 +185,8 @@ body.light-theme .splash-screen {
 .book-animation {
     font-size: 10rem;
     color: var(--accent-color); /* This will keep it yellow/accent color from the current theme */
-    /* چاکسازی یەکلاکەرەوە: لابردنی infinite بۆ openBook بۆ ئەوەی دووبارە نەبێتەوە */
-    animation: openBook 3s ease-in-out 1 alternate, glow 1.5s infinite alternate;
+    /* چاکسازی: لابردنی ئەنیمەیشنی openBook و پشت بەستن بە spinner و glow */
+    animation: glow 1.5s infinite alternate; 
     position: relative;
 }
 
@@ -200,12 +202,7 @@ body.light-theme .book-animation i {
     text-shadow: 0 0 15px var(--splash-book-color); /* Use the new variable for light theme glow */
 }
 
-@keyframes openBook {
-    0% { transform: scale(0.8) rotateY(0deg); }
-    50% { transform: scale(1.1) rotateY(20deg); }
-    100% { transform: scale(0.8) rotateY(0deg); }
-}
-
+/* تەنها @keyframes glow ماوەتەوە بۆ لۆدینگێکی نەرم */
 @keyframes glow {
     0% { filter: brightness(1); }
     100% { filter: brightness(1.5); }
@@ -1036,3 +1033,4 @@ body.light-theme .book-animation i {
         font-size: 1rem;
     }
 }
+--- END OF FILE style.css ---
