@@ -1,0 +1,96 @@
+--- START OF FILE add-book.html ---
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زیادکردنی کتێب - ناوچەی ئیدارە</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme"> <!-- Theme will be controlled by script.js -->
+
+    <div id="main-content" style="min-height: 100vh;">
+        <!-- Header from all-books page style -->
+        <header class="header all-books-fixed-header">
+            <div class="container all-books-header-content">
+                <h1 class="page-title">ناوچەی ئیدارە</h1>
+                <div class="back-button">
+                    <a href="index.html" class="btn primary-btn btn-sm back-to-home">
+                        <i class="fas fa-arrow-right"></i> گەڕانەوە
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Login Section -->
+        <section id="admin-login-section" class="categories-section" style="padding-top: 150px; text-align: center;">
+            <div class="container" style="max-width: 500px; margin: 0 auto; background-color: var(--card-bg); padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);">
+                <h2 class="section-title" style="margin-bottom: 30px;">چوونەژوورەوە بۆ ناوچەی ئیدارە</h2>
+                <p>تکایە وشەی نھێنی داخڵ بکە بۆ بەردەوامبوون.</p>
+                <div class="contact-form" style="gap: 15px;">
+                    <input type="password" id="admin-password-input" placeholder="وشەی نھێنی" required>
+                    <button id="admin-login-btn" class="btn primary-btn" style="width: 150px;">چوونەژوورەوە</button>
+                    <p id="login-error-message" style="color: red; margin-top: 10px; display: none;">وشەی نھێنی ھەڵەیە!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Book/Admin Section (Hidden by default) -->
+        <section id="admin-panel-section" class="categories-section" style="padding-top: 150px; display: none;">
+            <div class="container">
+                <h2 class="section-title">زیادکردنی کتێبی نوێ</h2>
+                <div class="category-block" style="margin-bottom: 60px;">
+                    <form id="add-book-form" class="contact-form" style="max-width: 600px;">
+                        <input type="text" id="book-title-input" placeholder="ناوی کتێب" required>
+                        <input type="text" id="book-author-input" placeholder="ناوی نووسەر" required>
+                        
+                        <!-- File Input for Book (PDF/etc) -->
+                        <div style="text-align: right;">
+                            <label for="book-file-input" style="display: block; margin-bottom: 5px; color: var(--light-text);">فایلی کتێب (PDF):</label>
+                            <input type="file" id="book-file-input" class="btn secondary-btn" style="width: 100%;" accept=".pdf" required>
+                        </div>
+                        
+                        <!-- Image Input for Cover -->
+                        <div style="text-align: right;">
+                            <label for="book-image-input" style="display: block; margin-bottom: 5px; color: var(--light-text);">ڕەسمی کتێب (Cover):</label>
+                            <input type="file" id="book-image-input" class="btn secondary-btn" style="width: 100%;" accept="image/*" required>
+                        </div>
+                        
+                        <!-- Category Selector -->
+                        <div style="text-align: right;">
+                            <label for="book-category-select" style="display: block; margin-bottom: 5px; color: var(--light-text);">بەشی کتێب:</label>
+                            <select id="book-category-select" class="contact-form-select" style="width: 100%; background-color: var(--input-bg); border: 1px solid var(--input-border); border-radius: 5px; padding: 15px; color: var(--light-text); font-size: 1rem; outline: none; transition: background-color 0.5s ease, border-color 0.5s ease;">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn primary-btn" style="width: 200px; margin-top: 20px;">بڵاوکردنەوەی کتێب</button>
+                    </form>
+                </div>
+
+                <!-- Admin Books List -->
+                <h2 class="section-title" style="margin-top: 80px;">کتێبە زیادکراوەکان</h2>
+                <div class="book-grid" id="admin-books-list">
+                    <!-- Added books will be listed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2023 کتێبخانەی شاھانە. ھەموو مافەکانی پارێزراون.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js.txt"></script>
+</body>
+</html>
