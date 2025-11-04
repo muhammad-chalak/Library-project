@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // [حذفکراوە: const splashScreen = document.getElementById('splash-screen');]
     const mainContent = document.getElementById('main-content');
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     const header = document.querySelector('.header');
@@ -11,289 +10,102 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerSearchInput = document.getElementById('header-search-input'); // For index.html's header search
     const heroScrollBtn = document.querySelector('.scroll-to-categories');
 
-    // Sample book data (10 books per category, extended for new categories)
-    const booksData = {
-        'عەقیدە': [
-            { id: 'pdfs/pdfs-1.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-1.HEIC' },
-            { id: 'pdfs/pdfs-26.pdf', title: 'تەوحید', author: 'م.احمد مەلا فایەق سعید', image: 'photos/photos-26.jpg' },
-            { id: 'pdfs/pdfs-3.pdf', title: 'قواعد الأربعە', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-3.JPG' },
-            { id: 'pdfs/pdfs-4.pdf', title: 'کشف الشبهات (مامۆستا کامەران)', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-4.JPG' },
-            { id: 'pdfs/pdfs-5.pdf', title: 'کشف الشبهات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-5.JPG' },
-            { id: 'pdfs/pdfs-6.pdf', title: 'الواجبات المتحتمات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-6.JPG' },
-            { id: 'pdfs/pdfs-7.pdf', title: 'کتاب التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-7.JPG' },
-            { id: 'pdfs/pdfs-8.pdf', title: 'ثلاثە الاصول وقواعد الأربعة و ستة الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-8.JPG' },
-            { id: 'pdfs/pdfs-9.pdf', title: 'نواقض الإسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-9.JPG' },
-            { id: 'pdfs/pdfs-10.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین ابی محمد عبدالله', image: 'photos/photos-10.JPG' },
-            { id: 'pdfs/pdfs-11.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'photos/photos-11.jpg' },
-            { id: 'pdfs/pdfs-12.pdf', title: 'شرح السنة بربهاری', author: 'إمام بەربەهاری', image: 'photos/photos-12.JPG' },
-            { id: 'pdfs/pdfs-13.pdf', title: 'الوجیز', author: 'عبدالله بن عبدالحميد الأثري ', image: 'photos/photos-13.JPG' },
-            { id: 'pdfs/pdfs-14.pdf', title: 'عەقیدة الواسطیة', author: 'د.خالد بن ناصر بن سعید', image: 'photos/photos-14.JPG' },
-            { id: 'pdfs/pdfs-15.pdf', title: 'مسائل الجهلیة', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-15.JPG' },
-            { id: 'pdfs/pdfs-16.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-16.JPG' },
-            { id: 'pdfs/pdfs-17.pdf', title: 'الولاء والبراء', author: 'سیف اللە السني', image: 'photos/photos-17.JPG' },
-            { id: 'pdfs/pdfs-18.pdf', title: '٥٠ پسیار و وەڵام لەسەر بیر و باوەڕ', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-18.JPG' },
-            { id: 'pdfs/pdfs-19.pdf', title: 'قواعد الأربعة', author: 'مامۆستا مەبەست کاژاوی', image: 'photos/photos-19.JPG' },
-            { id: 'pdfs/pdfs-20.pdf', title: 'لمعة الإعتقاد', author: 'موفق الدین أبي محمد عبدللە ', image: 'photos/photos-20.jpg' },
-            { id: 'pdfs/pdfs-21.pdf', title: 'مفید المستفید فی کفر تارک التوحید', author: 'م هـاوکـار کوردی', image: 'photos/photos-21.HEIC' },
-            { id: 'pdfs/pdfs-22.pdf', title: 'الواجبات المتحتیمات', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-22.jpg' },
-            { id: 'pdfs/pdfs-23.pdf', title: 'کۆدەنگی ئەهلی سوننە دەربارەی بیر و باوەڕ', author: 'کتێبخانەی ئیسلام', image: 'photos/photos-23.HEIC' },
-            { id: 'pdfs/pdfs-24.pdf', title: 'اعتقاد أئمة الحدیث', author: 'حارث المسلم السنی', image: 'photos/photos-24.JPG' },
-            { id: 'pdfs/pdfs-25.pdf', title: 'شەرحی کتاب التوحید', author: 'هیثم بن محمد سرحان', image: 'photos/photos-25.jpg' },
-            { id: 'pdfs/pdfs-2.pdf', title: 'ثلاثە الاصول', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-2.png' },
-            { id: 'pdfs/pdfs-27.pdf', title: 'هەڵوەشێنەرەوەکانی ئیسلام', author: 'محمدی کوڕی عبدالوهاب', image: 'photos/photos-27.HEIC' }
-        ],
-        'تەفسیر': [
-            // گۆڕانکارییەکە لێرەدا دەستپێدەکات
-            { id: 't1', title: 'تەفسیری ڕوونی قورئان', author: 'د. عبدلکریم زێدان', image: 'https://via.placeholder.com/300x400/3498db/ffffff?text=تەفسیر+1', 
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-1-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-1-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-1-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-1-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-1-vol-5.pdf' }
-                ]
-            },
-            { id: 't2', title: 'کوردی تەفسیری قورئان', author: 'موحەمەد عەلی', image: 'https://via.placeholder.com/300x400/2980b9/ffffff?text=تەفسیر+2',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-2-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-2-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-2-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-2-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-2-vol-5.pdf' }
-                ]
-            },
-            { id: 't3', title: 'تەفسیری ئاسان', author: 'شێخ محەمەد ساڵح', image: 'https://via.placeholder.com/300x400/2c3e50/ffffff?text=تەفسیر+3',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-3-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-3-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-3-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-3-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-3-vol-5.pdf' }
-                ]
-            },
-            { id: 't4', title: 'وشە بە وشەی قورئان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/1abc9c/ffffff?text=تەفسیر+4',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-4-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-4-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-4-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-4-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-4-vol-5.pdf' }
-                ]
-            },
-            { id: 't5', title: 'تەفسیری نور', author: 'د. نووری عومەر', image: 'https://via.placeholder.com/300x400/5cb85c/ffffff?text=تەفسیر+5',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-5-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-5-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-5-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-5-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-5-vol-5.pdf' }
-                ]
-            },
-            { id: 't6', title: 'کلیلەکانی تەفسیر', author: 'د. ئەحمەد کەرکوکی', image: 'https://via.placeholder.com/300x400/4CAF50/ffffff?text=تەفسیر+6',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-6-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-6-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-6-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-6-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-6-vol-5.pdf' }
-                ]
-            },
-            { id: 't7', title: 'تەفسیری ڕووناکی', author: 'شێخ عوسمان محەمەد', image: 'https://via.placeholder.com/300x400/66BB6A/ffffff?text=تەفسیر+7',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-7-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-7-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-7-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-7-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-7-vol-5.pdf' }
-                ]
-            },
-            { id: 't8', title: 'ھەناوی قورئان', author: 'م. خەسرەو جاف', image: 'https://via.placeholder.com/300x400/81C784/ffffff?text=تەفسیر+8',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-8-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-8-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-8-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-8-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-8-vol-5.pdf' }
-                ]
-            },
-            { id: 't9', title: 'تەفسیری پەیام', author: 'مامۆستا مەلا عەلی', image: 'https://via.placeholder.com/300x400/9CCC65/ffffff?text=تەفسیر+9',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-9-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-9-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-9-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-9-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-9-vol-5.pdf' }
-                ]
-            },
-            { id: 't10', title: 'زانستەکانی تەفسیر', author: 'د. محەمەد عەبدولڕەحمان', image: 'https://via.placeholder.com/300x400/AED581/ffffff?text=تەفسیر+10',
-                volumes: [
-                    { title: 'بەرگی یەک', id: 'pdfs/tafseer-10-vol-1.pdf' },
-                    { title: 'بەرگی دوو', id: 'pdfs/tafseer-10-vol-2.pdf' },
-                    { title: 'بەرگی سێ', id: 'pdfs/tafseer-10-vol-3.pdf' },
-                    { title: 'بەرگی چوار', id: 'pdfs/tafseer-10-vol-4.pdf' },
-                    { title: 'بەرگی پێنج', id: 'pdfs/tafseer-10-vol-5.pdf' }
-                ]
-            }
-            // گۆڕانکارییەکە لێرەدا کۆتایی دێت
-        ],
-        'حەدیس': [
-            { id: 'h_new1', title: 'صحیح البخاری', author: 'ئیمامی بوخاری', image: 'https://via.placeholder.com/300x400/f44336/ffffff?text=بوخاری' },
-            { id: 'h_new2', title: 'صحیح مسلم', author: 'ئیمامی موسلیم', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=موسلیم' },
-            { id: 'h_new3', title: 'چهل حەدیس', author: 'ئیمامی نەوەوی', image: 'https://via.placeholder.com/300x400/9c27b0/ffffff?text=چهل+حەدیس' },
-            { id: 'h_new4', title: 'فەرموودە قودسییەکان', author: 'جامیع', image: 'https://via.placeholder.com/300x400/673ab7/ffffff?text=قودسی' },
-            { id: 'h_new5', title: 'مونتەخەبی حەدیس', author: 'د. محەمەد حامد', image: 'https://via.placeholder.com/300x400/3f51b5/ffffff?text=مونتەخەب' }
-        ],
-        'سیرەی موسولمانان': [
-            { id: 'sira1', title: 'سیرەی پێغەمبەر ﷺ', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/00bcd4/ffffff?text=سیرەی+پێغەمبەر' },
-            { id: 'sira2', title: 'ژیانی هاوەڵان', author: 'د. عائض القرني', image: 'https://via.placeholder.com/300x400/009688/ffffff?text=هاوەڵان' },
-            { id: 'sira3', title: 'خەلیفە ڕاشیدەکان', author: 'عەلی تەنتاوی', image: 'https://via.placeholder.com/300x400/4caf50/ffffff?text=خەلیفەکان' },
-            { id: 'sira4', title: 'پاڵەوانانی ئیسلام', author: 'م. محەمەد عەلی', image: 'https://via.placeholder.com/300x400/8bc34a/ffffff?text=پاڵەوانان' },
-            { id: 'sira5', title: 'مێژووی فتوحات', author: 'د. ڕاغب السرجانی', image: 'https://via.placeholder.com/300x400/cddc39/ffffff?text=فتوحات' }
-        ],
-        'فیقه': [ // Renamed from 'فیقه' to 'کتێبی فقە' in categories, but internal key remains 'فیقه'
-            { id: 'f1', title: 'سەرەتای فیقه', author: 'ئیمامی شافیعی', image: 'https://via.placeholder.com/300x400/f1c40f/ffffff?text=فیقه+1' },
-            { id: 'f2', title: 'فیقهی ئیسلامی', author: 'وەھبە زوحەیلی', image: 'https://via.placeholder.com/300x400/f39c12/ffffff?text=فیقه+2' },
-            { id: 'f3', title: 'حوکمەکانی نوێژ و ڕۆژوو', author: 'محەمەد ناسر', image: 'https://via.placeholder.com/300x400/e67e22/ffffff?text=فیقه+3' },
-            { id: 'f4', title: 'ڕێساکانی حەج و عومرە', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/d35400/ffffff?text=فیقه+4' },
-            { id: 'f5', title: 'فیقهی مامەڵە داراییەکان', author: 'د. یوسف قەرزاوی', image: 'https://via.placeholder.com/300x400/f7b731/ffffff?text=فیقه+5' },
-            { id: 'f6', title: 'کتێبی زەکات', author: 'ئەحمەد شوکری', image: 'https://via.placeholder.com/300x400/f9a22f/ffffff?text=فیقه+6' },
-            { id: 'f7', title: 'بنەماکانی فیقه', author: 'محەمەد ئەبولجاسمی', image: 'https://via.placeholder.com/300x400/fab60c/ffffff?text=فیقه+7' },
-            { id: 'f8', title: 'فیقهی خێزان', author: 'عەبدولواحید شێرزادی', image: 'https://via.placeholder.com/300x400/fcc42e/ffffff?text=فیقه+8' },
-            { id: 'f9', title: 'ڕوونکردنەوەی فەتواکان', author: 'لێژنەی فەتوا', image: 'https://via.placeholder.com/300x400/fcd66a/ffffff?text=فیقه+9' },
-            { id: 'f10', title: 'فیقهی ژن و مێردایەتی', author: 'د. نەرمین محەمەد', image: 'https://via.placeholder.com/300x400/ffe082/ffffff?text=فیقه+10' }
-        ],
-        'هەمەجۆری ئیسلامی': [
-            { id: 'i_misc1', title: 'چۆنیەتی خۆپاراستن لە چاوی پیس', author: 'شێخ موحەمەد صالح المنجد', image: 'https://via.placeholder.com/300x400/ad1457/ffffff?text=چاوی+پیس' },
-            { id: 'i_misc2', title: 'ئادابەکانی ژیان', author: 'شێخ عبدالقادر گەیلانی', image: 'https://via.placeholder.com/300x400/880e4f/ffffff?text=ئاداب' },
-            { id: 'i_misc3', title: 'نوێژ لە قورئان و سوننەتدا', author: 'ابن باز', image: 'https://via.placeholder.com/300x400/e91e63/ffffff?text=نوێژ' },
-            { id: 'i_misc4', title: 'جوانترین ناوەکانی خوا', author: 'ئیبراهیم سەعدی', image: 'https://via.placeholder.com/300x400/c2185b/ffffff?text=ناوەکانی+خوا' },
-            { id: 'i_misc5', title: 'چیرۆکەکانی قورئان', author: 'ابن کثیر', image: 'https://via.placeholder.com/300x400/ec407a/ffffff?text=چیرۆکەکانی+قورئان' }
-        ],
-        'سیاسەت': [
-            { id: 'p1', title: 'سیاسەت و ئیدارە', author: 'ئەحمەد شاڵی', image: 'https://via.placeholder.com/300x400/27ae60/ffffff?text=سیاسەت+1' },
-            { id: 'p2', title: 'ھونەری حوکمڕانی', author: 'نیکۆلۆ ماکیاڤێلی', image: 'https://via.placeholder.com/300x400/2ecc71/ffffff?text=سیاسەت+2' },
-            { id: 'p3', title: 'بیردۆزە سیاسییەکان', author: 'ڕۆبێرت دال', image: 'https://via.placeholder.com/300x400/63c784/ffffff?text=سیاسەت+3' },
-            { id: 'p4', title: 'گەندەڵی سیاسی', author: 'سۆران عومەر', image: 'https://via.placeholder.com/300x400/409d5c/ffffff?text=سیاسەت+4' },
-            { id: 'p5', title: 'دیموکراسی و حکومەت', author: 'جۆن لۆك', image: 'https://via.placeholder.com/300x400/7bd492/ffffff?text=سیاسەت+5' },
-            { id: 'p6', title: 'مافەکانی مرۆڤ', author: 'ئەلینۆر ڕۆزڤێڵت', image: 'https://via.placeholder.com/300x400/28a745/ffffff?text=سیاسەت+6' },
-            { id: 'p7', title: 'مێژووی فیکری سیاسی', author: 'ئیمانویل کانت', image: 'https://via.placeholder.com/300x400/3abf5f/ffffff?text=سیاسەت+7' },
-            { id: 'p8', title: 'پەیوەندییە نێودەوڵەتییەکان', author: 'جوزێف نای', image: 'https://via.placeholder.com/300x400/52d978/ffffff?text=سیاسەت+8' },
-            { id: 'p9', title: 'سیستمی سیاسی عێراق', author: 'سەڵاح خورشید', image: 'https://via.placeholder.com/300x400/66ec91/ffffff?text=سیاسەت+9' },
-            { id: 'p10', title: 'گۆڕانکارییەکانی ڕۆژھەڵاتی ناوەڕاست', author: 'بەرهەم ساڵح', image: 'https://via.placeholder.com/300x400/7ef7a9/ffffff?text=سیاسەت+10' }
-        ],
-        'مێژوو': [
-            { id: 'h1', title: 'مێژووی کورد و کوردستان', author: 'حەمید گۆمەشینی', image: 'https://via.placeholder.com/300x400/8e44ad/ffffff?text=مێژووی+کورد' },
-            { id: 'h2', title: 'مێژووی شارستانیەتەکان', author: 'ویل دیورانت', image: 'https://via.placeholder.com/300x400/9b59b6/ffffff?text=شارستانیەت' },
-            { id: 'h3', title: 'ڕاپەڕینەکانی گەلانی ڕۆژھەڵات', author: 'ئیحسان نور', image: 'https://via.placeholder.com/300x400/be2edd/ffffff?text=ڕۆژھەڵات' },
-            { id: 'h4', title: 'سەردەمی زێڕینی ئیسلام', author: 'ھاریسن فۆرد', image: 'https://via.placeholder.com/300x400/a55eea/ffffff?text=ئیسلام' },
-            { id: 'h5', title: 'مێژووی جیھان', author: 'جین ماکسوێڵ', image: 'https://via.placeholder.com/300x400/cd84f1/ffffff?text=جیھان' },
-            { id: 'h6', title: 'جەنگە جیھانییەکان', author: 'ئیبراهیم فەوزی', image: 'https://via.placeholder.com/300x400/6c5ce7/ffffff?text=جەنگ' },
-            { id: 'h7', title: 'دەوڵەتە کوردییەکان', author: 'مەسعود محەمەد', image: 'https://via.placeholder.com/300x400/7d3f98/ffffff?text=دەوڵەتە+کوردییەکان' },
-            { id: 'h8', title: 'سەڵاحەدینی ئەیوبی', author: 'عەلی قەرەداغی', image: 'https://via.placeholder.com/300x400/9d44c9/ffffff?text=سەڵاحەدین' },
-            { id: 'h9', title: 'مێژووی ئیمپراتۆرییەکان', author: 'جۆن سمت', image: 'https://via.placeholder.com/300x400/b36dc9/ffffff?text=ئیمپراتۆرییەت' },
-            { id: 'h10', title: 'شۆڕشی پیشەسازی', author: 'جەیمس وات', image: 'https://via.placeholder.com/300x400/c78dd3/ffffff?text=شۆڕش' }
-        ],
-        'هەمەجۆر': [
-            { id: 'misc1', title: 'فەلسەفەی ژیان', author: 'ئەلبرت کامو', image: 'https://via.placeholder.com/300x400/607d8b/ffffff?text=فەلسەفە' },
-            { id: 'misc2', title: 'زانستی گەردوون', author: 'ستیڤن هۆکینگ', image: 'https://via.placeholder.com/300x400/455a64/ffffff?text=گەردوون' },
-            { id: 'misc3', title: 'پەرەپێدانی خود', author: 'برایان ترەیسی', image: 'https://via.placeholder.com/300x400/78909c/ffffff?text=پەرەپێدان' },
-            { id: 'misc4', title: 'چیرۆکی مناڵان', author: 'هانس کریستیان ئەندرسن', image: 'https://via.placeholder.com/300x400/90a4ae/ffffff?text=مناڵان' },
-            { id: 'misc5', title: 'شیعر و ئەدەب', author: 'مەولانا', image: 'https://via.placeholder.com/300x400/b0bec5/ffffff?text=شیعر' }
-        ],
-        'هەموو کتێبەکان': [] // This category will be populated dynamically from all other books
-    };
+    // NEW: Global variable to hold fetched books
+    let fetchedBooksData = {};
+    const ALL_CATEGORIES = [
+        'عەقیدە', 'تەفسیر', 'حەدیس', 'سیرەی موسولمانان', 'فیقه',
+        'هەمەجۆری ئیسلامی', 'سیاسەت', 'مێژوو', 'هەمەجۆر', 'هەموو کتێبەکان'
+    ];
 
-    // Populate 'هەموو کتێبەکان' with all books from other categories
-    for (const category in booksData) {
-        if (category !== 'هەموو کتێبەکان') {
-            booksData['هەموو کتێبەکان'] = booksData['هەموو کتێبەکان'].concat(booksData[category]);
+    // Function to fetch all books from the server and structure them by category
+    async function fetchAndStructureBooks() {
+        try {
+            const response = await fetch('/api/books');
+            if (!response.ok) {
+                throw new Error('Failed to fetch books from API');
+            }
+            const books = await response.json();
+            
+            // Structure data by category
+            const structuredData = { 'هەموو کتێبەکان': [] };
+            
+            // Initialize all possible categories to ensure they are available in the dropdown/list
+            ALL_CATEGORIES.filter(cat => cat !== 'هەموو کتێبەکان').forEach(cat => {
+                structuredData[cat] = [];
+            });
+
+            books.forEach(book => {
+                // Check if the book's category is one of the predefined ones or new
+                if (structuredData[book.category] !== undefined) {
+                    structuredData[book.category].push(book);
+                } else {
+                    // Handle new/unexpected categories dynamically if needed, or ignore
+                    if (!structuredData[book.category]) structuredData[book.category] = [];
+                    structuredData[book.category].push(book);
+                }
+                structuredData['هەموو کتێبەکان'].push(book);
+            });
+
+            fetchedBooksData = structuredData;
+            return true; 
+
+        } catch (error) {
+            console.error('Error loading books:', error);
+            return false;
         }
     }
 
-
-// Function to create a book card HTML
-function createBookCard(book, category = '') { // Added category parameter
-    // Use the presence of the 'volumes' array to determine if it's a multi-volume book in the Tafsir category
-    const isTafsirWithVolumes = category === 'تەفسیر' && book.volumes && book.volumes.length > 0;
-    
-    let bookActionsHtml;
-
-    if (isTafsirWithVolumes) {
-        // Create a safe ID from the title for the dropdown element
-        const dropdownId = `volumes-${book.title.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]/g, '').replace(/\s+/g, '-')}`;
-
-        const volumeOptions = book.volumes.map(volume => `
-            <a href="${volume.id}" class="volume-option btn primary-btn btn-sm" target="_blank">${volume.title}</a>
-        `).join('');
+    // Function to create a book card HTML (Simplified since multi-volume logic is now dynamic/gone)
+    function createBookCard(book, category = '') { 
+        // NOTE: If you need multi-volume support, you must add 'volumes' data to the MongoDB object 
+        // and adjust this function accordingly. For now, it's a single PDF URL.
         
-        // Structure for flow layout
-        bookActionsHtml = `
-            <div class="volume-dropdown-wrapper">
-                <div class="book-actions">
-                    <button class="btn read-btn volume-toggle-btn" data-dropdown-id="${dropdownId}">
-                        خوێندنەوەی بەرگ <i class="fas fa-chevron-down volume-icon"></i>
-                    </button>
-                </div>
-                <!-- The dropdown, placed to flow immediately after the button wrapper -->
-                <div class="volume-dropdown" id="${dropdownId}">
-                    ${volumeOptions}
-                </div>
+        let bookActionsHtml = `
+            <div class="book-actions">
+                <a href="${book.pdfUrl}" class="btn read-btn" target="_blank">خوێندنەوە</a>
             </div>
         `;
-    } else {
-        // Simple read button for all other books
-        bookActionsHtml = `
-            <div class="book-actions">
-                <a href="${book.id}" class="btn read-btn" target="_blank">خوێندنەوە</a>
+
+        return `
+            <div class="book-card" data-id="${book._id}" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}" data-category="${category}">
+                <img src="${book.image}" alt="${book.title} وێنەی کتێب">
+                <div class="book-info">
+                    <h4>${book.title}</h4>
+                    <p>نووسەر: ${book.author}</p>
+                </div>
+                ${bookActionsHtml}
             </div>
         `;
     }
 
-    return `
-        <div class="book-card" data-id="${book.id}" data-title="${book.title.toLowerCase()}" data-author="${book.author.toLowerCase()}" data-category="${category}">
-            <img src="${book.image}" alt="${book.title} وێنەی کتێب">
-            <div class="book-info">
-                <h4>${book.title}</h4>
-                <p>نووسەر: ${book.author}</p>
-            </div>
-            ${bookActionsHtml}
-        </div>
-    `;
-}
-
     // Function to load books into categories (for index.html)
     function loadBooksIntoCategories() {
-        const categoriesOnIndex = [
-            'عەقیدە', 'تەفسیر', 'حەدیس', 'سیرەی موسولمانان', 'فیقه',
-            'هەمەجۆری ئیسلامی', 'سیاسەت', 'مێژوو', 'هەمەجۆر', 'هەموو کتێبەکان'
-        ];
+        const categoriesOnIndex = ALL_CATEGORIES;
 
         categoriesOnIndex.forEach(category => {
             const containerId = category + '-books';
             const container = document.getElementById(containerId);
             if (container) {
-                const booksForCategory = booksData[category] || [];
+                const booksForCategory = fetchedBooksData[category] || [];
                 const booksToDisplay = booksForCategory.slice(0, 4); // Display first 4 books
-                // Pass category name to createBookCard
+
                 container.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
 
                 // Update "زیاتر ببینە" button href
-                const moreBtn = container.nextElementSibling.querySelector('.view-more-btn');
+                const moreBtn = container.nextElementSibling && container.nextElementSibling.querySelector('.view-more-btn');
                 if (moreBtn) {
-                    // Keeping simple all-books.html structure as per current file layout
                     moreBtn.href = `all-books.html?category=${category}`;
                 }
             }
         });
     }
 
-    // Theme Management (Light/Dark Mode)
+    // Theme Management (Light/Dark Mode) - (No change in this logic)
     function applyTheme(theme) {
         document.body.classList.remove('light-theme', 'dark-theme');
         document.body.classList.add(theme + '-theme');
-        localStorage.setItem('theme', theme); // Save theme preference
-        // Update theme toggle button icon for index.html
-        if (themeToggleBtn) { // Check if element exists (for index.html)
+        localStorage.setItem('theme', theme); 
+        if (themeToggleBtn) { 
             if (theme === 'dark') {
                 themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> دۆخی ڕۆشناک';
             } else {
@@ -303,7 +115,7 @@ function createBookCard(book, category = '') { // Added category parameter
     }
 
     // Check for saved theme preference on load
-    const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if no preference
+    const savedTheme = localStorage.getItem('theme') || 'dark'; 
     applyTheme(savedTheme);
 
     // Event listener for theme toggle button on index.html
@@ -315,19 +127,21 @@ function createBookCard(book, category = '') { // Added category parameter
         });
     }
 
-    // Splash Screen Logic (لابراوە: ڕاستەوخۆ بارکردنی ناوەڕۆک)
     const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
     
-    // لەباتی لۆجیکی لۆدینگ، ڕاستەوخۆ کتێبەکان بار بکە ئەگەر لە پەڕەی سەرەکیت
+    // FETCH DATA and Load Books on Index Page
     if (isIndexPage) { 
-        loadBooksIntoCategories();
+        fetchAndStructureBooks().then(() => {
+            loadBooksIntoCategories();
+        });
     }
 
 
+    // --- Other UI/UX Logics (Scroll, Header, Hamburger, Settings, Contact Form) - UNCHANGED ---
     // Scroll to Top Button Logic
     if (scrollToTopBtn) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
+            if (window.scrollY > 300) { 
                 scrollToTopBtn.classList.add('show');
             } else {
                 scrollToTopBtn.classList.remove('show');
@@ -342,45 +156,39 @@ function createBookCard(book, category = '') { // Added category parameter
         });
     }
 
-
     // Header Visibility on Scroll (only for index.html)
-    // Only apply this to the index.html header, not the fixed one in all-books.html/add-book.html
-    if (header && !header.classList.contains('all-books-fixed-header')) { // Check if it's the index.html header
+    if (header && !header.classList.contains('all-books-fixed-header')) { 
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) { // Only hide if scrolled past hero section
+            if (window.scrollY > 100) { 
                 if (window.scrollY < lastScrollY) {
-                    // Scrolling Up
                     header.classList.remove('hidden-header');
-                    if (window.innerWidth <= 1024 && mainNavbar) mainNavbar.classList.remove('active'); // Close menu if scrolling down
+                    if (window.innerWidth <= 1024 && mainNavbar) mainNavbar.classList.remove('active'); 
                 } else {
-                    // Scrolling Down
                     header.classList.add('hidden-header');
-                    if (mainNavbar) mainNavbar.classList.remove('active'); // Close menu if scrolling down
-                    if (settingsDropdown) settingsDropdown.classList.remove('show'); // Close settings if scrolling down
+                    if (mainNavbar) mainNavbar.classList.remove('active'); 
+                    if (settingsDropdown) settingsDropdown.classList.remove('show'); 
                 }
             } else {
-                // At the top or within hero section
                 header.classList.remove('hidden-header');
             }
             lastScrollY = window.scrollY;
         });
     }
 
-
     // Hamburger Menu Toggle (only for index.html)
     if (hamburgerMenu) {
         hamburgerMenu.addEventListener('click', () => {
             mainNavbar.classList.toggle('active');
-            settingsDropdown.classList.remove('show'); // Ensure settings dropdown closes when menu toggles
+            settingsDropdown.classList.remove('show'); 
         });
     }
 
     // Settings Dropdown Toggle (only for index.html)
     if (settingsToggle) {
         settingsToggle.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default link behavior
-            e.stopPropagation(); // Stop event from bubbling up to document click
+            e.preventDefault(); 
+            e.stopPropagation(); 
             settingsDropdown.classList.toggle('show');
         });
     }
@@ -391,50 +199,14 @@ function createBookCard(book, category = '') { // Added category parameter
             settingsDropdown.classList.remove('show');
         }
         if (mainNavbar && !mainNavbar.contains(e.target) && hamburgerMenu && !hamburgerMenu.contains(e.target)) {
-             if (window.innerWidth <= 1024) { // Only close if it's the mobile menu
+             if (window.innerWidth <= 1024) { 
                  mainNavbar.classList.remove('active');
             }
         }
     });
 
-    // Event Delegation for Volume Dropdown Toggle
-    document.addEventListener('click', (e) => {
-        // Function to find the button or the closest button
-        const toggleButton = e.target.closest('.volume-toggle-btn');
-        
-        if (toggleButton) {
-            e.preventDefault(); // Prevent default button action (if any)
-            const dropdownId = toggleButton.dataset.dropdownId;
-            const dropdown = document.getElementById(dropdownId);
-            
-            if (dropdown) {
-                // Close other open dropdowns in the same grid/section
-                document.querySelectorAll('.volume-dropdown.show').forEach(openDropdown => {
-                    // Check if it's a different dropdown 
-                    if (openDropdown !== dropdown) {
-                        openDropdown.classList.remove('show');
-                        // Find the corresponding button and remove active class
-                        const openToggleBtn = document.querySelector(`.volume-toggle-btn[data-dropdown-id="${openDropdown.id}"]`);
-                        if(openToggleBtn) openToggleBtn.classList.remove('active');
-                    }
-                });
-
-                dropdown.classList.toggle('show');
-                toggleButton.classList.toggle('active');
-            }
-        } else {
-            // Close dropdowns if clicked outside a toggle button or a dropdown
-            const isInsideDropdown = e.target.closest('.volume-dropdown');
-            if (!isInsideDropdown) {
-                document.querySelectorAll('.volume-dropdown.show').forEach(openDropdown => {
-                    openDropdown.classList.remove('show');
-                    const openToggleBtn = document.querySelector(`.volume-toggle-btn[data-dropdown-id="${openDropdown.id}"]`);
-                    if(openToggleBtn) openToggleBtn.classList.remove('active');
-                });
-            }
-        }
-    });
-
+    // Event Delegation for Volume Dropdown Toggle - REMOVED AS WE USE SINGLE PDF URL NOW
+    // document.addEventListener('click', (e) => { ... });
 
     // Search Functionality (for index.html header search)
     if (headerSearchInput && isIndexPage) {
@@ -447,20 +219,13 @@ function createBookCard(book, category = '') { // Added category parameter
                 const author = card.dataset.author;
 
                 if (title.includes(searchTerm) || author.includes(searchTerm)) {
-                    card.style.display = 'flex'; // Show the card
+                    card.style.display = 'flex'; 
                 } else {
-                    card.style.display = 'none'; // Hide the card
+                    card.style.display = 'none'; 
                 }
             });
         });
     }
-
-    // "زیاتر ببینە" Button Logic (for index.html)
-    document.querySelectorAll('.view-more-btn').forEach(button => {
-        // Event listener is now implicit via the anchor tag, but keeping this
-        // for any potential future button elements or specific behaviors.
-        // The HTML now uses <a> tags with hrefs directly.
-    });
 
     // Smooth scroll for "دەستپێکردنی گەشت" button
     if (heroScrollBtn) {
@@ -475,15 +240,14 @@ function createBookCard(book, category = '') { // Added category parameter
 
     // Handle form submission using Formspree
     const contactForm = document.querySelector('.contact-form');
+    // ... (Your existing Formspree logic remains here) ...
     if (contactForm && isIndexPage) {
-        // Formspree endpoint (replace with your actual one if it's different)
-        const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; // Example, replace with your ID
+        const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; 
         contactForm.setAttribute("action", formspreeEndpoint);
         contactForm.setAttribute("method", "POST");
 
         contactForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent actual form submission
-
+            event.preventDefault(); 
             const form = event.target;
             const formData = new FormData(form);
 
@@ -498,19 +262,16 @@ function createBookCard(book, category = '') { // Added category parameter
 
                 if (response.ok) {
                     alert('پەیامەکەت بە سەرکەوتوویی نێردرا! سوپاس بۆ پەیوەندیکردنت.');
-                    form.reset(); // Clear the form
+                    form.reset(); 
                 } else {
                     let errorMessage = 'هەڵەیەک ڕوویدا لە کاتی ناردنی پەیامەکە.';
                     try {
                         const errorData = await response.json();
-                        if (errorData && errorData.errors && errorData.errors.length > 0) {
-                            errorMessage = errorData.errors.map(err => err.message).join('\n');
-                        } else if (errorData && errorData.error) {
+                        if (errorData && errorData.error) {
                             errorMessage = errorData.error;
                         }
                     } catch (jsonError) {
-                        console.warn('Could not parse Formspree error JSON:', jsonError);
-                        errorMessage += ' (نەتوانرا زانیاری هەڵەکە وەربگیرێت).';
+                        // pass
                     }
 
                     alert(errorMessage + ' تکایە دووبارە هەوڵبدەوە.');
@@ -523,19 +284,18 @@ function createBookCard(book, category = '') { // Added category parameter
         });
     }
 
+
     // Simple smooth scrolling for navigation links (only for index.html)
     document.querySelectorAll('.navbar a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            // Check if it's the settings toggle, don't scroll if it is
             if (targetId === '#') {
                 return;
             }
             document.querySelector(targetId).scrollIntoView({
                 behavior: 'smooth'
             });
-            // Close mobile menu after clicking a link
             if (window.innerWidth <= 1024) {
                  if (mainNavbar) mainNavbar.classList.remove('active');
             }
@@ -548,96 +308,92 @@ function createBookCard(book, category = '') { // Added category parameter
     const categoryNameSpan = document.getElementById('category-name');
     const noResultsMessage = document.getElementById('no-results-message');
     const allBooksHeader = document.querySelector('.header.all-books-fixed-header');
-    const allBooksHeaderContent = document.querySelector('.all-books-header-content'); // New
-    const allBooksSearchContainer = document.querySelector('.all-books-search-container'); // New
+    const allBooksHeaderContent = document.querySelector('.all-books-header-content'); 
+    const allBooksSearchContainer = document.querySelector('.all-books-search-container'); 
 
-
-    if (allBooksContainer) { // Check if we are on one of the category pages (like all-books.html)
+    if (allBooksContainer) { 
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
 
-        // Apply saved theme to category page immediately
         applyTheme(savedTheme);
 
-        if (category && booksData[category]) {
+        // Fetch data and display on category page
+        if (category) {
             categoryNameSpan.textContent = category;
-            const booksToDisplay = booksData[category];
-            // Pass category name to createBookCard
-            allBooksContainer.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
-
-            // Calculate total header height for category pages dynamically
-            let totalAllBooksHeaderHeight = 0;
-            if (allBooksHeaderContent && allBooksSearchContainer) {
-                totalAllBooksHeaderHeight = allBooksHeaderContent.offsetHeight + allBooksSearchContainer.offsetHeight;
-                // Set a CSS variable for dynamic use in style.css
-                document.documentElement.style.setProperty('--all-books-header-total-height', `${totalAllBooksHeaderHeight}px`);
-            }
-
-            // Header Visibility on Scroll for category pages
-            let lastScrollY = window.scrollY;
             
-            // Initial adjustment for content padding-top
-            const currentAllBooksSection = document.getElementById('all-books-section');
-            if (currentAllBooksSection && totalAllBooksHeaderHeight > 0) {
-                 currentAllBooksSection.style.paddingTop = `${totalAllBooksHeaderHeight}px`;
-            }
+            fetchAndStructureBooks().then(() => {
+                const booksToDisplay = fetchedBooksData[category] || [];
 
-            window.addEventListener('scroll', () => {
-                if (allBooksHeader) {
-                    // Recalculate height on scroll in case of responsive changes
-                    totalAllBooksHeaderHeight = (allBooksHeaderContent ? allBooksHeaderContent.offsetHeight : 0) + 
-                                                (allBooksSearchContainer ? allBooksSearchContainer.offsetHeight : 0);
-                    document.documentElement.style.setProperty('--all-books-header-total-height', `${totalAllBooksHeaderHeight}px`);
-
-
-                    if (window.scrollY > totalAllBooksHeaderHeight / 2) { // Start hiding after scrolling past half of the header
-                        if (window.scrollY < lastScrollY) {
-                            // Scrolling Up
-                            allBooksHeader.classList.remove('hidden-header');
-                        } else {
-                            // Scrolling Down
-                            allBooksHeader.classList.add('hidden-header');
-                        }
-                    } else {
-                        // At the top or within the first half of the header
-                        allBooksHeader.classList.remove('hidden-header');
-                    }
-                    lastScrollY = window.scrollY;
+                if (booksToDisplay.length === 0) {
+                     allBooksContainer.innerHTML = `<p style="text-align: center; font-size: 1.5rem; color: var(--gray-text);">ببورە، هیچ کتێبێک بۆ ئەم بەشە نەدۆزرایەوە.</p>`;
+                     if (noResultsMessage) noResultsMessage.style.display = 'none';
+                     return;
                 }
-            });
+                
+                allBooksContainer.innerHTML = booksToDisplay.map(book => createBookCard(book, category)).join('');
 
+                // Header Height and Scroll Logic (Unchanged from existing logic)
+                let totalAllBooksHeaderHeight = 0;
+                if (allBooksHeaderContent && allBooksSearchContainer) {
+                    totalAllBooksHeaderHeight = allBooksHeaderContent.offsetHeight + allBooksSearchContainer.offsetHeight;
+                    document.documentElement.style.setProperty('--all-books-header-total-height', `${totalAllBooksHeaderHeight}px`);
+                }
+                const currentAllBooksSection = document.getElementById('all-books-section');
+                if (currentAllBooksSection && totalAllBooksHeaderHeight > 0) {
+                     currentAllBooksSection.style.paddingTop = `${totalAllBooksHeaderHeight}px`;
+                }
 
-            // Search functionality for category pages
-            if (allBooksSearchInput) {
-                allBooksSearchInput.addEventListener('keyup', (event) => {
-                    const searchTerm = event.target.value.toLowerCase().trim();
-                    const cards = allBooksContainer.querySelectorAll('.book-card');
-                    let foundResults = 0;
+                let lastScrollY = window.scrollY;
+                window.addEventListener('scroll', () => {
+                    if (allBooksHeader) {
+                        totalAllBooksHeaderHeight = (allBooksHeaderContent ? allBooksHeaderContent.offsetHeight : 0) + 
+                                                    (allBooksSearchContainer ? allBooksSearchContainer.offsetHeight : 0);
+                        document.documentElement.style.setProperty('--all-books-header-total-height', `${totalAllBooksHeaderHeight}px`);
 
-                    cards.forEach(card => {
-                        const title = card.dataset.title;
-                        const author = card.dataset.author;
-
-                        if (title.includes(searchTerm) || author.includes(searchTerm)) {
-                            card.style.display = 'flex';
-                            foundResults++;
+                        if (window.scrollY > totalAllBooksHeaderHeight / 2) { 
+                            if (window.scrollY < lastScrollY) {
+                                allBooksHeader.classList.remove('hidden-header');
+                            } else {
+                                allBooksHeader.classList.add('hidden-header');
+                            }
                         } else {
-                            card.style.display = 'none';
+                            allBooksHeader.classList.remove('hidden-header');
                         }
-                    });
-
-                    if (foundResults === 0) {
-                        noResultsMessage.style.display = 'block';
-                    } else {
-                        noResultsMessage.style.display = 'none';
+                        lastScrollY = window.scrollY;
                     }
                 });
-            }
+
+                // Search functionality for category pages
+                if (allBooksSearchInput) {
+                    allBooksSearchInput.addEventListener('keyup', (event) => {
+                        const searchTerm = event.target.value.toLowerCase().trim();
+                        const cards = allBooksContainer.querySelectorAll('.book-card');
+                        let foundResults = 0;
+
+                        cards.forEach(card => {
+                            const title = card.dataset.title;
+                            const author = card.dataset.author;
+
+                            if (title.includes(searchTerm) || author.includes(searchTerm)) {
+                                card.style.display = 'flex';
+                                foundResults++;
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+
+                        if (foundResults === 0) {
+                            noResultsMessage.style.display = 'block';
+                        } else {
+                            noResultsMessage.style.display = 'none';
+                        }
+                    });
+                }
+            });
         } else {
-            // Handle case where category is not found or not specified
             categoryNameSpan.textContent = "کتێبەکان";
             allBooksContainer.innerHTML = `<p style="text-align: center; font-size: 1.5rem; color: var(--gray-text);">ببورە، ھیچ کتێبێک بۆ ئەم بەشە نەدۆزرایەوە یان بەشەکە دیارینەکراوە.</p>`;
-            if (noResultsMessage) noResultsMessage.style.display = 'none'; // Hide if no books loaded
+            if (noResultsMessage) noResultsMessage.style.display = 'none'; 
         }
     }
 
@@ -653,24 +409,22 @@ function createBookCard(book, category = '') { // Added category parameter
     const addBookForm = document.getElementById('add-book-form');
     const bookCategorySelect = document.getElementById('book-category-select');
     const adminBooksList = document.getElementById('admin-books-list');
-    const adminCurrentCategorySpan = document.getElementById('admin-current-category'); // New element
+    const adminCurrentCategorySpan = document.getElementById('admin-current-category'); 
     
-    // Hardcoded Admin Password (NOT SECURE FOR REAL USE)
+    // Hardcoded Admin Password (MUST MATCH .env)
     const ADMIN_PASSWORD = "QudtI825nKesOETC9250bople8E8d1HK62M";
     
     // Check if we are on the admin page
     if (window.location.pathname.endsWith('add-book.html')) {
-        // Run specific admin setup logic
-        populateCategorySelect();
+        // We will populate the category select after fetching books
     }
-
 
     // Function to populate the category selector
     function populateCategorySelect() {
         if (bookCategorySelect) {
-            bookCategorySelect.innerHTML = ''; // Clear existing options
-            // Filter out 'هەموو کتێبەکان' from the categories to select from
-            const categories = Object.keys(booksData).filter(cat => cat !== 'هەموو کتێبەکان');
+            bookCategorySelect.innerHTML = ''; 
+            // Get unique categories from the fetched data
+            const categories = Object.keys(fetchedBooksData).filter(cat => cat !== 'هەموو کتێبەکان');
 
             categories.forEach(category => {
                 const option = document.createElement('option');
@@ -682,34 +436,49 @@ function createBookCard(book, category = '') { // Added category parameter
     }
 
     // Function to display the list of books in the admin panel
-    function displayAdminBooks(category) {
+    async function displayAdminBooks(category) {
         if (adminBooksList) {
             if(adminCurrentCategorySpan) {
                 adminCurrentCategorySpan.textContent = category;
             }
+            adminBooksList.innerHTML = '<p style="text-align: center; color: var(--gray-text);">لۆدکردنی کتێبەکان...</p>';
 
-            adminBooksList.innerHTML = '';
-            const books = booksData[category] || [];
+            try {
+                // Fetch books directly for the selected category
+                const response = await fetch(`/api/books?category=${category}`);
+                const books = await response.json();
+                
+                adminBooksList.innerHTML = ''; 
 
-            books.forEach(book => {
-                // Simplified admin card for display
-                const bookCard = document.createElement('div');
-                bookCard.className = 'book-card';
-                bookCard.style.cssText = 'padding-bottom: 10px; flex-direction: column; align-items: center; text-align: center;';
-                bookCard.innerHTML = `
-                    <img src="${book.image}" alt="${book.title} وێنەی کتێب" style="width: 100%; height: 300px; object-fit: cover;">
-                    <div class="book-info" style="padding: 15px; width: 100%;">
-                        <h4>${book.title}</h4>
-                        <p>نووسەر: ${book.author}</p>
-                        <p style="font-size: 0.9rem; color: var(--primary-color);">ناونیشانی کاتی: ${book.pdfUrl}</p>
-                        <div class="book-actions" style="justify-content: space-around; margin-top: 15px;">
-                            <button class="btn primary-btn btn-sm edit-btn" data-id="${book.id}" data-category="${category}">گۆڕانکاری</button>
-                            <button class="btn secondary-btn btn-sm delete-btn" data-id="${book.id}" data-category="${category}" style="background-color: #dc3545; color: var(--white);">سڕینەوە</button>
+                if (books.length === 0) {
+                     adminBooksList.innerHTML = '<p style="text-align: center; color: var(--gray-text);">هیچ کتێبێک لەم بەشەدا نییە.</p>';
+                     return;
+                }
+
+                books.forEach(book => {
+                    const bookCard = document.createElement('div');
+                    bookCard.className = 'book-card';
+                    // Use book._id which is the MongoDB ID
+                    bookCard.dataset.id = book._id; 
+                    bookCard.style.cssText = 'padding-bottom: 10px; flex-direction: column; align-items: center; text-align: center;';
+                    bookCard.innerHTML = `
+                        <img src="${book.image}" alt="${book.title} وێنەی کتێب" style="width: 100%; height: 300px; object-fit: cover;">
+                        <div class="book-info" style="padding: 15px; width: 100%;">
+                            <h4>${book.title}</h4>
+                            <p>نووسەر: ${book.author}</p>
+                            <p style="font-size: 0.9rem; color: var(--primary-color);">ناونیشان: <a href="${book.pdfUrl}" target="_blank">فایلی PDF</a></p>
+                            <div class="book-actions" style="justify-content: space-around; margin-top: 15px;">
+                                <button class="btn primary-btn btn-sm edit-btn" data-id="${book._id}" data-category="${category}">گۆڕانکاری</button>
+                                <button class="btn secondary-btn btn-sm delete-btn" data-id="${book._id}" data-category="${category}" style="background-color: #dc3545; color: var(--white);">سڕینەوە</button>
+                            </div>
                         </div>
-                    </div>
-                `;
-                adminBooksList.appendChild(bookCard);
-            });
+                    `;
+                    adminBooksList.appendChild(bookCard);
+                });
+            } catch (error) {
+                console.error('Error displaying admin books:', error);
+                adminBooksList.innerHTML = '<p style="text-align: center; color: red;">هەڵەیەک ڕوویدا لە وەرگرتنی کتێبەکان.</p>';
+            }
         }
     }
 
@@ -718,18 +487,19 @@ function createBookCard(book, category = '') { // Added category parameter
         adminLoginBtn.addEventListener('click', () => {
             const enteredPassword = adminPasswordInput.value.trim();
             if (enteredPassword === ADMIN_PASSWORD) {
-                // Successful login (In a real app, this should be an API call)
                 adminLoginSection.style.display = 'none';
                 adminPanelSection.style.display = 'block';
                 loginErrorMessage.style.display = 'none';
                 
-                // Display initial list after successful login
-                if (bookCategorySelect) {
-                    displayAdminBooks(bookCategorySelect.value);
-                } else {
-                    // Fallback in case of an issue
-                    displayAdminBooks('عەقیدە');
-                }
+                fetchAndStructureBooks().then(() => {
+                    populateCategorySelect();
+                    if (bookCategorySelect && bookCategorySelect.value) {
+                        displayAdminBooks(bookCategorySelect.value);
+                    } else {
+                        // Default to the first hardcoded category if select is empty
+                        displayAdminBooks(ALL_CATEGORIES[0]);
+                    }
+                });
             } else {
                 loginErrorMessage.style.display = 'block';
             }
@@ -743,75 +513,109 @@ function createBookCard(book, category = '') { // Added category parameter
         }
     }
 
-    // Form Submission for Adding Book (Dummy Logic - needs Backend)
+    // Form Submission for Adding Book (HAMESHAYY KHAZN KRDN)
     if (addBookForm) {
-        addBookForm.addEventListener('submit', (e) => {
+        addBookForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // DUMMY IMPLEMENTATION: Add to the in-memory booksData object
             const bookTitle = document.getElementById('book-title-input').value.trim();
             const bookAuthor = document.getElementById('book-author-input').value.trim();
             const bookFile = document.getElementById('book-file-input').files[0];
             const bookImage = document.getElementById('book-image-input').files[0];
             const selectedCategory = bookCategorySelect.value;
+            const adminPassword = adminPasswordInput.value.trim(); 
 
-            if (!bookTitle || !bookAuthor || !bookFile || !bookImage || !selectedCategory) {
-                 alert("تکایە هەموو خانەکان پڕبکەرەوە.");
+            if (!bookTitle || !bookAuthor || !bookFile || !bookImage || !selectedCategory || !adminPassword) {
+                 alert("تکایە هەموو خانەکان پڕبکەرەوە، لەوانەش وشەی نهێنی چوونەژوورەوە.");
                  return;
             }
 
-            // WARNING: The actual PDF/Image files are NOT being uploaded or saved permanently.
-            // This logic only updates the temporary 'booksData' object in the browser's memory.
-            
-            alert(`ئاگاداری: کتێبەکە بە سەرکەوتوویی لە لایەن-کلاینت زیاد کرا بۆ بەشی ${selectedCategory}. 
-بەڵام فایلەکە (PDF: ${bookFile.name}, Image: ${bookImage.name}) وەک نموونە دانراون.
-بۆ خەزنکردنی هەمیشەیی، پێویستە سێرڤەر و داتابەیس (MongoDB Atlas) و سیستەمی فایلی پشتەوە ڕێکبخەیت!
-            `);
+            const formData = new FormData();
+            formData.append('title', bookTitle);
+            formData.append('author', bookAuthor);
+            formData.append('category', selectedCategory);
+            formData.append('bookFile', bookFile); 
+            formData.append('bookImage', bookImage); 
+            formData.append('adminPassword', adminPassword); 
 
+            try {
+                const response = await fetch('/api/books', {
+                    method: 'POST',
+                    body: formData, 
+                });
 
-            const newBook = {
-                id: `dummy-${Date.now()}`,
-                title: bookTitle,
-                author: bookAuthor,
-                image: 'https://via.placeholder.com/300x400/808080/ffffff?text=New+Book', // Placeholder - should be the uploaded URL
-                // We use a dummy ID here, a real app would use the saved PDF path/URL
-                pdfUrl: `pdfs/new-book-${Date.now()}.pdf` 
-            };
+                if (response.status === 401) {
+                    alert('وشەی نھێنی ئیدارە ھەڵەیە یان مافی بەکارهێنانت نییە.');
+                    return;
+                }
 
-            
-            // Add to the selected category
-            if (booksData[selectedCategory]) {
-                booksData[selectedCategory].push(newBook);
-            } else {
-                booksData[selectedCategory] = [newBook];
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'هەڵەیەک ڕوویدا لە کاتی زیادکردنی کتێب.');
+                }
+                
+                const newBook = await response.json();
+                
+                alert(`کتێبەکە (${newBook.title}) بە سەرکەوتوویی زیاد کرا و لە Cloudinary خەزن کرا.`);
+                
+                addBookForm.reset();
+                
+                await fetchAndStructureBooks(); 
+                displayAdminBooks(selectedCategory); 
+
+            } catch (error) {
+                console.error('Submission Error:', error);
+                alert('نەتوانرا کتێبەکە زیاد بکرێت. هەڵە: ' + error.message);
             }
-            
-            // Also update the 'هەموو کتێبەکان' list 
-            booksData['هەموو کتێبەکان'].push(newBook);
-
-
-            addBookForm.reset();
-            // Re-display the list after adding
-            displayAdminBooks(selectedCategory);
         });
     }
 
-    // Delete/Edit Buttons (Dummy Logic - needs Backend)
+    // Delete/Edit Buttons (HAMESHAYY SRINWA)
     if (adminBooksList) {
-        adminBooksList.addEventListener('click', (e) => {
+        adminBooksList.addEventListener('click', async (e) => {
             const deleteBtn = e.target.closest('.delete-btn');
             const editBtn = e.target.closest('.edit-btn');
 
             if (deleteBtn) {
                 const bookId = deleteBtn.dataset.id;
                 const category = deleteBtn.dataset.category;
-                
-                if (confirm(`دڵنیای لە سڕینەوەی کتێبی ${bookId} لە بەشی ${category}؟ (تێبینی: سڕینەوەی کاتییە.)`)) {
-                    // DUMMY IMPLEMENTATION: Remove from in-memory object
-                    booksData[category] = booksData[category].filter(book => book.id !== bookId);
-                    booksData['هەموو کتێبەکان'] = booksData['هەموو کتێبەکان'].filter(book => book.id !== bookId);
-                    displayAdminBooks(category); // Re-render the list
-                    alert('کتێبەکە بە شێوەیەکی کاتی سڕایەوە. بۆ سڕینەوەی هەمیشەیی پێویستت بە بەکئەندە.');
+                const adminPassword = adminPasswordInput.value.trim(); 
+
+                if (!adminPassword) {
+                     alert("تکایە وشەی نهێنی چوونەژوورەوە داخڵ بکە بۆ سڕینەوە.");
+                     return;
+                }
+
+                if (confirm(`دڵنیای لە سڕینەوەی هەمیشەیی کتێبی ${bookId} لە بەشی ${category}؟ ئەم کارە هەم کتێبەکە لە داتابەیس و هەم فایلەکان لە Cloudinary دەسڕێتەوە.`)) {
+                    
+                    try {
+                        const response = await fetch(`/api/books/${bookId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-admin-password': adminPassword
+                            }
+                        });
+
+                        if (response.status === 401) {
+                            alert('وشەی نھێنی ئیدارە ھەڵەیە یان مافی بەکارهێنانت نییە.');
+                            return;
+                        }
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.message || 'هەڵەیەک ڕوویدا لە کاتی سڕینەوەی کتێبەکە.');
+                        }
+
+                        await fetchAndStructureBooks(); 
+                        displayAdminBooks(category); 
+                        
+                        alert(`کتێبەکە (${bookId}) بە سەرکەوتوویی بە شێوەیەکی هەمیشەیی سڕدرایەوە.`);
+
+                    } catch (error) {
+                        console.error('Deletion Error:', error);
+                        alert('نەتوانرا کتێبەکە بسڕدرێتەوە. هەڵە: ' + error.message);
+                    }
                 }
 
             } else if (editBtn) {
