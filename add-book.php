@@ -1,10 +1,11 @@
 <?php
 // PHP SCRIPT START - This part handles the password and session management
-
+header('Content-Type: text/html; charset=utf-8'); // Ensures correct character encoding
 session_start();
 
 $required_password = "QudtI825nKesOETC9250bople8E8d1HK62M";
 $is_authenticated = isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true;
+$login_error = ""; // Initialize error message
 
 // Handle Login Form Submission
 if (isset($_POST['password'])) {
@@ -26,21 +27,17 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-// Check if a database connection or file handler is needed here
-// In a real application, you'd include your DB connection logic here:
-// include 'db_config.php'; 
-
-// Function to simulate saving books to a JSON file (simple database simulation)
+// Function to simulate getting books from a JSON file (simple database simulation)
+// In a real application, this would be a DB query
 function get_all_books() {
     if (file_exists('books_data.json')) {
-        return json_decode(file_get_contents('books_data.json'), true);
+        // Read and decode, suppress warnings if file is empty/corrupt for simplicity
+        $data = @json_decode(file_get_contents('books_data.json'), true);
+        return is_array($data) ? $data : [];
     }
     return [];
 }
 
-// In a real scenario, more complex PHP would handle:
-// 1. File Uploads (moving files to photos/ and pdfs/ directories)
-// 2. Database (MySQL) INSERT, UPDATE, DELETE queries.
 
 ?>
 
@@ -57,7 +54,7 @@ function get_all_books() {
 <body class="dark-theme"> 
     <div id="main-content" class="main-content">
         
-        <!-- Header for Admin Page -->
+        <!-- Header for Admin Page (Relative Position for admin page content) -->
         <header class="header all-books-fixed-header" style="position: relative;">
             <div class="container all-books-header-content">
                 <h1 class="page-title">بەشی زیادکردنی کتێب</h1>
@@ -69,7 +66,10 @@ function get_all_books() {
             </div>
             <?php if ($is_authenticated): ?>
             <div class="container all-books-search-container" style="background: none; box-shadow: none; border: none;">
-                <p style="text-align: center; color: var(--light-text); font-size: 1.1rem;">بەخێربێیت، دەتوانیت کتێب زیاد بکەیت یان بەڕێوەی بەریت. <a href="?logout=1" class="btn secondary-btn btn-sm" style="margin-right: 15px;">چوونە دەرەوە</a></p>
+                <p style="text-align: center; color: var(--light-text); font-size: 1.1rem;">
+                    بەخێربێیت، دەتوانیت کتێب زیاد بکەیت یان بەڕێوەی بەریت. 
+                    <a href="?logout=1" class="btn secondary-btn btn-sm" style="margin-right: 15px;">چوونە دەرەوە</a>
+                </p>
             </div>
             <?php endif; ?>
         </header>
@@ -82,8 +82,8 @@ function get_all_books() {
                 <div class="admin-login-wrapper">
                     <div class="admin-login-card">
                         <h2>چوونەژوورەوەی بەڕێوەبەر</h2>
-                        <?php if (isset($login_error)): ?>
-                            <p class="error-message"><?php echo $login_error; ?></p>
+                        <?php if (!empty($login_error)): ?>
+                            <p class="error-message"><?php echo htmlspecialchars($login_error); ?></p>
                         <?php endif; ?>
                         <form method="POST" action="add-book.php" class="login-form">
                             <label for="admin-password">وشەی نھێنی:</label>
@@ -134,7 +134,7 @@ function get_all_books() {
 
                         <button type="submit" class="btn primary-btn" style="width: 100%;">بڵاوکردنەوە</button>
                     </form>
-                    <div id="upload-status-message" style="margin-top: 20px; text-align: center; color: green; display: none;">کتێبەکە بە سەرکەوتوویی زیاد کرا!</div>
+                    <div id="upload-status-message" style="margin-top: 20px; text-align: center; color: var(--primary-color); display: none;">کتێبەکە بە سەرکەوتوویی زیاد کرا!</div>
                 </div>
 
                 <!-- 2. Manage Existing Books Table -->
@@ -156,7 +156,7 @@ function get_all_books() {
                                     <tr><td colspan="4" style="text-align: center; color: var(--gray-text);">هیچ کتێبێک پۆست نەکراوە.</td></tr>
                                 <?php else: ?>
                                     <?php foreach ($existing_books as $book): ?>
-                                    <tr data-id="<?php echo htmlspecialchars($book['id']); ?>">
+                                    <tr data-id="<?php echo htmlspecialchars($book['id']); ?>" data-category="<?php echo htmlspecialchars($book['category']); ?>">
                                         <td><?php echo htmlspecialchars($book['title']); ?></td>
                                         <td><?php echo htmlspecialchars($book['author']); ?></td>
                                         <td><?php echo htmlspecialchars($book['category']); ?></td>
@@ -189,7 +189,13 @@ function get_all_books() {
                             <select id="edit-book-category" name="category" required>
                                 <option value="عەقیدە">کتێبی عەقیدە</option>
                                 <option value="تەفسیر">کتێبی تەفسیر</option>
-                                <!-- ... add all other categories ... -->
+                                <option value="حەدیس">کتێبی حەدیس</option>
+                                <option value="سیرەی موسولمانان">کتێبی سیرەی موسولمانان</option>
+                                <option value="فیقه">کتێبی فقە</option>
+                                <option value="هەمەجۆری ئیسلامی">کتێبی هەمەجۆری ئیسلامی</option>
+                                <option value="سیاسەت">کتێبی سیاسەت</option>
+                                <option value="مێژوو">کتێبی مێژوو</option>
+                                <option value="هەمەجۆر">کتێبی هەمەجۆر</option>
                             </select>
 
                             <label for="edit-book-file">فایلی نوێ (بۆ گۆڕین):</label>
@@ -212,10 +218,14 @@ function get_all_books() {
         </section>
 
         <!-- Footer -->
-        <?php include 'footer.html'; // Assuming you'd have a separate footer file ?>
         <footer class="footer">
             <div class="container">
                 <p>&copy; 2023 کتێبخانەی شاھانە. ھەموو مافەکانی پارێزراون.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
         </footer>
     </div>
@@ -233,10 +243,10 @@ function get_all_books() {
                     if(confirm('دڵنیای لە سڕینەوەی ئەم کتێبە؟')) {
                         const bookId = this.closest('tr').dataset.id;
                         // In a real app, you would send an AJAX request to delete_book_handler.php
+                        // For demonstration, log and visually remove
                         console.log('Delete book with ID:', bookId);
-                        // Example AJAX:
-                        // fetch('delete_book_handler.php', { method: 'POST', body: JSON.stringify({ id: bookId }) })
-                        // .then(response => { /* handle response and remove row */ });
+                        // window.location.href = `delete_book_handler.php?id=${bookId}`; // Example of non-AJAX delete
+                        this.closest('tr').remove(); // Visual removal (requires a page refresh to be final)
                     }
                 });
             });
@@ -245,14 +255,15 @@ function get_all_books() {
                 btn.addEventListener('click', function() {
                     const row = this.closest('tr');
                     const bookId = row.dataset.id;
+                    const bookCategory = row.dataset.category;
                     
-                    // In a real app, you would fetch book details from the server by ID
-                    // For now, use the data in the row for demonstration
+                    // Populate modal fields
                     document.getElementById('edit-book-id').value = bookId;
-                    document.getElementById('edit-book-title').value = row.cells[0].textContent;
-                    document.getElementById('edit-book-author').value = row.cells[1].textContent;
-                    document.getElementById('edit-book-category').value = row.cells[2].textContent;
-                    
+                    document.getElementById('edit-book-title').value = row.cells[0].textContent.trim();
+                    document.getElementById('edit-book-author').value = row.cells[1].textContent.trim();
+                    document.getElementById('edit-book-category').value = bookCategory.trim(); // Use the data-category attribute
+
+                    // Show the modal
                     editModal.classList.remove('hidden');
                 });
             });
