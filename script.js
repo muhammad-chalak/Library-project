@@ -318,7 +318,10 @@ function createBookCard(book, category = '') { // Added category parameter
     }
 
     // Splash Screen Logic (only for index.html)
-    if (splashScreen && mainContent.classList.contains('hidden') && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') { 
+    const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
+    
+    // Reworked logic: only run on index page AND if main content is initially hidden
+    if (splashScreen && mainContent.classList.contains('hidden') && isIndexPage) { 
         setTimeout(() => {
             splashScreen.classList.add('hidden');
             setTimeout(() => {
@@ -328,14 +331,11 @@ function createBookCard(book, category = '') { // Added category parameter
             }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
         }, 3000); // 3 seconds before starting fade-out
     } else {
-        // If not on index.html, ensure main content is visible immediately
+        // If not on index.html or if splash is not needed, ensure main content is visible immediately
         if (mainContent) {
             mainContent.classList.remove('hidden');
-            // Load books if on all-books.html or add-book.html
-            if (window.location.pathname.endsWith('all-books.html') || window.location.pathname.endsWith('add-book.html')) {
-                // Books are loaded by the specific logic for those pages later
-            } else if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-                // If splash is skipped (e.g. if hidden was removed manually), load books
+            // Load books for index page if splash was skipped
+            if (isIndexPage) {
                 loadBooksIntoCategories();
             }
         }
@@ -492,7 +492,7 @@ function createBookCard(book, category = '') { // Added category parameter
 
     // Handle form submission using Formspree
     const contactForm = document.querySelector('.contact-form');
-    if (contactForm && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    if (contactForm && (window.location.pathname.endsWith('index.html') || window.location.pathname === '/')) {
         // Formspree endpoint (replace with your actual one if it's different)
         const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; // Example, replace with your ID
         contactForm.setAttribute("action", formspreeEndpoint);
@@ -787,7 +787,7 @@ function createBookCard(book, category = '') { // Added category parameter
                 author: bookAuthor,
                 image: 'https://via.placeholder.com/300x400/808080/ffffff?text=New+Book', // Placeholder - should be the uploaded URL
                 // We use a dummy ID here, a real app would use the saved PDF path/URL
-                id: `pdfs/new-book-${Date.now()}.pdf` 
+                pdfUrl: `pdfs/new-book-${Date.now()}.pdf` 
             };
 
             
