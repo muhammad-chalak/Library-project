@@ -1,5 +1,3 @@
---- START OF FILE style.css ---
-
 /* General Styles */
 :root {
     /* Default (Dark) Theme */
@@ -1033,4 +1031,3 @@ body.light-theme .book-animation i {
         font-size: 1rem;
     }
 }
---- END OF FILE style.css ---
