@@ -320,6 +320,7 @@ function createBookCard(book, category = '') { // Added category parameter
     
     // Check if we are on the index page AND the splash screen exists
     if (splashScreen && isIndexPage) { 
+        // گۆڕینی کات بۆ ٢٠٠٠ میللی چرکە (٢ چرکە)
         setTimeout(() => {
             splashScreen.classList.add('hidden');
             setTimeout(() => {
@@ -329,7 +330,7 @@ function createBookCard(book, category = '') { // Added category parameter
                 }
                 loadBooksIntoCategories(); // Load books after splash screen fades
             }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
-        }, 3000); // 3 seconds before starting fade-out
+        }, 2000); // ٢ چرکە
     } else {
         // For all other pages (or if splash is skipped), ensure main content is visible immediately
         if (mainContent) {
