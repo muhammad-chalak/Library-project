@@ -1,76 +1,71 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
-// زیادکراو بۆ مامەڵەکردن لەگەڵ فایلەکان و Cloudinary
-const multer = require('multer'); 
-const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
-const util = require('util');
+const fs = require('fs/promises'); // For file operations
+const multer = require('multer');
+const { Low } = require('lowdb');
+const { JSONFile } = require('lowdb/node');
+const { nanoid } = require('nanoid'); // For unique IDs (requires npm install nanoid)
 
+// Load Environment Variables
 dotenv.config();
 const app = express();
 
-// پاککردنەوەی فایلی کاتی: بۆ سڕینەوەی ئەو فایلانەی Multer لەسەر سێرڤەری لۆکاڵی خەزنی دەکات
-const unlinkFile = util.promisify(fs.unlink);
+// --- Lowdb (Local JSON Database) Setup ---
+const dbFilePath = path.join(__dirname, 'data', 'db.json');
+const adapter = new JSONFile(dbFilePath);
+const db = new Low(adapter, { books: [] });
 
-// ڕێکخستنی Cloudinary
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET,
-    secure: true,
+// Function to load the database
+async function loadDb() {
+    await db.read();
+    // Ensure the data structure is initialized if file is empty
+    db.data ||= { books: [] };
+    await db.write();
+}
+loadDb();
+
+// --- Multer (File Upload) Setup for Local Storage ---
+const localUpload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            // Determine destination based on file type
+            if (file.fieldname === 'bookFile') { // PDF
+                cb(null, path.join(__dirname, 'public', 'pdfs'));
+            } else if (file.fieldname === 'bookImage') { // Image
+                cb(null, path.join(__dirname, 'public', 'photos'));
+            } else {
+                cb(new Error('Invalid field name for upload'), null);
+            }
+        },
+        filename: (req, file, cb) => {
+            // Create a unique filename based on extension
+            const ext = path.extname(file.originalname);
+            cb(null, `${nanoid()}${ext}`); // Use nanoid to ensure uniqueness
+        }
+    })
 });
-
-// ڕێکخستنی Multer بۆ هەڵگرتنی کاتی فایلەکان لەسەر سێرڤەری لۆکاڵی
-// 'uploads/' دەبێت بە دەست دروست بکرێت
-const upload = multer({ dest: 'uploads/' }); 
 
 // Middlewares
 app.use(express.json()); // To parse JSON bodies
-
-// Connect to MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('Successfully connected to MongoDB Atlas!'))
-.catch(err => console.error('MongoDB connection error:', err));
-
-// Define a simple Book Schema (Model)
-const BookSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    author: { type: String, required: true },
-    category: { type: String, required: true },
-    image: { type: String, required: true }, // URL to the image (Cloudinary URL)
-    pdfUrl: { type: String, required: true }, // URL to the PDF file (Cloudinary URL)
-    imagePublicId: { type: String, required: true }, // NEW: Cloudinary Public ID for image
-    pdfPublicId: { type: String, required: true }    // NEW: Cloudinary Public ID for PDF
-});
-const Book = mongoose.model('Book', BookSchema);
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
 
 // --- API Route for adding a new book (Admin only - HAMESHAYY KHAZN KRDN) ---
 app.post('/api/books', 
-    upload.fields([
+    localUpload.fields([
         { name: 'bookFile', maxCount: 1 }, 
         { name: 'bookImage', maxCount: 1 }
     ]), 
     async (req, res) => {
     
-    // وەرگرتنی داتا و وشەی نهێنی
     const { adminPassword, title, author, category } = req.body;
     const pdfFile = req.files && req.files.bookFile ? req.files.bookFile[0] : null;
     const imageFile = req.files && req.files.bookImage ? req.files.bookImage[0] : null;
     
-    let uploadedPdfPublicId = null;
-    let uploadedImagePublicId = null;
-    let uploadedPdfUrl = null;
-    let uploadedImageUrl = null;
-
-    // A utility function to clean up local files
+    // Cleanup function in case of error (delete locally uploaded files)
     const cleanup = async () => {
-        if (pdfFile) await unlinkFile(pdfFile.path).catch(console.error);
-        if (imageFile) await unlinkFile(imageFile.path).catch(console.error);
+        if (pdfFile && pdfFile.path) await fs.unlink(pdfFile.path).catch(console.error);
+        if (imageFile && imageFile.path) await fs.unlink(imageFile.path).catch(console.error);
     };
 
     // Check 1: Admin Password
@@ -86,72 +81,55 @@ app.post('/api/books',
     }
 
     try {
-        // 1. Upload PDF to Cloudinary
-        const pdfPublicIdBase = `${category.replace(/\s/g, '_')}/${path.parse(pdfFile.originalname).name}-${Date.now()}`;
-        const pdfResult = await cloudinary.uploader.upload(pdfFile.path, {
-            folder: 'shahana-library-pdfs', // Folder in Cloudinary
-            resource_type: 'raw', // Use 'raw' for non-image files like PDF
-            public_id: pdfPublicIdBase,
-        });
-        uploadedPdfUrl = pdfResult.secure_url;
-        uploadedPdfPublicId = pdfResult.public_id; // Save public_id for later deletion
+        await db.read(); // Read the latest state
 
-        // 2. Upload Image to Cloudinary
-        const imagePublicIdBase = `${category.replace(/\s/g, '_')}/${path.parse(imageFile.originalname).name}-${Date.now()}`;
-        const imageResult = await cloudinary.uploader.upload(imageFile.path, {
-            folder: 'shahana-library-images', // Folder in Cloudinary
-            public_id: imagePublicIdBase,
-        });
-        uploadedImageUrl = imageResult.secure_url;
-        uploadedImagePublicId = imageResult.public_id; // Save public_id for later deletion
-
-        // 3. Save Book Metadata to MongoDB Atlas
-        const newBook = new Book({ 
+        // Filenames are already set by Multer and stored in public/pdfs and public/photos
+        const newBook = { 
+            _id: nanoid(), // Lowdb uses simple object/array structure, we add a MongoDB-like ID
             title, 
             author, 
             category, 
-            image: uploadedImageUrl, 
-            pdfUrl: uploadedPdfUrl,
-            imagePublicId: uploadedImagePublicId, // NEW
-            pdfPublicId: uploadedPdfPublicId      // NEW
-        });
-        await newBook.save();
+            image: `photos/${imageFile.filename}`, // Relative path for the client
+            pdfUrl: `pdfs/${pdfFile.filename}`, // Relative path for the client
+            createdAt: new Date(),
+        };
+
+        db.data.books.push(newBook);
+        await db.write(); // Save the new book to db.json
         
         res.status(201).json(newBook);
 
     } catch (error) {
         console.error('Error in /api/books POST:', error);
-        // Attempt to clean up cloudinary if upload failed halfway
-        if (uploadedPdfPublicId) await cloudinary.uploader.destroy(uploadedPdfPublicId, { resource_type: 'raw' }).catch(console.error);
-        if (uploadedImagePublicId) await cloudinary.uploader.destroy(uploadedImagePublicId).catch(console.error);
-        
-        res.status(500).json({ message: 'Error adding book', error: error.message });
-    } finally {
-        // 4. CLEANUP: Delete temporary local files
         await cleanup();
+        res.status(500).json({ message: 'Error adding book', error: error.message });
     }
 });
 
 // --- API Route to get all books ---
 app.get('/api/books', async (req, res) => {
     try {
-        const { category } = req.query; // Check for a category query parameter
-        let query = {};
+        await db.read();
+        const { category } = req.query; 
+        
+        let books = db.data.books;
+
         if (category && category !== 'هەموو کتێبەکان') {
-            query = { category };
+            books = books.filter(book => book.category === category);
         }
         
-        // Find books and sort by title
-        const books = await Book.find(query).sort({ title: 1 }); 
+        // Simple sort by creation date (newest first)
+        books.sort((a, b) => b.createdAt - a.createdAt);
+
         res.json(books);
     } catch (error) {
+        console.error('Error fetching books:', error);
         res.status(500).json({ message: 'Error fetching books', error });
     }
 });
 
 // --- API Route to Delete a Book (Admin only - HAMESHAYY SRINWA) ---
 app.delete('/api/books/:id', async (req, res) => {
-    // Check for Admin Password (passed in request headers for security)
     const adminPassword = req.headers['x-admin-password']; 
     const bookId = req.params.id;
 
@@ -160,23 +138,27 @@ app.delete('/api/books/:id', async (req, res) => {
     }
 
     try {
-        // 1. Find the book
-        const book = await Book.findById(bookId);
+        await db.read();
+        const bookIndex = db.data.books.findIndex(b => b._id === bookId);
 
-        if (!book) {
+        if (bookIndex === -1) {
             return res.status(404).json({ message: 'Book not found' });
         }
         
-        // 2. Delete files from Cloudinary using the stored public IDs
-        const pdfDeleteResult = await cloudinary.uploader.destroy(book.pdfPublicId, { resource_type: 'raw' });
-        const imageDeleteResult = await cloudinary.uploader.destroy(book.imagePublicId);
-        
-        // console.log('Cloudinary PDF Deletion Result:', pdfDeleteResult);
-        // console.log('Cloudinary Image Deletion Result:', imageDeleteResult);
+        const bookToDelete = db.data.books[bookIndex];
+
+        // 1. Delete files from the local file system (HAMESHAYY SRINWA)
+        const pdfPath = path.join(__dirname, 'public', bookToDelete.pdfUrl);
+        const imagePath = path.join(__dirname, 'public', bookToDelete.image);
+
+        // Safely delete files
+        await fs.unlink(pdfPath).catch(err => console.error(`Failed to delete PDF file: ${err.message}`));
+        await fs.unlink(imagePath).catch(err => console.error(`Failed to delete Image file: ${err.message}`));
 
 
-        // 3. Delete book metadata from MongoDB Atlas
-        await Book.deleteOne({ _id: bookId });
+        // 2. Delete book metadata from Lowdb
+        db.data.books.splice(bookIndex, 1);
+        await db.write(); // Save the change
 
         res.status(200).json({ message: 'Book and files deleted successfully' });
 
@@ -186,10 +168,6 @@ app.delete('/api/books/:id', async (req, res) => {
     }
 });
 
-
-// Serve static files (your HTML, CSS, client-side JS)
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT_NUM = process.env.PORT || 5000;
+app.listen(PORT_NUM, () => console.log(`Server running on port ${PORT_NUM}`));
