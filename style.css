@@ -155,9 +155,8 @@ a:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Splash Screen (تەنها ستایلە بنەڕەتییەکان ماونەتەوە) */
+/* Splash Screen */
 .splash-screen {
-    /* ئەم چینە لە index.html لابراوە، بەڵام لێرە دەیهێڵینەوە بۆ ئەگەری بەکارهێنانی دووبارە */
     position: fixed;
     top: 0;
     left: 0;
@@ -172,38 +171,46 @@ a:hover {
 }
 
 body.light-theme .splash-screen {
-    background: var(--white);
+    background: var(--white); /* Forces the background to be plain white in light theme */
 }
 
 .splash-screen.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; 
+    pointer-events: none; /* Make it unclickable */
 }
 
 .book-animation {
     font-size: 10rem;
-    color: var(--accent-color); 
-    /* ئەنیمەیشنی لادراو */
+    color: var(--accent-color); /* This will keep it yellow/accent color from the current theme */
+    animation: openBook 3s ease-in-out infinite alternate, glow 1.5s infinite alternate;
     position: relative;
 }
 
 body.light-theme .book-animation {
-    color: var(--splash-book-color); 
+    color: var(--splash-book-color); /* Use the new variable for light theme */
 }
 
 .book-animation i {
-    /* text-shadow ی لادراو */
+    text-shadow: 0 0 15px var(--accent-color); /* Keeps the glow based on accent color */
 }
 
 body.light-theme .book-animation i {
-    /* text-shadow ی لادراو */
+    text-shadow: 0 0 15px var(--splash-book-color); /* Use the new variable for light theme glow */
 }
 
-/* @keyframes openBook لادراو */
-/* @keyframes glow لادراو */
+@keyframes openBook {
+    0% { transform: scale(0.8) rotateY(0deg); }
+    50% { transform: scale(1.1) rotateY(20deg); }
+    100% { transform: scale(0.8) rotateY(0deg); }
+}
 
-/* Main Content Toggle: ئەمە پێویستە بۆ all-books.html */
+@keyframes glow {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.5); }
+}
+
+/* Main Content Toggle */
 .main-content.hidden {
     display: none;
 }
@@ -832,7 +839,7 @@ body.light-theme .book-animation i {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .navbar {
-        display: none; /* Hide regular navbar on large screens */
+        display: none; /* Hidden regular navbar on medium/small screens */
         position: absolute;
         top: 80px; /* Adjust based on header height */
         right: 0; /* Align to right for RTL */
@@ -1028,3 +1035,200 @@ body.light-theme .book-animation i {
         font-size: 1rem;
     }
 }
+
+/* --- NEW: Admin/Add Book Section Styles --- */
+.admin-section {
+    padding: 80px 0;
+    background-color: var(--light-bg-variant);
+    transition: background-color 0.5s ease;
+    position: relative; /* For password gate overlay */
+}
+
+/* Hide the section by default until the password is correct */
+.admin-section.hidden-admin-section {
+    display: none;
+}
+
+/* Password Gate Overlay */
+.password-gate-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+}
+
+.password-gate-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.password-gate-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.password-gate-content h3 {
+    color: var(--light-text);
+    margin-bottom: 20px;
+}
+
+#admin-password-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--light-text);
+    text-align: right;
+    font-size: 1rem;
+}
+
+/* Submission Area */
+.submission-area.hidden {
+    display: none;
+}
+
+.book-form {
+    max-width: 600px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.book-form input[type="text"],
+.book-form select {
+    padding: 12px 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--light-text);
+    font-size: 1rem;
+    text-align: right;
+}
+
+/* File Input Custom Styling */
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background-color: var(--input-bg);
+    color: var(--gray-text);
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.file-label:hover {
+    background-color: var(--input-border);
+}
+
+.file-label input[type="file"] {
+    display: none; /* Hide the native file input */
+}
+
+.file-label .file-name {
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 15px; /* Adjust for RTL */
+    color: var(--light-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.file-label i {
+    font-size: 1.2rem;
+    margin-left: 10px; /* Adjust for RTL */
+}
+
+/* Status Messages */
+.status-message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.error-message {
+    color: #ff5252;
+}
+
+.success-message {
+    color: #4cd137;
+}
+
+/* Admin Grid & Deletion Button */
+.admin-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Slightly smaller cards */
+}
+
+.admin-book-card {
+    position: relative;
+    padding-bottom: 70px; /* Space for the delete button */
+}
+
+.delete-book-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: #ff5252; /* Red for deletion */
+    color: var(--white);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    font-family: 'Merriweather', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-book-btn:hover {
+    background-color: #c0392b;
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.management-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#admin-book-list-category {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    background-color: var(--input-bg);
+    color: var(--light-text);
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: right;
+    max-width: 300px;
+    width: 100%;
+}
+
