@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerSearchInput = document.getElementById('header-search-input');
     const heroScrollBtn = document.querySelector('.scroll-to-categories');
 
-    // --- NEW ADMIN ELEMENTS ---
-    const addBookToggle = document.getElementById('add-book-toggle');
-    const addBookSection = document.getElementById('add-book-section');
+    // --- NEW ADMIN ELEMENTS (Will only exist on add-book.html) ---
+    // Note: 'addBookToggle' is still used on index.html, but the rest are for add-book.html
+    const addBookToggle = document.getElementById('add-book-toggle'); 
     const passwordGate = document.getElementById('password-gate');
     const adminPasswordInput = document.getElementById('admin-password-input');
     const adminLoginBtn = document.getElementById('admin-login-btn');
@@ -415,10 +415,12 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         return allBooks; // Return for use in other parts of the script
     }
     
-    // --- NEW: Admin Book Management Logic ---
-
+    // --- NEW: Admin Book Management Logic (Wrapped in check for add-book.html elements) ---
+    
     // Function to populate the admin category select dropdowns
     function populateAdminCategories() {
+        if (!bookCategorySelect || !adminBookListCategorySelect) return; // Only run on add-book.html
+        
         // Use the dynamically generated list
         const categories = CATEGORIES_LIST; 
         [bookCategorySelect, adminBookListCategorySelect].forEach(select => {
@@ -439,6 +441,8 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
     
     // Function to load books into the admin deletion list
     async function loadAdminBooks(filterCategory) {
+        if (!adminBookList) return; // Only run on add-book.html
+
         let booksToDisplay = [];
         
         // Fetch books from Supabase (with the same function as above)
@@ -458,66 +462,47 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
             image_url: book.image_url || book.image
         }, book.category, true)).join('');
 
-        if (booksToDisplay.length === 0) {
-            noAdminBooksMessage.classList.remove('hidden');
-        } else {
-            noAdminBooksMessage.classList.add('hidden');
+        if (noAdminBooksMessage) {
+            if (booksToDisplay.length === 0) {
+                noAdminBooksMessage.classList.remove('hidden');
+            } else {
+                noAdminBooksMessage.classList.add('hidden');
+            }
         }
     }
 
 
-    // --- Event Listeners for Admin Section ---
+    // --- Event Listeners for Admin Section (add-book.html) ---
     
-    // 1. Password Gate Toggle
-    if (addBookToggle) {
-        addBookToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Toggle visibility of the entire section
-            const isSectionHidden = addBookSection.classList.toggle('hidden-admin-section');
-            
-            if (!isSectionHidden) {
-                // If section is being shown
-                document.querySelector('#add-book-section').scrollIntoView({ behavior: 'smooth' });
-
-                if (localStorage.getItem('isAdminAuthenticated') === 'true') {
-                     // Already logged in
-                     passwordGate.classList.add('hidden');
-                     bookSubmissionArea.classList.remove('hidden');
-                     // Reload admin data
-                     populateAdminCategories();
-                     loadAdminBooks(adminBookListCategorySelect.value);
-                } else {
-                    // Show password gate
-                    passwordGate.classList.remove('hidden');
-                    bookSubmissionArea.classList.add('hidden');
-                }
-            }
-            // Close mobile menu after clicking the link
-            if (window.innerWidth <= 1024 && mainNavbar) {
-                mainNavbar.classList.remove('active');
-            }
-        });
-    }
-    
-    // 2. Admin Login
+    // 1. Password Gate Logic (Runs only on add-book.html)
     if (adminLoginBtn) {
+         // Check authentication immediately on load for add-book.html
+        if (localStorage.getItem('isAdminAuthenticated') === 'true') {
+             if (passwordGate) passwordGate.classList.add('hidden');
+             if (bookSubmissionArea) bookSubmissionArea.classList.remove('hidden');
+             populateAdminCategories();
+             loadAdminBooks('all');
+        } else {
+            if (passwordGate) passwordGate.classList.remove('hidden');
+            if (bookSubmissionArea) bookSubmissionArea.classList.add('hidden');
+        }
+
         adminLoginBtn.addEventListener('click', () => {
             if (adminPasswordInput.value === SECRET_PASSWORD) {
-                passwordGate.classList.add('hidden');
-                bookSubmissionArea.classList.remove('hidden');
-                passwordErrorMessage.classList.add('hidden');
+                if (passwordGate) passwordGate.classList.add('hidden');
+                if (bookSubmissionArea) bookSubmissionArea.classList.remove('hidden');
+                if (passwordErrorMessage) passwordErrorMessage.classList.add('hidden');
                 localStorage.setItem('isAdminAuthenticated', 'true'); // Persist login
                 populateAdminCategories(); // Load categories for admin forms
                 loadAdminBooks('all'); // Load all books for management
             } else {
-                passwordErrorMessage.classList.remove('hidden');
+                if (passwordErrorMessage) passwordErrorMessage.classList.remove('hidden');
             }
-            adminPasswordInput.value = ''; // Clear password
+            if (adminPasswordInput) adminPasswordInput.value = ''; // Clear password
         });
     }
     
-    // 3. File Name Display
+    // 2. File Name Display
     if (bookFileInput) {
         bookFileInput.addEventListener('change', () => {
             bookFileNameSpan.textContent = bookFileInput.files.length > 0 ? bookFileInput.files[0].name : 'فایل هەڵنەبژێردراوە';
@@ -530,7 +515,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         });
     }
 
-    // 4. Book Submission Logic (Create)
+    // 3. Book Submission Logic (Create)
     if (bookSubmitForm) {
         bookSubmitForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -594,8 +579,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                 bookFileNameSpan.textContent = 'فایل هەڵنەبژێردراوە';
                 bookImageNameSpan.textContent = 'فایل هەڵنەبژێردراوە';
                 
-                // Refresh book lists (main page and admin)
-                await loadBooksIntoCategories();
+                // Refresh book lists (main page is less critical, but admin must refresh)
                 await loadAdminBooks(adminBookListCategorySelect.value);
 
             } catch (error) {
@@ -608,14 +592,14 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         });
     }
     
-    // 5. Admin Category Filter (Read for Admin)
+    // 4. Admin Category Filter (Read for Admin)
     if (adminBookListCategorySelect) {
         adminBookListCategorySelect.addEventListener('change', (e) => {
             loadAdminBooks(e.target.value);
         });
     }
 
-    // 6. Delete Book Logic (Delete) - Using Event Delegation
+    // 5. Delete Book Logic (Delete) - Using Event Delegation
     if (adminBookList) {
         adminBookList.addEventListener('click', async (e) => {
             const deleteBtn = e.target.closest('.delete-book-btn');
@@ -642,7 +626,6 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                     alert('کتێبەکە بە سەرکەوتوویی سڕایەوە!');
                     
                     // Refresh book lists
-                    await loadBooksIntoCategories();
                     await loadAdminBooks(adminBookListCategorySelect.value);
 
                 } catch (error) {
@@ -672,11 +655,11 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         }
     }
 
-    // Check for saved theme preference on load
+    // *گۆڕانکاری ١: جێبەجێکردنی دۆخەکە بۆ هەموو لاپەڕەکان لەسەرەتاوە*
     const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if no preference
-    applyTheme(savedTheme);
+    applyTheme(savedTheme); // Apply theme immediately on page load for persistence
 
-    // Event listener for theme toggle button on index.html
+    // Event listener for theme toggle button on index.html (and add-book.html if added)
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -685,35 +668,43 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         });
     }
 
+    // *گۆڕانکاری ٢: لۆژیکی سکرین پڕکردنەوەی (Splash Screen) بۆ ڕێگەگرتن لە دووبارەبوونەوەی کاتێک گەڕانەوە دەکرێت*
     // Splash Screen Logic (only for index.html)
-    if (splashScreen && mainContent.classList.contains('hidden')) { // Ensure splash screen logic only runs on index.html and if content is hidden
-        setTimeout(() => {
-            splashScreen.classList.add('hidden');
-            setTimeout(async () => {
-                splashScreen.style.display = 'none';
-                mainContent.classList.remove('hidden');
-                
-                await loadBooksIntoCategories(); // Load books after splash screen fades
-                
-                // If admin is logged in, also load admin data
-                if (localStorage.getItem('isAdminAuthenticated') === 'true') {
-                    populateAdminCategories();
-                    await loadAdminBooks('all');
-                }
-            }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
-        }, 3000); // 3 seconds before starting fade-out
+    if (splashScreen && mainContent.classList.contains('hidden')) { 
+        const navigationType = performance.getEntriesByType("navigation")[0].type;
+        
+        if (navigationType === 'back_forward') {
+             // Skip splash screen on history navigation (Back/Forward)
+             splashScreen.classList.add('hidden');
+             mainContent.classList.remove('hidden');
+             
+             // Load books immediately
+             (async () => {
+                 await loadBooksIntoCategories(); 
+             })();
+
+        } else {
+            // Normal splash screen for 'navigate' or 'reload'
+            setTimeout(() => {
+                splashScreen.classList.add('hidden');
+                setTimeout(async () => {
+                    splashScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                    
+                    await loadBooksIntoCategories(); // Load books after splash screen fades
+                    
+                }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
+            }, 3000); // 3 seconds before starting fade-out
+        }
+
     } else {
-        // If not on index.html (e.g., all-books.html) or splash skipped, ensure content is visible
+        // If not on index.html (e.g., all-books.html or add-book.html) or splash skipped, ensure content is visible
         if (mainContent) {
             mainContent.classList.remove('hidden');
-            // If main content is not hidden, run book loading immediately
+            // If main content is not hidden, run book loading immediately (only for index.html)
              if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
                 (async () => {
                     await loadBooksIntoCategories();
-                    if (localStorage.getItem('isAdminAuthenticated') === 'true') {
-                        populateAdminCategories();
-                        await loadAdminBooks('all');
-                    }
                 })();
             }
         }
@@ -740,7 +731,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
 
 
     // Header Visibility on Scroll (only for index.html)
-    // Only apply this to the index.html header, not the fixed one in all-books.html
+    // Only apply this to the index.html header, not the fixed one in all-books.html or add-book.html
     if (header && !header.classList.contains('all-books-fixed-header')) { // Check if it's the index.html header
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
@@ -923,7 +914,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             // Check if it's the settings toggle or add book toggle, let their handlers take over
-            if (targetId === '#' || targetId === '#add-book-section') {
+            if (targetId === '#') {
                 return;
             }
             
@@ -951,9 +942,6 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
     if (allBooksContainer) { // Check if we are on one of the category pages
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
-
-        // Apply saved theme to category page immediately
-        applyTheme(savedTheme);
 
         // Function to load books specifically for category pages
         const loadCategoryPageBooks = async (cat) => {
