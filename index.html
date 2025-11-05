@@ -48,8 +48,8 @@
                     <ul>
                         <li><a href="#hero">سەرەتا</a></li>
                         <li><a href="#categories">بەشەکان</a></li>
-                        <!-- NEW MENU ITEM -->
-                        <li><a href="#add-book-section" id="add-book-toggle">زیادکردنی کتێب</a></li>
+                        <!-- *گۆڕانکاری لێرەدا: ئاراستە دەکرێت بۆ فایلی نوێی add-book.html* -->
+                        <li><a href="add-book.html" id="add-book-toggle">زیادکردنی کتێب</a></li>
                         <li><a href="#contact">پەیوەندی</a></li>
                         <li class="settings-menu-item">
                             <a href="#" id="settings-toggle">ڕێکخستنەکان <i class="fas fa-chevron-down"></i></a>
@@ -197,65 +197,7 @@
             </div>
         </section>
 
-        <!-- NEW: Add Book Section -->
-        <section id="add-book-section" class="admin-section hidden-admin-section">
-            <div class="container">
-                <h2 class="section-title">زیادکردن و بەڕێوەبردنی کتێب</h2>
-
-                <!-- Password Gate (Overlay) -->
-                <div id="password-gate" class="password-gate-overlay">
-                    <div class="password-gate-content">
-                        <h3>تکایە وشەی نهێنی بنووسە</h3>
-                        <input type="password" id="admin-password-input" placeholder="وشەی نهێنی">
-                        <button id="admin-login-btn" class="btn primary-btn">چوونەژوورەوە</button>
-                        <p id="password-error-message" class="error-message hidden">وشەی نهێنی هەڵەیە.</p>
-                    </div>
-                </div>
-
-                <!-- Book Submission Form -->
-                <div id="book-submission-area" class="submission-area hidden">
-                    <h3 class="category-title">زیادکردنی کتێبێکی نوێ</h3>
-                    <form id="book-submit-form" class="book-form">
-                        <input type="text" id="book-title" placeholder="ناوی کتێب" required>
-                        <input type="text" id="book-author" placeholder="ناوی نووسەر" required>
-                        
-                        <label for="book-file" class="file-label">
-                            <i class="fas fa-upload"></i> هەڵبژاردنی فایلی کتێب (PDF)
-                            <span id="book-file-name" class="file-name">فایل هەڵنەبژێردراوە</span>
-                            <input type="file" id="book-file" accept=".pdf" required>
-                        </label>
-                        
-                        <label for="book-image" class="file-label">
-                            <i class="fas fa-image"></i> هەڵبژاردنی وێنەی بەرگی کتێب
-                            <span id="book-image-name" class="file-name">فایل هەڵنەبژێردراوە</span>
-                            <input type="file" id="book-image" accept="image/*" required>
-                        </label>
-
-                        <select id="book-category" required>
-                            <option value="" disabled selected>هەڵبژاردنی بەشی کتێب</option>
-                            <!-- Options will be populated by JavaScript -->
-                        </select>
-                        
-                        <button type="submit" id="submit-book-btn" class="btn primary-btn"> <i class="fas fa-cloud-upload-alt"></i> بڵاوکردنەوەی کتێب</button>
-                        <p id="upload-status" class="status-message hidden"></p>
-                    </form>
-
-                    <!-- Book Management/Deletion Area -->
-                    <h3 class="category-title" style="margin-top: 50px;">بەڕێوەبردنی کتێبەکان</h3>
-                    <div class="management-controls">
-                        <select id="admin-book-list-category">
-                            <option value="all" selected>هەموو کتێبەکان</option>
-                            <!-- Options will be populated by JavaScript -->
-                        </select>
-                    </div>
-
-                    <div id="admin-book-list" class="book-grid admin-grid">
-                        <!-- Books will be loaded here for deletion -->
-                    </div>
-                    <p id="no-admin-books-message" class="error-message hidden" style="text-align: center;">هیچ کتێبێک لەم بەشەدا نییە.</p>
-                </div>
-            </div>
-        </section>
+        <!-- *سڕینەوەی بەشی زیادکردنی کتێب لە index.html* -->
 
         <!-- Contact Section (Example) -->
         <section id="contact" class="contact-section">
