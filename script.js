@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- UI Element Selectors ---
     const mainContent = document.getElementById('main-content');
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     const header = document.querySelector('.header');
@@ -6,21 +7,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainNavbar = document.getElementById('main-navbar');
     const settingsToggle = document.getElementById('settings-toggle');
     const settingsDropdown = document.getElementById('settings-dropdown');
-    const themeToggleBtn = document.getElementById('theme-toggle-btn'); // For index.html
-    const headerSearchInput = document.getElementById('header-search-input'); // For index.html's header search
+    const themeToggleBtn = document.getElementById('theme-toggle-btn'); 
+    const headerSearchInput = document.getElementById('header-search-input'); 
     const heroScrollBtn = document.querySelector('.scroll-to-categories');
+    
+    // --- Admin Panel Selectors ---
+    const adminPanelSection = document.getElementById('admin-panel-section');
+    const adminLoginSection = document.getElementById('admin-login-section');
+    const adminPasswordInput = document.getElementById('admin-password-input');
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const loginErrorMessage = document.getElementById('login-error-message');
+    const addBookForm = document.getElementById('add-book-form');
+    const bookCategorySelect = document.getElementById('book-category-select');
+    const adminBooksList = document.getElementById('admin-books-list');
+    const adminCurrentCategorySpan = document.getElementById('admin-current-category'); 
 
-    // NEW: Global variable to hold fetched books
-    let fetchedBooksData = {};
+    // --- Global Data and Constants ---
+    let fetchedBooksData = {}; // Stores all books fetched from API, structured by category
+    
+    // Hardcoded List of Categories (Must match HTML index sections)
     const ALL_CATEGORIES = [
         'عەقیدە', 'تەفسیر', 'حەدیس', 'سیرەی موسولمانان', 'فیقه',
         'هەمەجۆری ئیسلامی', 'سیاسەت', 'مێژوو', 'هەمەجۆر', 'هەموو کتێبەکان'
     ];
-
+    
+    // Hardcoded Admin Password (MUST MATCH .env)
+    const ADMIN_PASSWORD = "QudtI825nKesOETC9250bople8E8d1HK62M";
+    
+    // --- API & Data Fetching Logic ---
+    
     // Function to fetch all books from the server and structure them by category
     async function fetchAndStructureBooks() {
         try {
-            const response = await fetch('/api/books');
+            // Because this file is served by the same Express server, we use a relative path
+            const response = await fetch('/api/books'); 
             if (!response.ok) {
                 throw new Error('Failed to fetch books from API');
             }
@@ -29,17 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Structure data by category
             const structuredData = { 'هەموو کتێبەکان': [] };
             
-            // Initialize all possible categories to ensure they are available in the dropdown/list
+            // Initialize all possible categories 
             ALL_CATEGORIES.filter(cat => cat !== 'هەموو کتێبەکان').forEach(cat => {
                 structuredData[cat] = [];
             });
 
             books.forEach(book => {
-                // Check if the book's category is one of the predefined ones or new
-                if (structuredData[book.category] !== undefined) {
+                // Use the category from the database
+                if (structuredData[book.category]) {
                     structuredData[book.category].push(book);
                 } else {
-                    // Handle new/unexpected categories dynamically if needed, or ignore
+                    // Handle new categories dynamically 
                     if (!structuredData[book.category]) structuredData[book.category] = [];
                     structuredData[book.category].push(book);
                 }
@@ -51,15 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error loading books:', error);
+            // Show an error on the page if necessary
             return false;
         }
     }
 
-    // Function to create a book card HTML (Simplified since multi-volume logic is now dynamic/gone)
+    // --- UI/Rendering Functions ---
+
+    // Function to create a book card HTML
     function createBookCard(book, category = '') { 
-        // NOTE: If you need multi-volume support, you must add 'volumes' data to the MongoDB object 
-        // and adjust this function accordingly. For now, it's a single PDF URL.
-        
+        // NOTE: The server now returns a single pdfUrl, so we use a simple read button.
         let bookActionsHtml = `
             <div class="book-actions">
                 <a href="${book.pdfUrl}" class="btn read-btn" target="_blank">خوێندنەوە</a>
@@ -86,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const containerId = category + '-books';
             const container = document.getElementById(containerId);
             if (container) {
+                // Use the fetched data
                 const booksForCategory = fetchedBooksData[category] || [];
                 const booksToDisplay = booksForCategory.slice(0, 4); // Display first 4 books
 
@@ -100,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Theme Management (Light/Dark Mode) - (No change in this logic)
+    // --- Theme Management (Unchanged UI Logic) ---
     function applyTheme(theme) {
         document.body.classList.remove('light-theme', 'dark-theme');
         document.body.classList.add(theme + '-theme');
@@ -113,12 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-    // Check for saved theme preference on load
     const savedTheme = localStorage.getItem('theme') || 'dark'; 
     applyTheme(savedTheme);
 
-    // Event listener for theme toggle button on index.html
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -126,10 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
             applyTheme(newTheme);
         });
     }
-
+    
+    // --- Initial Load Logic ---
     const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
     
-    // FETCH DATA and Load Books on Index Page
     if (isIndexPage) { 
         fetchAndStructureBooks().then(() => {
             loadBooksIntoCategories();
@@ -137,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- Other UI/UX Logics (Scroll, Header, Hamburger, Settings, Contact Form) - UNCHANGED ---
-    // Scroll to Top Button Logic
+    // --- UI/UX Logics (Scroll, Header, Hamburger, Settings, Contact Form) ---
+
     if (scrollToTopBtn) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) { 
@@ -149,10 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
@@ -176,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Hamburger Menu Toggle (only for index.html)
+    // Hamburger Menu Toggle
     if (hamburgerMenu) {
         hamburgerMenu.addEventListener('click', () => {
             mainNavbar.classList.toggle('active');
@@ -184,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Settings Dropdown Toggle (only for index.html)
+    // Settings Dropdown Toggle
     if (settingsToggle) {
         settingsToggle.addEventListener('click', (e) => {
             e.preventDefault(); 
@@ -205,10 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Event Delegation for Volume Dropdown Toggle - REMOVED AS WE USE SINGLE PDF URL NOW
-    // document.addEventListener('click', (e) => { ... });
-
-    // Search Functionality (for index.html header search)
+    // Search Functionality (index.html)
     if (headerSearchInput && isIndexPage) {
         headerSearchInput.addEventListener('keyup', (event) => {
             const searchTerm = event.target.value.toLowerCase().trim();
@@ -232,15 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
         heroScrollBtn.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
+            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
         });
     }
 
-    // Handle form submission using Formspree
+    // Handle form submission using Formspree (Unchanged)
     const contactForm = document.querySelector('.contact-form');
-    // ... (Your existing Formspree logic remains here) ...
     if (contactForm && isIndexPage) {
         const formspreeEndpoint = "https://formspree.io/f/xldpzqbp"; 
         contactForm.setAttribute("action", formspreeEndpoint);
@@ -255,9 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(form.action, {
                     method: form.method,
                     body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
 
                 if (response.ok) {
@@ -267,12 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     let errorMessage = 'هەڵەیەک ڕوویدا لە کاتی ناردنی پەیامەکە.';
                     try {
                         const errorData = await response.json();
-                        if (errorData && errorData.error) {
-                            errorMessage = errorData.error;
-                        }
-                    } catch (jsonError) {
-                        // pass
-                    }
+                        if (errorData && errorData.error) { errorMessage = errorData.error; }
+                    } catch (jsonError) { /* pass */ }
 
                     alert(errorMessage + ' تکایە دووبارە هەوڵبدەوە.');
                     console.error('Formspree submission failed:', response.status, errorMessage);
@@ -285,24 +289,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Simple smooth scrolling for navigation links (only for index.html)
+    // Simple smooth scrolling for navigation links
     document.querySelectorAll('.navbar a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId === '#') {
-                return;
-            }
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
-            if (window.innerWidth <= 1024) {
-                 if (mainNavbar) mainNavbar.classList.remove('active');
-            }
+            if (targetId === '#') { return; }
+            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 1024) { if (mainNavbar) mainNavbar.classList.remove('active'); }
         });
     });
 
-    // --- Logic for all-books.html and other category pages ---
+    // --- Logic for all-books.html (Category Page) ---
     const allBooksContainer = document.getElementById('all-books-container');
     const allBooksSearchInput = document.getElementById('all-books-search-input');
     const categoryNameSpan = document.getElementById('category-name');
@@ -317,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         applyTheme(savedTheme);
 
-        // Fetch data and display on category page
         if (category) {
             categoryNameSpan.textContent = category;
             
@@ -398,33 +395,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- NEW: Logic for add-book.html (Admin Panel) ---
-
-    // Admin Panel Elements
-    const adminPanelSection = document.getElementById('admin-panel-section');
-    const adminLoginSection = document.getElementById('admin-login-section');
-    const adminPasswordInput = document.getElementById('admin-password-input');
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const loginErrorMessage = document.getElementById('login-error-message');
-    const addBookForm = document.getElementById('add-book-form');
-    const bookCategorySelect = document.getElementById('book-category-select');
-    const adminBooksList = document.getElementById('admin-books-list');
-    const adminCurrentCategorySpan = document.getElementById('admin-current-category'); 
-    
-    // Hardcoded Admin Password (MUST MATCH .env)
-    const ADMIN_PASSWORD = "QudtI825nKesOETC9250bople8E8d1HK62M";
-    
-    // Check if we are on the admin page
-    if (window.location.pathname.endsWith('add-book.html')) {
-        // We will populate the category select after fetching books
-    }
+    // --- Admin Panel Logic (add-book.html) ---
 
     // Function to populate the category selector
     function populateCategorySelect() {
         if (bookCategorySelect) {
             bookCategorySelect.innerHTML = ''; 
-            // FIX: Use the hardcoded ALL_CATEGORIES list directly to ensure options are 
-            // available even if no books are fetched yet or the fetch failed.
+            // Use the hardcoded list for options, regardless of current database content
             const categories = ALL_CATEGORIES.filter(cat => cat !== 'هەموو کتێبەکان');
 
             categories.forEach(category => {
@@ -459,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 books.forEach(book => {
                     const bookCard = document.createElement('div');
                     bookCard.className = 'book-card';
-                    // Use book._id which is the MongoDB ID
                     bookCard.dataset.id = book._id; 
                     bookCard.style.cssText = 'padding-bottom: 10px; flex-direction: column; align-items: center; text-align: center;';
                     bookCard.innerHTML = `
@@ -492,22 +468,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 adminPanelSection.style.display = 'block';
                 loginErrorMessage.style.display = 'none';
                 
-                // Fetch books (to update fetchedBooksData for consistency, though not strictly needed for select)
-                fetchAndStructureBooks().then(() => { 
-                    populateCategorySelect(); // Now uses ALL_CATEGORIES
-                    if (bookCategorySelect && bookCategorySelect.value) {
-                        displayAdminBooks(bookCategorySelect.value);
-                    } else {
-                        // Default to the first hardcoded category if select is empty (shouldn't be now)
-                        displayAdminBooks(ALL_CATEGORIES[0]);
-                    }
+                fetchAndStructureBooks().then(() => {
+                    populateCategorySelect();
+                    const initialCategory = bookCategorySelect && bookCategorySelect.value ? bookCategorySelect.value : ALL_CATEGORIES[0];
+                    displayAdminBooks(initialCategory);
                 });
             } else {
                 loginErrorMessage.style.display = 'block';
             }
         });
 
-        // Event listener for category change in admin panel
         if (bookCategorySelect) {
             bookCategorySelect.addEventListener('change', (e) => {
                 displayAdminBooks(e.target.value);
@@ -522,8 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const bookTitle = document.getElementById('book-title-input').value.trim();
             const bookAuthor = document.getElementById('book-author-input').value.trim();
+            // Get files
             const bookFile = document.getElementById('book-file-input').files[0];
             const bookImage = document.getElementById('book-image-input').files[0];
+            
             const selectedCategory = bookCategorySelect.value;
             const adminPassword = adminPasswordInput.value.trim(); 
 
@@ -538,9 +510,10 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('category', selectedCategory);
             formData.append('bookFile', bookFile); 
             formData.append('bookImage', bookImage); 
-            formData.append('adminPassword', adminPassword); 
+            formData.append('adminPassword', adminPassword); // Important for server side check
 
             try {
+                // Fetch to API endpoint
                 const response = await fetch('/api/books', {
                     method: 'POST',
                     body: formData, 
@@ -558,10 +531,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const newBook = await response.json();
                 
-                alert(`کتێبەکە (${newBook.title}) بە سەرکەوتوویی زیاد کرا و لە Cloudinary خەزن کرا.`);
+                alert(`کتێبەکە (${newBook.title}) بە سەرکەوتوویی زیاد کرا و لە داتابەیس و فایلی دەرەکی خەزن کرا.`);
                 
                 addBookForm.reset();
                 
+                // Refresh data and UI
                 await fetchAndStructureBooks(); 
                 displayAdminBooks(selectedCategory); 
 
@@ -588,14 +562,15 @@ document.addEventListener('DOMContentLoaded', () => {
                      return;
                 }
 
-                if (confirm(`دڵنیای لە سڕینەوەی هەمیشەیی کتێبی ${bookId} لە بەشی ${category}؟ ئەم کارە هەم کتێبەکە لە داتابەیس و هەم فایلەکان لە Cloudinary دەسڕێتەوە.`)) {
+                if (confirm(`دڵنیای لە سڕینەوەی هەمیشەیی کتێبی ${bookId} لە بەشی ${category}؟ ئەم کارە هەم کتێبەکە لە داتابەیس و هەم فایلەکان لە کلاود دەسڕێتەوە.`)) {
                     
                     try {
                         const response = await fetch(`/api/books/${bookId}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'x-admin-password': adminPassword
+                                // Send password in a custom header
+                                'x-admin-password': adminPassword 
                             }
                         });
 
@@ -609,6 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             throw new Error(errorData.message || 'هەڵەیەک ڕوویدا لە کاتی سڕینەوەی کتێبەکە.');
                         }
 
+                        // Refresh data and UI
                         await fetchAndStructureBooks(); 
                         displayAdminBooks(category); 
                         
