@@ -642,9 +642,18 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         }
     }
 
-    // *گۆڕانکاری سەرەکی بۆ کێشەی ١: دڵنیابوونەوەی یەکەم بۆ جێبەجێکردنی دۆخەکە*
-    const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if no preference
-    applyTheme(savedTheme); // Apply theme immediately on page load for persistence
+    // GORRAN: We only read the saved theme to update the button icon on load. 
+    // The main theme application is done via the inline script in HTML.
+    const savedTheme = localStorage.getItem('theme') || 'dark'; 
+
+    // Update the button icon based on the initial saved theme
+    if (themeToggleBtn) { 
+        if (savedTheme === 'dark') {
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> دۆخی ڕۆشناک';
+        } else {
+            themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> دۆخی تاریک';
+        }
+    }
 
     // Event listener for theme toggle button on index.html (and add-book.html if added)
     if (themeToggleBtn) {
@@ -655,7 +664,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         });
     }
 
-    // *گۆڕانکاری ٢: لۆژیکی سکرین پڕکردنەوەی (Splash Screen) بۆ ڕێگەگرتن لە دووبارەبوونەوەی کاتێک گەڕانەوە دەکرێت*
+    // *کێشەی دووبارە نەبوونەوەی ئەنیمەیشن*
     if (splashScreen) { 
         const navigationType = performance.getEntriesByType("navigation").length > 0 ? performance.getEntriesByType("navigation")[0].type : 'navigate';
         
