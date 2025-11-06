@@ -396,15 +396,15 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                     let filename;
                     switch(category) {
                         case 'عەقیدە': filename = 'all-books.html'; break;
-                        case 'تەفسیر': filename = 'tafseer-books.html'; break;
-                        case 'حەدیس': filename = 'hadis-books.html'; break;
-                        case 'سیرەی موسولمانان': filename = 'sira-muslim-books.html'; break;
-                        case 'فیقه': filename = 'fka-books.html'; break;
-                        case 'هەمەجۆری ئیسلامی': filename = 'hamajor-muslim-books.html'; break;
-                        case 'سیاسەت': filename = 'syasat-books.html'; break;
-                        case 'مێژوو': filename = 'mezhu-books.html'; break;
-                        case 'هەمەجۆر': filename = 'hamajor-books.html'; break;
-                        case 'هەموو کتێبەکان': filename = 'hamu-books.html'; break;
+                        case 'تەفسیر': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'حەدیس': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'سیرەی موسولمانان': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'فیقه': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'هەمەجۆری ئیسلامی': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'سیاسەت': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'مێژوو': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'هەمەجۆر': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
+                        case 'هەموو کتێبەکان': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
                         default: filename = 'all-books.html';
                     }
                     moreBtn.href = `${filename}?category=${category}`;
@@ -670,21 +670,22 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
 
     // *گۆڕانکاری ٢: لۆژیکی سکرین پڕکردنەوەی (Splash Screen) بۆ ڕێگەگرتن لە دووبارەبوونەوەی کاتێک گەڕانەوە دەکرێت*
     // Splash Screen Logic (only for index.html)
-    if (splashScreen && mainContent.classList.contains('hidden')) { 
-        const navigationType = performance.getEntriesByType("navigation")[0].type;
+    // Dlnia bw mnaka: Aw logica tania la index.html run akat chwnka elementakani splashScreen tania lawa habwn
+    if (splashScreen) { 
+        const navigationType = performance.getEntriesByType("navigation").length > 0 ? performance.getEntriesByType("navigation")[0].type : 'navigate';
         
         if (navigationType === 'back_forward') {
              // Skip splash screen on history navigation (Back/Forward)
              splashScreen.classList.add('hidden');
              mainContent.classList.remove('hidden');
+             splashScreen.style.display = 'none'; // Ensure it's hidden immediately
              
              // Load books immediately
              (async () => {
                  await loadBooksIntoCategories(); 
              })();
 
-        } else {
-            // Normal splash screen for 'navigate' or 'reload'
+        } else if (mainContent.classList.contains('hidden')) { // Normal splash screen for 'navigate' or 'reload'
             setTimeout(() => {
                 splashScreen.classList.add('hidden');
                 setTimeout(async () => {
@@ -696,17 +697,18 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                 }, 800); // Wait for the fade-out transition to complete (0.8s from CSS)
             }, 3000); // 3 seconds before starting fade-out
         }
-
     } else {
-        // If not on index.html (e.g., all-books.html or add-book.html) or splash skipped, ensure content is visible
+        // For all other pages (all-books.html, add-book.html etc.)
         if (mainContent) {
             mainContent.classList.remove('hidden');
-            // If main content is not hidden, run book loading immediately (only for index.html)
-             if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+            // Check if it's a page that needs book loading/admin setup
+             if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
+                // Book loading already handled above if splashScreen exists, but this acts as a fallback/immediate load
                 (async () => {
                     await loadBooksIntoCategories();
                 })();
             }
+             // For add-book.html, admin logic will run below if elements are present
         }
     }
 
@@ -939,7 +941,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
     const allBooksSearchContainer = document.querySelector('.all-books-search-container'); // New
 
 
-    if (allBooksContainer) { // Check if we are on one of the category pages
+    if (allBooksContainer) { // Check if we are on one of the category pages (e.g., all-books.html)
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
 
@@ -958,7 +960,8 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                 if (allBooksHeaderContent && allBooksSearchContainer) {
                     // Need a slight delay to ensure CSS is applied before measuring
                     setTimeout(() => {
-                        totalAllBooksHeaderHeight = allBooksHeaderContent.offsetHeight + allBooksSearchContainer.offsetHeight;
+                        // The 'all-books-fixed-header' will contain content and search. Get its full height.
+                        totalAllBooksHeaderHeight = allBooksHeader.offsetHeight; 
                         document.documentElement.style.setProperty('--all-books-header-total-height', `${totalAllBooksHeaderHeight}px`);
                         if (currentAllBooksSection) {
                             currentAllBooksSection.style.paddingTop = `${totalAllBooksHeaderHeight}px`;
@@ -973,10 +976,8 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                 window.addEventListener('scroll', () => {
                     if (allBooksHeader) {
                         // Recalculate height on scroll in case of responsive changes
-                        const currentHeaderHeight = (allBooksHeaderContent ? allBooksHeaderContent.offsetHeight : 0) + 
-                                                    (allBooksSearchContainer ? allBooksSearchContainer.offsetHeight : 0);
+                        const currentHeaderHeight = allBooksHeader.offsetHeight;
                         document.documentElement.style.setProperty('--all-books-header-total-height', `${currentHeaderHeight}px`);
-
 
                         if (window.scrollY > currentHeaderHeight / 2) { // Start hiding after scrolling past half of the header
                             if (window.scrollY < lastScrollY) {
