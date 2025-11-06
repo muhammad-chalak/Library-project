@@ -393,20 +393,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
                 // Update "زیاتر ببینە" button href (Logic remains the same)
                 const moreBtn = container.nextElementSibling.querySelector('.view-more-btn');
                 if (moreBtn) {
-                    let filename;
-                    switch(category) {
-                        case 'عەقیدە': filename = 'all-books.html'; break;
-                        case 'تەفسیر': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'حەدیس': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'سیرەی موسولمانان': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'فیقه': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'هەمەجۆری ئیسلامی': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'سیاسەت': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'مێژوو': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'هەمەجۆر': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        case 'هەموو کتێبەکان': filename = 'all-books.html'; break; // گۆڕدرا بۆ all-books.html
-                        default: filename = 'all-books.html';
-                    }
+                    let filename = 'all-books.html'; // Tawawe gorrdrawa bo all-books.html
                     moreBtn.href = `${filename}?category=${category}`;
                 }
             }
@@ -655,7 +642,7 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         }
     }
 
-    // *گۆڕانکاری ١: جێبەجێکردنی دۆخەکە بۆ هەموو لاپەڕەکان لەسەرەتاوە*
+    // *گۆڕانکاری سەرەکی بۆ کێشەی ١: دڵنیابوونەوەی یەکەم بۆ جێبەجێکردنی دۆخەکە*
     const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark if no preference
     applyTheme(savedTheme); // Apply theme immediately on page load for persistence
 
@@ -669,8 +656,6 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
     }
 
     // *گۆڕانکاری ٢: لۆژیکی سکرین پڕکردنەوەی (Splash Screen) بۆ ڕێگەگرتن لە دووبارەبوونەوەی کاتێک گەڕانەوە دەکرێت*
-    // Splash Screen Logic (only for index.html)
-    // Dlnia bw mnaka: Aw logica tania la index.html run akat chwnka elementakani splashScreen tania lawa habwn
     if (splashScreen) { 
         const navigationType = performance.getEntriesByType("navigation").length > 0 ? performance.getEntriesByType("navigation")[0].type : 'navigate';
         
@@ -678,14 +663,14 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
              // Skip splash screen on history navigation (Back/Forward)
              splashScreen.classList.add('hidden');
              mainContent.classList.remove('hidden');
-             splashScreen.style.display = 'none'; // Ensure it's hidden immediately
+             splashScreen.style.display = 'none'; 
              
              // Load books immediately
              (async () => {
                  await loadBooksIntoCategories(); 
              })();
 
-        } else if (mainContent.classList.contains('hidden')) { // Normal splash screen for 'navigate' or 'reload'
+        } else if (mainContent && mainContent.classList.contains('hidden')) { // Normal splash screen for 'navigate' or 'reload'
             setTimeout(() => {
                 splashScreen.classList.add('hidden');
                 setTimeout(async () => {
@@ -701,14 +686,12 @@ function createBookCard(book, category = '', isAdmin = false) { // Added isAdmin
         // For all other pages (all-books.html, add-book.html etc.)
         if (mainContent) {
             mainContent.classList.remove('hidden');
-            // Check if it's a page that needs book loading/admin setup
              if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
-                // Book loading already handled above if splashScreen exists, but this acts as a fallback/immediate load
+                // If this is index.html and splashScreen was not found, load books immediately
                 (async () => {
                     await loadBooksIntoCategories();
                 })();
             }
-             // For add-book.html, admin logic will run below if elements are present
         }
     }
 
